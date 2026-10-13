@@ -1,0 +1,29 @@
+ASSINATURA "DESENVOLVIDO POR PARALAXE" NOS SISTEMAS
+====================================================
+
+FRASE (rodapé / tela de login / "sobre"):
+  Desenvolvido por [logo Paralaxe]
+  (em inglês, se precisar: "Developed by")
+
+QUAL ARQUIVO USAR
+  logo-fundo-claro-24px*.png    -> rodapé branco/claro (logo cinza-escuro)
+  logo-fundo-escuro-24px*.png   -> rodapé escuro/preto (logo amarelo)
+  simbolo-fundo-*-18px*.png     -> só o "P", para menu lateral recolhido / espaço apertado
+  Arquivos @2x e @3x têm mais pixels para ficar nítidos em tela retina/celular;
+  use o "normal" no src e o @2x/@3x no srcset (exemplo abaixo).
+
+HTML + CSS (exemplo)
+  <a class="dev-by" href="https://paralaxestudio.com.br" target="_blank" rel="noopener">
+    <span>Desenvolvido por</span>
+    <img src="/paralaxe-logo-fundo-claro-24px.png"
+         srcset="/paralaxe-logo-fundo-claro-24px@2x.png 2x, /paralaxe-logo-fundo-claro-24px@3x.png 3x"
+         alt="Paralaxe" height="24">
+  </a>
+
+  .dev-by{display:inline-flex;align-items:center;gap:8px;font-size:12px;
+          color:#86867f;text-decoration:none;opacity:.85}
+  .dev-by:hover{opacity:1}
+  .dev-by img{height:20px;width:auto}   /* 18-24px fica discreto */
+
+Em React (JSX): trocar class por className e fechar a tag <img ... />.
+Em impressos/PDF (relatórios): usar o @3x, altura ~6-8 mm.
