@@ -30,7 +30,7 @@ module.exports = {
 
   contact: {
     // WhatsApp só com números, com DDI+DDD. Número provisório de teste.
-    whatsapp: "5511991223575",
+    whatsapp: "5511993821582",
     // Deixe "" para esconder o botão de e-mail (enquanto não houver e-mail profissional).
     email: "contato@paralaxestudio.com",
   },
