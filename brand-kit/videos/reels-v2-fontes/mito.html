@@ -1,0 +1,127 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:SG;src:url(fonts/space-grotesk-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:SG;src:url(fonts/space-grotesk-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:IN;src:url(fonts/inter-latin-400-normal.woff2);font-weight:400}
+@font-face{font-family:IN;src:url(fonts/inter-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:IN;src:url(fonts/inter-latin-600-normal.woff2);font-weight:600}
+@font-face{font-family:IN;src:url(fonts/inter-latin-800-normal.woff2);font-weight:800}
+@font-face{font-family:IN;src:url(fonts/inter-latin-900-normal.woff2);font-weight:900}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#f2efe6}
+#root{position:relative;width:1080px;height:1920px;overflow:hidden;background:#f2efe6;color:#0a0a0a;font-family:IN}
+.abs{position:absolute}
+#dots{position:absolute;inset:-60px;background-image:radial-gradient(#d3cfc2 3px,transparent 3.5px);background-size:44px 44px}
+#grain{position:absolute;inset:0;background:url(img/noise.png);opacity:.05;mix-blend-mode:multiply;pointer-events:none}
+.sg{font-family:SG;font-weight:700;letter-spacing:-.03em;line-height:.95}
+.q{position:absolute;font-family:SG;font-weight:700;color:#e4dfd0}
+/* cards */
+.deck{position:absolute;left:110px;top:470px;width:860px;height:1000px;perspective:2600px}
+.card{position:absolute;inset:0;transform-style:preserve-3d}
+.face{position:absolute;inset:0;border-radius:60px;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:70px 66px;box-shadow:0 40px 90px rgba(60,50,20,.28)}
+.fr{background:#fed301;border:5px solid #0a0a0a}
+.bk{background:#0a0a0a;color:#f4f4f2;transform:rotateY(180deg)}
+.lab{font-family:IN;font-weight:800;font-size:30px;letter-spacing:.18em;display:flex;justify-content:space-between}
+.qt{font-family:SG;font-weight:700;font-size:86px;line-height:1.04;letter-spacing:-.03em;margin-top:90px}
+.qmark{position:absolute;right:56px;bottom:30px;font-family:SG;font-weight:700;font-size:300px;line-height:1;opacity:.12}
+.stamp{display:inline-block;font-family:IN;font-weight:900;font-size:140px;letter-spacing:.02em;border:12px solid;border-radius:26px;padding:4px 40px 10px;margin-top:70px;transform-origin:30% 50%}
+.mito{color:#ff4b3e;border-color:#ff4b3e}.verd{color:#2bd46a;border-color:#2bd46a}
+.ex{font-family:IN;font-weight:600;font-size:50px;line-height:1.28;margin-top:66px;color:#f4f4f2}
+.ex b{color:#fed301;font-weight:800}
+.timer{position:absolute;left:110px;top:1510px;width:860px;height:22px;border-radius:11px;background:#ddd8ca;overflow:hidden}
+.timer i{position:absolute;inset:0;background:#0a0a0a;transform-origin:0 50%}
+.cnt{position:absolute;left:0;right:0;top:1560px;text-align:center;font-family:IN;font-weight:800;font-size:40px;letter-spacing:.12em;color:#77736a}
+.hint{position:absolute;left:50%;top:330px;transform:translateX(-50%);white-space:nowrap;background:#0a0a0a;color:#fed301;border-radius:22px;padding:16px 30px 18px;font-family:SG;font-weight:700;font-size:46px}
+#endc{position:absolute;inset:0;background:#f2efe6}
+.blk{filter:brightness(0)}
+</style></head><body><div id="root"><div id="sh" class="abs" style="inset:0">
+<div id="dots"></div>
+<div id="qs"></div>
+
+<!-- hook -->
+<div id="hook" class="abs" style="inset:0">
+  <div id="h1" class="abs sg" style="left:72px;top:560px;font-size:250px">MITO</div>
+  <div id="h2" class="abs sg" style="left:80px;top:800px;font-size:120px;font-weight:500;font-family:SG;color:#77736a">ou</div>
+  <div id="h3" class="abs sg" style="left:52px;top:930px;font-size:200px;background:#fed301;padding:10px 24px 26px;border-radius:30px;border:6px solid #0a0a0a">VERDADE?</div>
+  <div id="h4" class="abs" style="left:72px;top:1250px;font-family:SG;font-weight:500;font-size:54px;color:#3a3833">3 frases sobre sistema sob medida</div>
+</div>
+<div id="hint" class="hint">Responde antes de a carta virar</div>
+
+<div id="cards"></div>
+<div class="timer" id="tmr"><i id="tmi"></i></div>
+<div class="cnt" id="cnt">3</div>
+
+<!-- CTA -->
+<div id="cta" class="abs" style="inset:0">
+  <div id="c1" class="abs sg" style="left:72px;top:560px;font-size:112px">Qual desses</div>
+  <div id="c2" class="abs sg" style="left:72px;top:680px;font-size:112px">você achava</div>
+  <div id="c3" class="abs sg" style="left:72px;top:800px;font-size:112px">que era verdade?</div>
+  <div id="c4" class="abs" style="left:72px;top:1010px;display:flex;align-items:center;gap:26px;background:#0a0a0a;color:#fed301;border-radius:34px;padding:26px 40px 28px">
+    <svg width="74" height="74" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" fill="#fed301"/><circle cx="8" cy="11" r="1.4" fill="#0a0a0a"/><circle cx="12" cy="11" r="1.4" fill="#0a0a0a"/><circle cx="16" cy="11" r="1.4" fill="#0a0a0a"/></svg>
+    <span class="sg" style="font-size:72px">Comenta aqui</span></div>
+  <svg id="arr" class="abs" style="left:150px;top:1190px" width="90" height="150" viewBox="0 0 30 50"><path d="M15 2v40M4 32l11 12 11-12" fill="none" stroke="#0a0a0a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</div>
+
+<div id="endc">
+  <img id="xsym" class="blk" src="img/paralaxe-simbolo-P.png" style="position:absolute;left:400px;top:560px;width:280px">
+  <div style="position:absolute;left:230px;top:930px;width:620px;height:150px;overflow:hidden"><img id="xwm" class="blk" src="img/paralaxe-nome.png" style="position:absolute;left:0;top:40px;width:620px"></div>
+  <div id="x1" class="abs sg" style="left:0;right:0;text-align:center;top:1150px;font-size:76px">Peça um orçamento</div>
+  <div id="x2" class="abs" style="left:0;right:0;text-align:center;top:1252px;font-weight:800;font-size:46px"><span style="background:#fed301;padding:4px 18px;border-radius:12px">Link na bio</span></div>
+  <div id="x3" class="abs" style="left:0;right:0;text-align:center;top:1336px;font-weight:500;font-size:34px;color:#6a675f">paralaxestudio.com.br</div>
+</div>
+</div><div id="grain"></div></div>
+<script src="kit.js"></script>
+<script>
+window.DUR = 18.4;
+const CARDS = [
+  { q: 'Sistema sob medida é só para empresa grande.', a: 'MITO', ex: 'Implantação única e <b>mensalidade fixa</b>, com hospedagem inclusa. Feito para o tamanho da sua empresa.', t0: 1.9 },
+  { q: 'Vou esperar meses para ver alguma coisa.', a: 'MITO', ex: 'Você vê e aprova as telas no <b>protótipo</b>, antes de o sistema ficar pronto.', t0: 6.0 },
+  { q: 'No começo, uma planilha dá conta.', a: 'VERDADE', ex: 'Mas quando a empresa cresce, ela começa a travar. <b>Aí é hora de um sistema.</b>', t0: 10.1 },
+];
+const HOLD = 4.1; // time per card; flip at t0+2.1
+$('cards').innerHTML = CARDS.map((c, i) => `<div class="deck" id="dk${i}"><div class="card" id="cd${i}">
+  <div class="face fr"><div class="lab"><span>MITO OU VERDADE?</span><span>0${i + 1}/03</span></div><div class="qt">${c.q}</div><div class="qmark">?</div></div>
+  <div class="face bk"><div class="lab" style="color:#8f8b80"><span>RESPOSTA</span><span>0${i + 1}/03</span></div><div class="stamp ${c.a == 'MITO' ? 'mito' : 'verd'}" id="stp${i}">${c.a}</div><div class="ex">${c.ex}</div></div>
+</div></div>`).join('');
+let _s = 5; const rnd = () => (_s = (_s * 16807) % 2147483647) / 2147483647;
+let qh = ''; const QP = []; for (let i = 0; i < 9; i++) { QP.push([rnd() * 1000, rnd() * 1800, 120 + rnd() * 220, rnd() * 6.28]); qh += `<div class="q" id="qq${i}" style="font-size:${QP[i][2]}px">?</div>`; } $('qs').innerHTML = qh;
+const SHK = [[.0, 0], [.5, 10], [1.0, 16]];
+CARDS.forEach(c => SHK.push([c.t0 + 2.1 + .35, 14]));
+function setT(t) {
+  tf($('sh'), shake(t, SHK)); grain(t);
+  $('dots').style.transform = `translate(${(t * 14) % 44}px,${(t * 22) % 44}px)`;
+  QP.forEach(([x, y, s, ph], i) => { const e = $('qq' + i); e.style.left = x + 'px'; e.style.top = (y - t * 30) + 'px'; tf(e, `rotate(${Math.sin(t * .7 + ph) * 14}deg)`); });
+  // hook
+  op($('hook'), t < 1.95 ? 1 : 0); const ho = ei(P(t, 1.65, .25));
+  slam($('h1'), t, -.1, 1.6, .16, `translateX(${-ho * 1200}px)`); slam($('h2'), t, .45, 1.6, .14, `translateX(${-ho * 1200}px)`); slam($('h3'), t, .75, 1.8, .16, `translateX(${ho * 1200}px) rotate(-3deg)`);
+  [$('h1'), $('h2'), $('h3')].forEach(e => e.style.transformOrigin = '0 50%');
+  const h4 = P(t, 1.05, .3); op($('h4'), t < 1.05 ? 0 : C(h4 * 3) * (1 - ho)); tf($('h4'), `translateY(${(1 - eo5(h4)) * 30}px)`);
+  // hint
+  const hp = P(t, 1.9, .3), hq = P(t, 13.9, .2); op($('hint'), t < 1.9 || t > 14.1 ? 0 : C(hp * 3) * (1 - hq)); tf($('hint'), `translateX(-50%) rotate(-1.5deg) scale(${L(.6, 1, back(hp))})`);
+  // cards
+  let tw = 0, tcount = '', tvis = 0;
+  CARDS.forEach((c, i) => {
+    const dk = $('dk' + i), cd = $('cd' + i), a = c.t0, fl = a + 2.1, ex = a + HOLD;
+    const pin = eo5(P(t, a, .5)), pout = ei(P(t, ex - .05, .4));
+    if (t < a || t > ex + .4) { op(dk, 0); return; } op(dk, 1);
+    const last = i === CARDS.length - 1;
+    tf(dk, `translate(${(1 - pin) * 1100 - (last ? pout * 0 : pout * 1300)}px,${(1 - pin) * 120 + (last ? pout * 1500 : 0)}px) rotate(${(1 - pin) * 18 - pout * 16}deg)`);
+    const fp = P(t, fl, .5); tf(cd, `rotateY(${180 * eio(fp)}deg) scale(${1 + .08 * Math.sin(Math.PI * fp)})`);
+    const sp = P(t, fl + .35, .16); const st = $('stp' + i); op(st, t < fl + .35 ? 0 : C(sp * 3)); tf(st, `rotate(-7deg) scale(${L(2.4, 1, eo5(sp))})`);
+    if (t >= a + .3 && t < fl) { tw = 1 - P(t, a + .3, fl - a - .3); tvis = 1; tcount = String(Math.max(1, Math.ceil(tw * 3))); }
+    else if (t >= fl && t < ex) { tvis = 1 - P(t, fl, .2); tw = 0; tcount = '' }
+  });
+  op($('tmr'), tvis); op($('cnt'), tvis); tf($('tmi'), `scaleX(${tw})`); $('cnt').textContent = tcount ? tcount : ''; $('tmi').style.background = tw < .34 && tw > 0 ? '#ff4b3e' : '#0a0a0a';
+  // CTA 14.2-16.3
+  op($('cta'), win(t, 14.15, 16.35) ? 1 : 0); const co = eo5(P(t, 16.05, .25));
+  [['c1', 14.2], ['c2', 14.45], ['c3', 14.7]].forEach(([id, a]) => { slam($(id), t, a, 1.6, .15, `translateY(${-co * 500}px)`); $(id).style.transformOrigin = '0 50%'; if (co > 0) op($(id), 1 - co); });
+  const c4 = P(t, 15.05, .3); op($('c4'), t < 15.05 ? 0 : C(c4 * 3) * (1 - co)); tf($('c4'), `scale(${L(.5, 1, back(c4))}) rotate(-2deg)`); $('c4').style.transformOrigin = '0 50%';
+  op($('arr'), t < 15.3 ? 0 : P(t, 15.3, .2) * (1 - co)); tf($('arr'), `translateY(${Math.abs(Math.sin((t - 15.3) * 6)) * 40}px)`);
+  // end
+  const ce = eio(P(t, 16.3, .45)); $('endc').style.clipPath = `inset(0 ${(1 - ce) * 100}% 0 0)`; op($('endc'), t >= 16.3 ? 1 : 0);
+  const ep = P(t, 16.55, .5); tf($('xsym'), `scale(${L(1.7, 1, eo5(ep))}) rotate(${(1 - eo5(ep)) * -12}deg)`); op($('xsym'), C(ep * 3));
+  $('xwm').style.clipPath = `inset(0 ${100 - 100 * eo5(P(t, 16.9, .5))}% 0 0)`;
+  [$('x1'), $('x2'), $('x3')].forEach((e, i) => { const p = P(t, 17.25 + i * .16, .4); op(e, C(p * 2.5)); tf(e, `translateY(${(1 - eo5(p)) * 40}px)`); });
+}
+setT(0);
+</script></body></html>

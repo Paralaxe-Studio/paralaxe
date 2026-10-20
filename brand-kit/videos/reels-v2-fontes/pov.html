@@ -1,0 +1,240 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:SG;src:url(fonts/space-grotesk-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:SG;src:url(fonts/space-grotesk-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:IN;src:url(fonts/inter-latin-400-normal.woff2);font-weight:400}
+@font-face{font-family:IN;src:url(fonts/inter-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:IN;src:url(fonts/inter-latin-600-normal.woff2);font-weight:600}
+@font-face{font-family:IN;src:url(fonts/inter-latin-800-normal.woff2);font-weight:800}
+@font-face{font-family:IN;src:url(fonts/inter-latin-900-normal.woff2);font-weight:900}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#070914}
+#root{position:relative;width:1080px;height:1920px;overflow:hidden;color:#f4f4f2;font-family:IN}
+.abs{position:absolute}
+#night{position:absolute;inset:0;background:radial-gradient(900px 700px at 80% 10%,#2a2f63 0,rgba(0,0,0,0) 70%),linear-gradient(#0b0e22,#06070f)}
+#moon{position:absolute;left:880px;top:90px;width:130px;height:130px;border-radius:50%;box-shadow:-28px 16px 0 0 #f3e7b0;transform:rotate(-20deg)}
+.star{position:absolute;width:5px;height:5px;border-radius:50%;background:#fff}
+#day{position:absolute;inset:0;background:#fed301}
+#night2{position:absolute;inset:0;background:radial-gradient(900px 700px at 80% 10%,#2a2f63 0,rgba(0,0,0,0) 70%),linear-gradient(#0b0e22,#06070f)}
+#grain{position:absolute;inset:0;background:url(img/noise.png);opacity:.06;mix-blend-mode:overlay;pointer-events:none}
+.pill{position:absolute;left:50%;top:230px;max-width:920px;padding:20px 34px 22px;border-radius:26px;background:#fff;color:#0a0a0a;font-family:SG;font-weight:700;font-size:54px;line-height:1.12;letter-spacing:-.02em;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.35);white-space:nowrap}
+.pill.dk{background:#0a0a0a;color:#fed301}
+.sg{font-family:SG;font-weight:700;letter-spacing:-.025em;line-height:1}
+/* phone */
+#phw{position:absolute;inset:0;perspective:2400px}
+#phone{position:absolute;left:160px;top:470px;width:760px;height:1640px;border-radius:110px;background:#0a0a0a;padding:20px;box-shadow:0 70px 160px rgba(0,0,0,.65),0 0 0 4px #2b2b2d,inset 0 0 0 3px #3a3a3c}
+#screen{position:relative;width:100%;height:100%;border-radius:92px;overflow:hidden;background:#111}
+#island{position:absolute;left:50%;top:22px;width:200px;height:58px;margin-left:-100px;border-radius:30px;background:#000;z-index:20}
+.sb{position:absolute;left:0;right:0;top:0;height:96px;display:flex;justify-content:space-between;align-items:center;padding:16px 64px 0;font-weight:600;font-size:32px;z-index:15}
+/* lock screen */
+#lock{position:absolute;inset:0;background:radial-gradient(700px 600px at 30% 20%,#4b3f8f 0,rgba(0,0,0,0) 70%),radial-gradient(600px 700px at 90% 90%,#7a2f6b 0,rgba(0,0,0,0) 70%),#14122a;color:#fff}
+#date{position:absolute;left:0;right:0;top:150px;text-align:center;font-weight:600;font-size:36px;opacity:.9}
+#clk{position:absolute;left:0;right:0;top:190px;text-align:center;font-weight:600;font-size:210px;letter-spacing:-.04em;line-height:1}
+#stack{position:absolute;left:24px;right:24px;top:470px}
+.nt{position:absolute;left:0;width:676px;height:158px;border-radius:40px;background:rgba(58,54,92,.92);padding:24px 26px;display:flex;gap:22px;transform-origin:50% 0}
+.ic{flex:none;width:76px;height:76px;border-radius:20px;background:#2fbf5f;display:flex;align-items:center;justify-content:center}
+.nt .tx{flex:1;min-width:0}.nt .n{display:flex;justify-content:space-between;font-weight:600;font-size:32px}.nt .n span{font-weight:500;font-size:26px;opacity:.6}
+.nt .m{font-size:32px;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.92}
+#unread{position:absolute;left:50%;top:400px;transform:translateX(-50%);background:rgba(255,255,255,.16);border-radius:30px;padding:10px 26px;font-weight:600;font-size:28px;white-space:nowrap}
+/* booking */
+#book{position:absolute;inset:0;background:#f6f5f1;color:#141414}
+.bh{position:absolute;left:0;right:0;top:96px;padding:0 48px}
+.bh b{display:block;font-family:SG;font-weight:700;font-size:46px}.bh span{font-size:30px;color:#77756f}
+.prog{position:absolute;left:48px;right:48px;top:226px;height:10px;display:flex;gap:12px}.prog i{flex:1;border-radius:5px;background:#e3e1da;position:relative;overflow:hidden}.prog i b{position:absolute;inset:0;background:#fed301;transform-origin:0 50%}
+.pn{position:absolute;left:0;top:270px;width:720px;height:1300px;padding:0 44px}
+.pt{font-family:SG;font-weight:700;font-size:48px;margin:14px 0 26px}
+.sv{position:relative;height:150px;border-radius:30px;background:#fff;border:4px solid #ebe9e2;margin-bottom:20px;padding:24px 30px}
+.sv b{font-size:40px}.sv span{display:block;font-size:30px;color:#77756f;margin-top:6px}.sv em{position:absolute;right:30px;top:46px;font-style:normal;font-weight:800;font-size:40px}
+.days{display:flex;gap:16px}.dy{width:144px;height:138px;border-radius:28px;background:#fff;border:4px solid #ebe9e2;text-align:center;padding-top:18px}.dy span{display:block;font-size:28px;color:#77756f}.dy b{font-size:52px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.tm{height:100px;border-radius:24px;background:#fff;border:4px solid #ebe9e2;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:40px}.tm.x{color:#c4c2bb;text-decoration:line-through;background:#f0efea}
+.cta{position:absolute;left:44px;width:632px;height:124px;border-radius:34px;background:#fed301;display:flex;align-items:center;justify-content:center;font-family:SG;font-weight:700;font-size:42px;color:#0a0a0a}
+.sel{border-color:#fed301!important;background:#fff8d1!important}
+#ok{position:absolute;left:50%;top:40px;width:240px;height:240px;margin-left:-120px;border-radius:50%;background:#1fbf5c;display:flex;align-items:center;justify-content:center}
+/* agenda owner */
+#own{position:absolute;inset:0;background:#f6f5f1;color:#141414}
+.ar{position:relative;height:150px;border-radius:30px;background:#fff;border:4px solid #ebe9e2;margin:0 44px 20px;padding:24px 30px}
+.ar b{font-size:42px;font-weight:800}.ar span{display:block;font-size:30px;color:#77756f;margin-top:6px}
+.nw{position:absolute;right:26px;top:44px;height:58px;border-radius:29px;background:#fed301;padding:0 22px;display:flex;align-items:center;font-weight:700;font-size:28px;color:#0a0a0a}
+#finger{position:absolute;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;background:rgba(255,255,255,.5);border:4px solid rgba(255,255,255,.95);box-shadow:0 10px 34px rgba(0,0,0,.35);z-index:30}
+#rip{position:absolute;border-radius:50%;border:6px solid #fed301;z-index:29}
+.cf{position:absolute;width:22px;height:34px;border-radius:5px}
+.zz{position:absolute;font-family:SG;font-weight:700;color:#f3e7b0}
+#endc{position:absolute;inset:0;background:#050505}
+</style></head><body><div id="root"><div id="sh" class="abs" style="inset:0">
+<div id="night"><div id="moon"></div><div id="stars"></div></div>
+<div id="day"></div>
+<div id="night2"><div class="abs" style="left:880px;top:90px;width:130px;height:130px;border-radius:50%;box-shadow:-28px 16px 0 0 #f3e7b0;transform:rotate(-20deg)"></div><div id="zzs"></div></div>
+
+<div id="big1" class="abs" style="left:0;right:0;top:560px">
+  <div id="e1" class="abs sg" style="left:72px;top:0;font-size:132px;color:#0a0a0a">E se o cliente</div>
+  <div id="e2" class="abs sg" style="left:72px;top:160px;font-size:132px;color:#0a0a0a">marcasse</div>
+  <div id="e3" class="abs sg" style="left:72px;top:320px;font-size:132px;color:#0a0a0a;background:#0a0a0a;color:#fed301;padding:6px 22px 18px;border-radius:20px;margin-left:-22px">sozinho?</div>
+</div>
+
+<div id="phw"><div id="phone"><div id="screen">
+  <div id="island"></div>
+  <div class="sb" id="sbar"><span id="sbt">23:47</span><span style="display:flex;gap:10px;align-items:center"><svg width="44" height="26" viewBox="0 0 30 18"><rect x="0" y="11" width="5" height="7" rx="1" fill="currentColor"/><rect x="8" y="7" width="5" height="11" rx="1" fill="currentColor"/><rect x="16" y="3" width="5" height="15" rx="1" fill="currentColor"/><rect x="24" y="0" width="5" height="18" rx="1" fill="currentColor"/></svg><svg width="62" height="30" viewBox="0 0 40 20"><rect x="1" y="1" width="34" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><rect id="batt" x="4" y="4" width="24" height="12" rx="3" fill="currentColor"/><rect x="36" y="7" width="3" height="6" rx="1" fill="currentColor"/></svg></span></div>
+  <div id="lock">
+    <div id="date">terça-feira, 20 de outubro</div>
+    <div id="clk">23:47</div>
+    <div id="unread">0 mensagens não lidas</div>
+    <div id="stack"></div>
+  </div>
+  <div id="book">
+    <div class="bh"><b>Studio Aurora</b><span>Agendamento online</span></div>
+    <div class="prog"><i><b id="pg0"></b></i><i><b id="pg1"></b></i><i><b id="pg2"></b></i></div>
+    <div id="pn1" class="pn">
+      <div class="pt">Escolha o serviço</div>
+      <div class="sv"><b>Corte</b><span>40 min</span><em>R$ 50</em></div>
+      <div class="sv" id="svE"><b>Escova</b><span>45 min</span><em>R$ 60</em></div>
+      <div class="sv"><b>Coloração</b><span>2 h</span><em>R$ 180</em></div>
+      <div class="sv"><b>Manicure</b><span>50 min</span><em>R$ 40</em></div>
+    </div>
+    <div id="pn2" class="pn">
+      <div class="pt">Escolha o dia</div>
+      <div class="days"><div class="dy"><span>TER</span><b>20</b></div><div class="dy" id="dyQ"><span>QUA</span><b>21</b></div><div class="dy"><span>QUI</span><b>22</b></div><div class="dy"><span>SEX</span><b>23</b></div></div>
+      <div class="pt" style="margin-top:44px">Horário</div>
+      <div class="grid"><div class="tm x">09:00</div><div class="tm">10:00</div><div class="tm x">11:00</div><div class="tm">13:00</div><div class="tm x">14:00</div><div class="tm" id="tm15">15:00</div><div class="tm">16:00</div><div class="tm x">17:00</div><div class="tm">18:00</div></div>
+      <div id="sum" class="abs" style="left:44px;top:930px;font-size:32px;color:#55534d">Escova · Qua 21 · 15:00 · com a Ana</div>
+      <div id="cta" class="cta" style="top:990px">Confirmar agendamento</div>
+    </div>
+    <div id="pn3" class="pn" style="text-align:center">
+      <div id="ok"><svg width="130" height="130" viewBox="0 0 26 26"><path id="okp" d="M5 13.5 10.5 19 21 7" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="30" stroke-dashoffset="30"/></svg></div>
+      <div class="abs sg" style="left:0;right:0;top:340px;font-size:84px">Agendado!</div>
+      <div class="abs" style="left:0;right:0;top:450px;font-weight:700;font-size:44px">Qua, 21/10 às 15:00</div>
+      <div class="abs" style="left:0;right:0;top:516px;font-size:34px;color:#77756f">Escova com a Ana</div>
+      <div class="abs" style="left:60px;right:60px;top:620px;font-size:32px;color:#55534d;line-height:1.35;white-space:normal">Você recebe um lembrete no WhatsApp um dia antes.</div>
+    </div>
+    <div id="conf"></div>
+  </div>
+  <div id="own">
+    <div class="bh"><b>Agenda · Qua 21</b><span>Studio Aurora</span></div>
+    <div class="abs" style="left:0;right:0;top:270px">
+      <div class="ar"><b>09:00</b><span>Carla · Corte</span></div>
+      <div class="ar"><b>11:00</b><span>Marta · Coloração</span></div>
+      <div class="ar" id="arN" style="border-color:#fed301;background:#fffbe6"><b>15:00</b><span>Juliana · Escova</span><div class="nw">Novo · 2h14</div></div>
+      <div class="ar" id="arL"><b>16:30</b><span>Pedro · Barba</span></div>
+    </div>
+  </div>
+  <div id="rip"></div><div id="finger"></div>
+</div></div></div>
+
+<div id="p1" class="pill">POV: 23h47 e você ainda<br>respondendo cliente</div>
+<div id="p2" class="pill">E amanhã você abre às 8h.</div>
+<div id="p3" class="pill" style="font-size:70px">Chega.</div>
+<div id="q1" class="pill dk">1. Escolhe o serviço</div>
+<div id="q2" class="pill dk">2. O dia e o horário</div>
+<div id="q3" class="pill dk">3. Confirmou. Pronto.</div>
+<div id="o1" class="pill">Agendado às 2h14.</div>
+<div id="o2" class="pill">E você dormindo.</div>
+
+<div id="fin" class="abs" style="inset:0">
+  <div id="g1" class="abs sg" style="left:72px;top:700px;font-size:120px">Agendamento</div>
+  <div id="g2" class="abs sg" style="left:72px;top:840px;font-size:120px">online.</div>
+  <div id="g3" class="abs sg" style="left:72px;top:1030px;font-size:120px;color:#fed301">Aberto 24 horas.</div>
+</div>
+<div id="endc">
+  <img id="xsym" src="img/paralaxe-simbolo-P.png" style="position:absolute;left:400px;top:560px;width:280px">
+  <div style="position:absolute;left:230px;top:930px;width:620px;height:150px;overflow:hidden"><img id="xwm" src="img/paralaxe-nome.png" style="position:absolute;left:0;top:40px;width:620px"></div>
+  <div id="x1" class="abs sg" style="left:0;right:0;text-align:center;top:1150px;font-size:76px">Peça um orçamento</div>
+  <div id="x2" class="abs" style="left:0;right:0;text-align:center;top:1252px;font-weight:800;font-size:46px;color:#fed301">Link na bio</div>
+  <div id="x3" class="abs" style="left:0;right:0;text-align:center;top:1326px;font-weight:500;font-size:34px;color:#8f8f88">paralaxestudio.com.br</div>
+</div>
+</div><div id="grain"></div></div>
+<script src="kit.js"></script>
+<script>
+window.DUR = 17.8;
+// deterministic random
+let _s = 11; const rnd = () => (_s = (_s * 16807) % 2147483647) / 2147483647;
+// stars
+let sh = ''; for (let i = 0; i < 46; i++) sh += `<div class="star" id="sr${i}" style="left:${rnd() * 1080}px;top:${rnd() * 1300}px;transform:scale(${.5 + rnd()})"></div>`; $('stars').innerHTML = sh;
+const SPH = []; for (let i = 0; i < 46; i++) SPH.push(rnd() * 6.28);
+// notifications
+const NAMES = ['Juliana', 'Bruna', 'Dona Rosa', 'Carla', 'Pedro', 'Fernanda', 'Marta', 'Luana', 'Bia', 'Paula', 'Camila', 'Renata', 'Jéssica', 'Ana Clara', 'Rita', 'Vanessa', 'Talita', 'Sueli'];
+const MSGS = ['tem horário amanhã?', 'quanto tá a escova?', 'pode ser às 15h?', 'e sábado, abre?', 'oi??', 'consegue me encaixar?', 'qual o valor da progressiva?', 'desmarca o meu de quinta', 'ainda tá acordada? rs', 'tem vaga pra 2?', 'me manda os horários', 'oiii', 'e a manicure?', 'amanhã cedo dá?', 'pode remarcar?', '???', 'oi, tudo bem?', 'quanto fica tudo?'];
+const NT = []; { let t = .3, g = .5; for (let i = 0; i < 18; i++) { NT.push(t); t += g; g = Math.max(.1, g * .82); } }
+$('stack').innerHTML = NT.map((_, i) => `<div class="nt" id="nt${i}"><div class="ic"><svg width="46" height="46" viewBox="0 0 24 24"><path d="M12 3C6.5 3 2 6.8 2 11.5c0 2.4 1.2 4.6 3.1 6.1L4 21l4-1.8c1.2.4 2.6.6 4 .6 5.5 0 10-3.8 10-8.5S17.5 3 12 3z" fill="#fff"/></svg></div><div class="tx"><div class="n">${NAMES[i]}<span>agora</span></div><div class="m">${MSGS[i]}</div></div></div>`).join('');
+const CLK = [[0, '23:47'], [1.0, '23:52'], [1.8, '23:59'], [2.6, '00:14'], [3.4, '00:38'], [4.1, '01:06']];
+// confetti
+let ch = ''; const CF = []; const COLS = ['#fed301', '#1fbf5c', '#0a0a0a', '#ff6b4a', '#4a8bff'];
+for (let i = 0; i < 60; i++) { const a = -Math.PI / 2 + (rnd() - .5) * 2.2, v = 900 + rnd() * 900; CF.push([a, v, rnd() * 720 - 360, rnd()]); ch += `<div class="cf" id="cf${i}" style="background:${COLS[i % 5]}"></div>`; }
+$('conf').innerHTML = ch;
+let zh = ''; for (let i = 0; i < 6; i++) zh += `<div class="zz" id="z${i}" style="font-size:${50 + i * 8}px">z</div>`; $('zzs').innerHTML = zh;
+const SHK = [[4.55, 20], [5.5, 12], [5.75, 12], [6.0, 18], [10.0, 10], [14.0, 18]];
+function pill(id, t, a, b) { const e = $(id), p = P(t, a, .28), q = P(t, b - .15, .15); op(e, (t < a || t >= b) ? 0 : C(p * 3) * (1 - q)); tf(e, `translateX(-50%) rotate(${id.startsWith('q') ? 1.5 : -2}deg) scale(${L(.6, 1, back(p)) * (1 - .1 * q)})`); }
+function tap(t, x, y, a, from) { return { t, x, y, a, from }; }
+const TAPS = [[7.3, 'svE'], [8.4, 'dyQ'], [8.95, 'tm15'], [9.95, 'cta']];
+function center(id) { let e = $(id), x = e.offsetWidth / 2, y = e.offsetHeight / 2; while (e && e.id !== 'screen') { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; } return [x, y]; }
+function setT(t) {
+  tf($('sh'), shake(t, SHK)); grain(t);
+  for (let i = 0; i < 46; i++) op($('sr' + i), .25 + .75 * Math.abs(Math.sin(t * 1.3 + SPH[i])));
+  // backgrounds
+  const sun = eio(P(t, 5.15, .5)); $('day').style.clipPath = `circle(${sun * 2300}px at 540px 2100px)`; op($('day'), t >= 5.15 ? 1 : 0);
+  const nt2 = eio(P(t, 11.45, .55)); $('night2').style.clipPath = `circle(${nt2 * 2300}px at 880px 180px)`; op($('night2'), t >= 11.45 ? 1 : 0);
+  // zz
+  for (let i = 0; i < 6; i++) { const z = $('z' + i), k = ((t - 11.9) * .6 + i / 6) % 1; if (t < 11.9 || t > 13.6) { op(z, 0); continue; } op(z, Math.sin(Math.PI * k) * .9); z.style.left = (770 + Math.sin(k * 6 + i) * 30 + k * 60) + 'px'; z.style.top = (330 - k * 220) + 'px'; }
+  // phone overall
+  let ty = 0, rot = 0, sc = 1, rx = 0;
+  const vib = NT.reduce((s, a) => { const d = t - a; return d >= 0 && d < .18 ? s + Math.sin(d * 140) * 7 * (1 - d / .18) : s; }, 0);
+  if (t < 4.55) { ty = (1 - eo5(P(t, -.3, .6))) * 300; }
+  const drop = ei(P(t, 5.05, .35)); ty += drop * 1700;
+  const back2 = eo5(P(t, 6.45, .6)); if (t >= 6.45) { ty = (1 - back2) * 1700; rot = (1 - back2) * 12; }
+  if (t >= 4.55 && t < 5.05) sc = 1 + .05 * eo(P(t, 4.55, .2));
+  tf($('phone'), `translate(${vib}px,${ty}px) rotate(${rot + Math.sin(t * .9) * .6}deg) scale(${sc})`);
+  $('phone').style.filter = (t >= 4.55 && t < 5.4) ? `grayscale(1) brightness(${L(1, .55, P(t, 4.55, .15))})` : 'none';
+  // screens
+  op($('lock'), t < 6.4 ? 1 : 0); op($('book'), win(t, 6.4, 11.5) ? 1 : 0); op($('own'), t >= 11.5 ? 1 : 0);
+  // status bar
+  const sb = $('sbar'); sb.style.color = t < 6.4 ? '#fff' : '#141414';
+  let ct = '23:47'; CLK.forEach(([a, v]) => { if (t >= a) ct = v; }); $('clk').textContent = ct;
+  $('sbt').textContent = t < 6.4 ? '' : (t < 11.5 ? '02:13' : '02:14');
+  const bl = t < 6.4 ? L(24, 3, P(t, 0, 4.4)) : 18; $('batt').setAttribute('width', bl.toFixed(1)); $('batt').style.fill = bl < 6 ? '#ff453a' : 'currentColor';
+  tf($('clk'), `scale(${1 + .04 * Math.exp(-((t % 100) - CLK.reduce((m, [a]) => t >= a ? a : m, 0)) * 8)})`);
+  // notifications stack: newest on top
+  let n = 0; NT.forEach(a => { if (t >= a) n++; });
+  NT.forEach((a, i) => { const e = $('nt' + i); if (t < a) { op(e, 0); return; } const p = P(t, a, .25), idx = n - 1 - i; const y = idx * 172 - (idx === 0 ? (1 - eo5(p)) * 60 : 0) + (idx > 0 ? (1 - eo5(P(t, NT[n - 1], .25))) * -172 : 0);
+    op(e, idx === 0 ? C(p * 3) : 1); tf(e, `translateY(${y}px) scale(${idx === 0 ? L(.92, 1, back(p)) : 1})`); });
+  $('unread').textContent = `${Math.round(n * 2.6)} mensagens não lidas`; op($('unread'), t >= .35 ? 1 : 0);
+  // pills
+  pill('p1', t, -.25, 2.15); pill('p2', t, 2.2, 4.5); pill('p3', t, 4.6, 5.15);
+  pill('q1', t, 6.75, 8.15); pill('q2', t, 8.2, 9.9); pill('q3', t, 10.15, 11.4);
+  pill('o1', t, 12.1, 12.9); pill('o2', t, 12.95, 13.65);
+  // big question
+  op($('big1'), win(t, 5.4, 6.55) ? 1 : 0);
+  const outB = ei(P(t, 6.4, .2));
+  [['e1', 5.5], ['e2', 5.75], ['e3', 6.0]].forEach(([id, a]) => { slam($(id), t, a, 1.8, .15, `translateY(${-outB * 700}px)`); $(id).style.transformOrigin = '0 50%'; });
+  // booking flow
+  const s1 = eio(P(t, 7.65, .4)), s2 = eio(P(t, 10.1, .4));
+  tf($('pn1'), `translateX(${-s1 * 720}px)`); tf($('pn2'), `translateX(${(1 - s1) * 720 - s2 * 720}px)`); tf($('pn3'), `translateX(${(1 - s2) * 720}px)`);
+  [['pg0', 6.6], ['pg1', 7.7], ['pg2', 10.1]].forEach(([id, a]) => tf($(id), `scaleX(${eo(P(t, a, .4))})`));
+  $('svE').classList.toggle('sel', t >= 7.32); $('dyQ').classList.toggle('sel', t >= 8.42); $('tm15').classList.toggle('sel', t >= 8.97);
+  op($('sum'), P(t, 9.05, .25)); const cp = P(t, 9.1, .3); op($('cta'), t < 9.1 ? 0 : 1); tf($('cta'), `translateY(${(1 - eo5(cp)) * 80}px) scale(${1 + .03 * Math.sin(Math.max(0, t - 9.4) * 9) * (t < 9.95 ? 1 : 0)})`);
+  const okp = P(t, 10.3, .35); tf($('ok'), `scale(${L(0, 1, back(okp))})`); $('okp').style.strokeDashoffset = 30 * (1 - eo(P(t, 10.5, .3)));
+  CF.forEach(([a, v, r, k], i) => { const e = $('cf' + i), d = t - 10.35; if (d < 0 || d > 1.6) { op(e, 0); return; } const x = 360 + Math.cos(a) * v * d, y = 200 + Math.sin(a) * v * d + 1400 * d * d; op(e, 1 - P(d, 1.2, .4)); e.style.left = x + 'px'; e.style.top = y + 'px'; tf(e, `rotate(${r * d * 3}deg) scaleX(${Math.cos(d * 12 + k * 6)})`); });
+  // finger
+  let fv = 0, fx = 360, fy = 1500;
+  if (win(t, 6.95, 10.25)) {
+    const pts = TAPS.map(([a, id]) => [a, ...center(id)]);
+    pts.forEach(([a, x, y], i) => { const pa = i === 0 ? 6.95 : pts[i - 1][0] + .15; if (t >= pa) { const pr = eio(P(t, pa, a - pa)); const [sx, sy] = i === 0 ? [380, 1500] : [pts[i - 1][1], pts[i - 1][2]]; fx = L(sx, x, pr); fy = L(sy, y, pr); } });
+    fv = P(t, 6.95, .2) * (1 - P(t, 10.1, .15));
+  }
+  op($('finger'), fv); $('finger').style.left = fx + 'px'; $('finger').style.top = fy + 'px';
+  let press = 0, rp = -1; TAPS.forEach(([a]) => { const d = t - a; if (d > -.06 && d < .12) press = 1; if (d >= 0 && d < .45) rp = d / .45; });
+  tf($('finger'), `scale(${press ? .82 : 1})`);
+  if (rp >= 0 && fv > 0) { const r = 24 + 100 * eo(rp); Object.assign($('rip').style, { left: (fx - r) + 'px', top: (fy - r) + 'px', width: 2 * r + 'px', height: 2 * r + 'px' }); op($('rip'), 1 - rp); } else op($('rip'), 0);
+  // owner agenda: new row slides in
+  const nr = P(t, 11.95, .45); tf($('arN'), `translateX(${(1 - eo5(nr)) * 760}px) scale(${1 + .04 * Math.sin(Math.PI * P(t, 12.4, .4))})`); op($('arN'), t < 11.95 ? 0 : 1);
+  tf($('arL'), `translateY(${(1 - eo5(nr)) * -170}px)`);
+  // phone exit at 13.6
+  const pe = ei(P(t, 13.6, .35)); if (t >= 11.5) tf($('phone'), `translate(0px,${pe * 1800}px) rotate(${pe * -8 + Math.sin(t * .9) * .6}deg)`);
+  // final text
+  op($('fin'), win(t, 13.85, 15.6) ? 1 : 0); const fo = eo5(P(t, 15.3, .25));
+  [['g1', 13.9], ['g2', 14.15], ['g3', 14.5]].forEach(([id, a], i) => { slam($(id), t, a, i === 2 ? 2 : 1.6, .15, `translateY(${-fo * 500}px)`); $(id).style.transformOrigin = '0 50%'; if (fo > 0) op($(id), 1 - fo); });
+  // end
+  const ce = eio(P(t, 15.45, .4)); $('endc').style.clipPath = `inset(${(1 - ce) * 100}% 0 0 0)`; op($('endc'), t >= 15.45 ? 1 : 0);
+  const ep = P(t, 15.7, .5); tf($('xsym'), `scale(${L(1.7, 1, eo5(ep))}) rotate(${(1 - eo5(ep)) * -12}deg)`); op($('xsym'), C(ep * 3));
+  $('xwm').style.clipPath = `inset(0 ${100 - 100 * eo5(P(t, 16.05, .5))}% 0 0)`;
+  [$('x1'), $('x2'), $('x3')].forEach((e, i) => { const p = P(t, 16.45 + i * .16, .4); op(e, C(p * 2.5)); tf(e, `translateY(${(1 - eo5(p)) * 40}px)`); });
+}
+setT(0);
+</script></body></html>

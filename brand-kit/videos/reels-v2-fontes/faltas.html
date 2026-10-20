@@ -1,0 +1,228 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:SG;src:url(fonts/space-grotesk-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:SG;src:url(fonts/space-grotesk-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:IN;src:url(fonts/inter-latin-400-normal.woff2);font-weight:400}
+@font-face{font-family:IN;src:url(fonts/inter-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:IN;src:url(fonts/inter-latin-600-normal.woff2);font-weight:600}
+@font-face{font-family:IN;src:url(fonts/inter-latin-800-normal.woff2);font-weight:800}
+@font-face{font-family:IN;src:url(fonts/inter-latin-900-normal.woff2);font-weight:900}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#050505}
+#root{position:relative;width:1080px;height:1920px;overflow:hidden;background:#050505;color:#f4f4f2}
+.abs{position:absolute}
+.scene{position:absolute;inset:0}
+#glow{position:absolute;inset:-200px;background:radial-gradient(700px 700px at var(--gx,70%) var(--gy,20%),rgba(254,211,1,.16),rgba(0,0,0,0) 70%),radial-gradient(600px 600px at 10% 95%,rgba(254,211,1,.07),rgba(0,0,0,0) 70%)}
+#grain{position:absolute;inset:0;background:url(img/noise.png);opacity:.07;mix-blend-mode:overlay;pointer-events:none}
+.sg{font-family:SG;font-weight:700;letter-spacing:-.025em;line-height:1}
+.mask{overflow:hidden;position:absolute}
+.eb{font-family:SG;font-weight:500;font-size:30px;letter-spacing:.22em;color:#fed301;display:flex;align-items:center;gap:18px}
+.eb:before{content:"";width:46px;height:3px;background:#fed301}
+/* clock */
+.card{position:absolute;top:0;width:200px;height:300px;border-radius:26px;background:linear-gradient(#1b1b1c,#121213);border:2px solid #262628;overflow:hidden}
+.card:after{content:"";position:absolute;left:0;right:0;top:149px;height:3px;background:#050505}
+.col{position:absolute;left:0;top:0;width:100%}
+.dg{height:300px;display:flex;align-items:center;justify-content:center;font-family:IN;font-weight:900;font-size:230px;letter-spacing:-.04em;color:#f4f4f2}
+.stamp{position:absolute;font-family:IN;font-weight:900;color:#ff4b3e;border:6px solid #ff4b3e;border-radius:14px;letter-spacing:.06em;text-transform:uppercase}
+/* slots */
+.slot{position:absolute;top:0;width:290px;height:200px;border-radius:24px;background:#141415;border:2px solid #2a2a2c;padding:26px 28px}
+.slot .d{font-family:SG;font-weight:500;font-size:28px;letter-spacing:.16em;color:#9a9a94}
+.slot .h{font-family:IN;font-weight:800;font-size:64px;letter-spacing:-.03em;margin-top:6px}
+.slot .s{font-family:IN;font-weight:500;font-size:28px;color:#9a9a94;margin-top:2px}
+.slot .stamp{font-size:46px;padding:4px 16px;border-width:5px;left:50%;top:52%;background:rgba(10,10,10,.75)}
+.slot .in{transition:none}
+/* phone */
+#phwrap{position:absolute;inset:0;perspective:2200px}
+#phone{position:absolute;left:300px;top:640px;width:480px;height:980px;border-radius:78px;background:#0a0a0a;padding:16px;box-shadow:0 60px 140px rgba(0,0,0,.7),0 0 0 3px #2b2b2d,inset 0 0 0 2px #3a3a3c;transform-origin:50% 50%}
+#screen{position:relative;width:100%;height:100%;border-radius:62px;overflow:hidden;background:#efeae2;font-family:IN;color:#111}
+#island{position:absolute;left:50%;top:14px;width:132px;height:38px;margin-left:-66px;border-radius:20px;background:#000;z-index:5}
+.sb{position:absolute;left:0;right:0;top:0;height:64px;display:flex;justify-content:space-between;align-items:center;padding:6px 40px 0;font-weight:600;font-size:22px;background:#f7f5f2}
+.hd{position:absolute;left:0;right:0;top:64px;height:92px;background:#f7f5f2;border-bottom:1px solid #e2ddd6;display:flex;align-items:center;gap:16px;padding:0 22px}
+.av{width:58px;height:58px;border-radius:50%;background:#fed301;display:flex;align-items:center;justify-content:center;font-family:SG;font-weight:700;font-size:24px;color:#111}
+.nm{font-weight:600;font-size:25px}.nm small{display:block;font-weight:500;font-size:18px;color:#6f6f6a;margin-top:2px}
+.chip{position:absolute;left:50%;transform:translateX(-50%);top:178px;background:#fff;border-radius:10px;padding:5px 14px;font-size:17px;font-weight:500;color:#6f6f6a}
+#chat{padding:226px 16px 0;display:flex;flex-direction:column;gap:10px}
+.bub{position:relative;max-width:370px;padding:14px 18px 30px;border-radius:20px;font-size:26px;line-height:1.3;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.bin{align-self:flex-start;background:#fff;border-top-left-radius:6px;transform-origin:0 100%}
+.bout{align-self:flex-end;background:#d9fdd3;border-top-right-radius:6px;transform-origin:100% 100%}
+.bub .tm{position:absolute;right:14px;bottom:7px;font-size:15px;color:#8a8a84}
+.btn{position:relative;width:370px;height:64px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:12px;font-weight:600;font-size:26px;color:#0a7cba;box-shadow:0 1px 1px rgba(0,0,0,.08);transform-origin:0 50%}
+#finger{position:absolute;width:96px;height:96px;margin:-48px 0 0 -48px;border-radius:50%;background:rgba(255,255,255,.55);border:3px solid rgba(255,255,255,.95);box-shadow:0 8px 30px rgba(0,0,0,.35)}
+#rip{position:absolute;border-radius:50%;border:4px solid #fed301}
+/* agenda */
+#ag{position:absolute;left:72px;top:620px;width:936px;border-radius:40px;background:#121213;border:2px solid #2c2c2e;padding:40px 36px;box-shadow:0 50px 120px rgba(0,0,0,.6)}
+#ag .t{font-family:SG;font-weight:700;font-size:60px}#ag .t small{display:block;font-family:IN;font-weight:500;font-size:32px;color:#8f8f88;margin-top:4px}
+.row{position:relative;margin-top:26px;height:150px;border-radius:26px;background:#1a1a1b;border:3px solid #2a2a2c;padding:24px 28px}
+.row .hr{font-family:IN;font-weight:800;font-size:50px}.row .who{font-family:IN;font-weight:500;font-size:32px;color:#a3a39d;margin-top:4px}
+.st{position:absolute;right:26px;top:44px;height:60px;border-radius:30px;padding:0 24px;display:flex;align-items:center;gap:10px;font-family:IN;font-weight:600;font-size:30px;white-space:nowrap}
+.wait{background:#2a2a2c;color:#b5b5ae}.ok{background:rgba(52,199,89,.16);color:#3ddc6f}.rem{background:rgba(255,159,10,.16);color:#ffae33}
+.free{position:absolute;inset:-3px;border-radius:26px;border:4px dashed #fed301;background:#211d08;display:flex;flex-direction:column;justify-content:center;padding-left:28px;font-family:SG;font-weight:700;font-size:46px;color:#fed301}.free small{font-family:IN;font-weight:500;font-size:28px;color:#d8c46a;margin-top:6px}
+/* end */
+#endc{position:absolute;inset:0;background:#fed301;color:#0a0a0a}
+.blk{filter:brightness(0)}
+</style></head><body><div id="root"><div id="sh" class="abs" style="inset:0">
+<div id="glow"></div>
+
+<!-- S1: relógio -->
+<div id="s1" class="scene">
+  <div class="mask" style="left:72px;top:520px;width:940px;height:100px"><div id="c1a" class="sg" style="font-size:84px">Seu cliente marcou</div></div>
+  <div class="mask" style="left:72px;top:620px;width:940px;height:100px"><div id="c1b" class="sg" style="font-size:84px;color:#fed301">e não apareceu.</div></div>
+  <div id="clock" class="abs" style="left:76px;top:820px;width:928px;height:300px">
+    <div class="card" style="left:0"><div class="col"><div class="dg">1</div></div></div>
+    <div class="card" style="left:216px"><div class="col" id="d1"><div class="dg">3</div><div class="dg">4</div></div></div>
+    <div class="abs" style="left:430px;top:60px;width:68px;height:180px;display:flex;flex-direction:column;justify-content:space-around;align-items:center"><i id="cl1" style="width:30px;height:30px;border-radius:50%;background:#fed301"></i><i id="cl2" style="width:30px;height:30px;border-radius:50%;background:#fed301"></i></div>
+    <div class="card" style="left:512px"><div class="col" id="d2"><div class="dg">5</div><div class="dg">0</div></div></div>
+    <div class="card" style="left:728px"><div class="col" id="d3"><div class="dg">9</div><div class="dg">0</div></div></div>
+  </div>
+  <div id="st1" class="stamp" style="left:540px;top:1250px;font-size:62px;padding:10px 30px;white-space:nowrap">Não compareceu</div>
+</div>
+
+<!-- S2: DE NOVO -->
+<div id="s2" class="scene" style="background:#fed301">
+  <div id="dn0" class="abs" style="left:0;right:0;top:600px;text-align:center;font-family:IN;font-weight:900;font-size:206px;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:5px #0a0a0a">DE NOVO.</div>
+  <div id="dn1" class="abs" style="left:0;right:0;top:820px;text-align:center;font-family:IN;font-weight:900;font-size:206px;letter-spacing:-.05em;color:#0a0a0a">DE NOVO.</div>
+  <div id="dn2" class="abs" style="left:0;right:0;top:1040px;text-align:center;font-family:IN;font-weight:900;font-size:206px;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:5px #0a0a0a">DE NOVO.</div>
+</div>
+
+<!-- S3: contas -->
+<div id="s3" class="scene">
+  <div id="eb3" class="eb abs" style="left:72px;top:400px">FAZ A CONTA</div>
+  <div class="abs" style="left:72px;top:480px;width:940px;height:200px">
+    <div class="slot" id="sl0" style="left:0"><div class="d">SEG</div><div class="h">14:00</div><div class="s">Corte</div><div class="stamp" id="sp0">faltou</div></div>
+    <div class="slot" id="sl1" style="left:323px"><div class="d">QUA</div><div class="h">10:30</div><div class="s">Escova</div><div class="stamp" id="sp1">faltou</div></div>
+    <div class="slot" id="sl2" style="left:646px"><div class="d">SEX</div><div class="h">16:00</div><div class="s">Coloração</div><div class="stamp" id="sp2">faltou</div></div>
+  </div>
+  <div class="mask" style="left:72px;top:760px;width:940px;height:84px"><div id="m1" class="sg" style="font-size:66px">3 faltas por semana</div></div>
+  <div class="mask" style="left:72px;top:842px;width:940px;height:84px"><div id="m2" class="sg" style="font-size:66px;color:#fed301">× R$ 80 cada</div></div>
+  <div id="cnt" class="abs" style="left:72px;top:980px;width:940px;display:flex;align-items:flex-start;gap:20px">
+    <div class="sg" style="font-size:92px;margin-top:40px;color:#fed301">R$</div>
+    <div id="num" style="font-family:IN;font-weight:900;font-size:270px;letter-spacing:-.05em;line-height:1;color:#fed301">0</div>
+  </div>
+  <div class="mask" style="left:72px;top:1270px;width:940px;height:90px"><div id="per" class="sg" style="font-size:72px">por mês</div></div>
+  <div class="mask" style="left:72px;top:1270px;width:940px;height:90px"><div id="per2" class="sg" style="font-size:72px">por ano. Jogados fora.</div></div>
+  <div id="foot" class="abs" style="left:72px;top:1390px;font-family:IN;font-weight:500;font-size:28px;color:#77776f">Valores ilustrativos.</div>
+</div>
+
+<!-- S4: celular -->
+<div id="s4" class="scene">
+  <div class="mask" style="left:72px;top:300px;width:960px;height:96px"><div id="q1" class="sg" style="font-size:80px">E se o sistema</div></div>
+  <div class="mask" style="left:72px;top:394px;width:960px;height:96px"><div id="q2" class="sg" style="font-size:80px;color:#fed301">lembrasse por você?</div></div>
+  <div class="mask" style="left:72px;top:300px;width:960px;height:96px"><div id="k1" class="sg" style="font-size:80px">Confirmou?</div></div>
+  <div class="mask" style="left:72px;top:394px;width:960px;height:96px"><div id="k2" class="sg" style="font-size:80px;color:#fed301">Fica na agenda.</div></div>
+  <div class="mask" style="left:72px;top:300px;width:960px;height:96px"><div id="r1" class="sg" style="font-size:80px">Remarcou?</div></div>
+  <div class="mask" style="left:72px;top:394px;width:960px;height:96px"><div id="r2" class="sg" style="font-size:80px;color:#fed301">A vaga volta.</div></div>
+  <div id="phwrap"><div id="phone"><div id="screen">
+    <div id="island"></div>
+    <div class="sb"><span>9:41</span><span style="display:flex;gap:8px;align-items:center"><svg width="30" height="18" viewBox="0 0 30 18"><rect x="0" y="11" width="5" height="7" rx="1" fill="#111"/><rect x="8" y="7" width="5" height="11" rx="1" fill="#111"/><rect x="16" y="3" width="5" height="15" rx="1" fill="#111"/><rect x="24" y="0" width="5" height="18" rx="1" fill="#111"/></svg><svg width="40" height="20" viewBox="0 0 40 20"><rect x="1" y="1" width="34" height="18" rx="5" fill="none" stroke="#111" stroke-width="2"/><rect x="4" y="4" width="24" height="12" rx="3" fill="#111"/><rect x="36" y="7" width="3" height="6" rx="1" fill="#111"/></svg></span></div>
+    <div class="hd"><svg width="18" height="30" viewBox="0 0 18 30"><path d="M15 3 3 15l12 12" fill="none" stroke="#0a7cba" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="av">SA</div><div class="nm">Studio Aurora<small>Conta comercial</small></div></div>
+    <div class="chip">Hoje</div>
+    <div id="chat">
+    <div id="b1" class="bub bin">Oi, Mariana! Lembrete do seu horário <b>amanhã às 14h</b>: corte com a Ana.<span class="tm">10:02</span></div>
+    <div id="bt1" class="btn"><svg width="28" height="28" viewBox="0 0 26 26"><path d="M5 13.5 10.5 19 21 7" fill="none" stroke="#0a7cba" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Confirmar</div>
+    <div id="bt2" class="btn" style="margin-top:-4px"><svg width="28" height="28" viewBox="0 0 26 26"><rect x="3" y="5" width="20" height="18" rx="4" fill="none" stroke="#0a7cba" stroke-width="2.6"/><path d="M3 11h20M9 2v6M17 2v6" stroke="#0a7cba" stroke-width="2.6" stroke-linecap="round"/></svg>Remarcar</div>
+    <div id="b2" class="bub bout" style="margin-top:8px">Confirmar<span class="tm">10:05 <b style="color:#34b7f1">✓✓</b></span></div>
+    <div id="b3" class="bub bin">Perfeito! Te esperamos amanhã.<span class="tm">10:05</span></div>
+    </div>
+    <div id="rip"></div>
+    <div id="finger"></div>
+  </div></div></div>
+  <div id="ag">
+    <div class="t">Agenda<small>amanhã · Studio Aurora</small></div>
+    <div class="row" id="ra"><div class="hr">14:00</div><div class="who">Mariana · Corte</div><div class="st wait" id="sa0">Aguardando</div><div class="st ok" id="sa1"><svg width="28" height="28" viewBox="0 0 26 26"><path d="M5 13.5 10.5 19 21 7" fill="none" stroke="#3ddc6f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>Confirmado</div></div>
+    <div class="row"><div class="hr">15:00</div><div class="who">Carla · Escova</div><div class="st ok"><svg width="28" height="28" viewBox="0 0 26 26"><path d="M5 13.5 10.5 19 21 7" fill="none" stroke="#3ddc6f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>Confirmado</div></div>
+    <div class="row" id="rc"><div class="hr">16:00</div><div class="who">Paula · Coloração</div><div class="st wait" id="sc0">Aguardando</div><div class="st rem" id="sc1">Remarcou</div><div class="free" id="fr">16:00 · Vaga livre<small>Aberta para novos agendamentos</small></div></div>
+  </div>
+</div>
+
+<!-- S5: frase final -->
+<div id="s5" class="scene">
+  <div id="w1" class="abs sg" style="left:72px;top:600px;font-size:150px">Lembrete</div>
+  <div id="w2" class="abs sg" style="left:72px;top:760px;font-size:150px">automático</div>
+  <div id="w3" class="abs sg" style="left:72px;top:930px;font-size:104px;color:#bdbdb6">pelo WhatsApp.</div>
+  <div id="ul" class="abs" style="left:72px;top:1272px;width:860px;height:16px;background:#fed301;transform-origin:0 50%"></div>
+  <div id="w4" class="abs sg" style="left:72px;top:1130px;font-size:128px;color:#fed301">Menos faltas.</div>
+</div>
+
+<!-- S6: fim -->
+<div id="endc">
+  <img id="xsym" class="blk" src="img/paralaxe-simbolo-P.png" style="position:absolute;left:400px;top:560px;width:280px">
+  <div style="position:absolute;left:230px;top:930px;width:620px;height:150px;overflow:hidden"><img id="xwm" class="blk" src="img/paralaxe-nome.png" style="position:absolute;left:0;top:40px;width:620px"></div>
+  <div id="x1" class="abs sg" style="left:0;right:0;text-align:center;top:1150px;font-size:76px">Peça um orçamento</div>
+  <div id="x2" class="abs" style="left:0;right:0;text-align:center;top:1252px;font-family:IN;font-weight:800;font-size:46px">Link na bio</div>
+  <div id="x3" class="abs" style="left:0;right:0;text-align:center;top:1326px;font-family:IN;font-weight:500;font-size:34px;color:rgba(0,0,0,.6)">paralaxestudio.com.br</div>
+</div>
+<div id="wipe" class="abs" style="left:-300px;top:-200px;width:900px;height:2400px;background:#fed301;transform:skewX(-14deg)"></div>
+</div><div id="grain"></div></div>
+<script src="kit.js"></script>
+<script>
+window.DUR = 16.6;
+const SHK = [[1.05, 26], [2.0, 34], [3.5, 8], [3.75, 8], [4.0, 8], [7.0, 22], [13.1, 26]];
+function roll(e, t, a) { tf(e, `translateY(${-300 * eio(P(t, a, .28))}px)`); }
+function popB(e, t, a) { const p = P(t, a, .3); op(e, t < a ? 0 : C(p * 4)); tf(e, `scale(${L(.55, 1, back(p))})`); }
+function stampAt(e, t, a, rot, from = 2.4) { const p = P(t, a, .14); op(e, t < a ? 0 : C(p * 2)); tf(e, `translate(-50%,-50%) rotate(${rot}deg) scale(${L(from, 1, eo5(p))})`); }
+function setT(t) {
+  tf($('sh'), shake(t, SHK)); grain(t);
+  $('glow').style.setProperty('--gx', (70 + 12 * Math.sin(t * .6)) + '%'); $('glow').style.setProperty('--gy', (20 + 8 * Math.cos(t * .5)) + '%');
+  // S1
+  op($('s1'), t < 2.0 ? 1 : 0);
+  rise($('c1a'), t, -.12, .3, 110); rise($('c1b'), t, 1.05, .22, 110);
+  roll($('d3'), t, .5); roll($('d2'), t, .56); roll($('d1'), t, .62);
+  const blink = (Math.floor(t * 2) % 2 === 0) ? 1 : .25; op($('cl1'), blink); op($('cl2'), blink);
+  const red = P(t, 1.05, .12);
+  document.querySelectorAll('#clock .card').forEach(c => { c.style.borderColor = red > 0 ? `rgba(255,75,62,${red})` : '#262628'; c.style.boxShadow = red > 0 ? `0 0 ${60 * red}px rgba(255,75,62,${.35 * red})` : 'none'; });
+  tf($('clock'), `scale(${L(1.06, 1, eo(P(t, 0, .6)))})`);
+  stampAt($('st1'), t, 1.05, -7);
+  // S2
+  op($('s2'), win(t, 2.0, 3.0) ? 1 : 0);
+  slam($('dn1'), t, 2.0, 1.9, .16);
+  [['dn0', 2.3], ['dn2', 2.45]].forEach(([id, a]) => { const p = P(t, a, .14); op($(id), t < a ? 0 : C(p * 3)); tf($(id), `translateY(${(1 - eo5(p)) * (id == 'dn0' ? 120 : -120)}px)`); });
+  // S3
+  op($('s3'), win(t, 3.0, 7.45) ? 1 : 0);
+  op($('eb3'), P(t, 3.0, .2));
+  [0, 1, 2].forEach(i => { const a = 3.05 + i * .1, p = P(t, a, .3), e = $('sl' + i); op(e, t < a ? 0 : C(p * 3)); tf(e, `translateY(${(1 - eo5(p)) * 80}px)`); stampAt($('sp' + i), t, 3.5 + i * .25, -10 + i * 6, 2.2);
+    e.style.borderColor = t >= 3.5 + i * .25 ? '#5a2320' : '#2a2a2c'; e.querySelectorAll('.d,.h,.s').forEach(x => x.style.opacity = t >= 3.5 + i * .25 ? .3 : 1); });
+  rise($('m1'), t, 4.2, .28, 90); rise($('m2'), t, 4.5, .28, 90);
+  op($('cnt'), t >= 5.0 ? 1 : 0); tf($('cnt'), `scale(${L(.9, 1, eo5(P(t, 5.0, .3)))})`); $('cnt').style.transformOrigin = '0 50%';
+  let v = 960 * eo(P(t, 5.0, .9)); if (t > 6.35) v = L(960, 11520, eio(P(t, 6.35, .65)));
+  $('num').textContent = fmt(v);
+  const big = P(t, 7.0, .12); tf($('num'), `scale(${1 + .06 * Math.sin(Math.PI * big)})`); $('num').style.transformOrigin = '0 60%';
+  rise($('per'), t, 5.2, .28, 100, 6.3, .18); rise($('per2'), t, 6.45, .28, 100);
+  op($('foot'), P(t, 5.3, .3));
+  // wipe 7.25-7.65
+  const wp = eio(P(t, 7.2, .5)); tf($('wipe'), `translateX(${L(-1300, 1700, wp)}px) skewX(-14deg)`); op($('wipe'), win(t, 7.2, 7.7) ? 1 : 0);
+  // S4
+  op($('s4'), win(t, 7.45, 12.05) ? 1 : 0);
+  rise($('q1'), t, 7.55, .3, 110, 9.85, .18); rise($('q2'), t, 7.65, .3, 110, 9.85, .18);
+  rise($('k1'), t, 10.0, .28, 110, 10.85, .18); rise($('k2'), t, 10.08, .28, 110, 10.85, .18);
+  rise($('r1'), t, 10.95, .28, 110, 11.95, .15); rise($('r2'), t, 11.03, .28, 110, 11.95, .15);
+  const pin = eo5(P(t, 7.45, .8)), sh2 = ei(P(t, 9.9, .4)), fl = Math.sin(t * 1.4) * 1.5;
+  tf($('phone'), `translate(${L(0, -900, sh2)}px,${(1 - pin) * 420 + L(0, 120, sh2)}px) rotateY(${L(-42, -8, pin) + L(0, 35, sh2) + fl}deg) rotateX(${L(24, 5, pin)}deg) rotateZ(${L(-8, 0, pin) + L(0, -10, sh2)}deg) scale(${L(.85, 1.25, pin)})`);
+  op($('phone'), 1 - P(t, 10.05, .2));
+  popB($('b1'), t, 8.3); [$('bt1'), $('bt2')].forEach((e, i) => { const a = 8.55 + i * .08, p = P(t, a, .25); op(e, t < a ? 0 : C(p * 3)); tf(e, `translateY(${(1 - eo5(p)) * 20}px)`); });
+  // finger
+  const fa = P(t, 8.9, .35), fx = $('bt1').offsetLeft + 185, fy = $('bt1').offsetTop + 32; const pr = (t > 9.25 && t < 9.42) ? 1 : 0;
+  op($('finger'), win(t, 8.9, 9.75) ? C(fa * 3) * (1 - P(t, 9.55, .2)) : 0);
+  $('finger').style.left = L(330, fx, eo(fa)) + 'px'; $('finger').style.top = L(900, fy, eo(fa)) + 'px'; tf($('finger'), `scale(${pr ? .82 : 1})`);
+  const rp = P(t, 9.27, .45); if (t >= 9.27 && rp < 1) { const r = 20 + 90 * eo(rp); Object.assign($('rip').style, { left: (fx - r) + 'px', top: (fy - r) + 'px', width: 2 * r + 'px', height: 2 * r + 'px' }); op($('rip'), 1 - rp); } else op($('rip'), 0);
+  $('bt1').style.background = t >= 9.28 ? `rgba(254,211,1,${.9 - .6 * P(t, 9.4, .4)})` : '#fff';
+  popB($('b2'), t, 9.5); popB($('b3'), t, 9.85);
+  // agenda
+  const ap = eo5(P(t, 10.05, .55)); op($('ag'), t < 10.05 ? 0 : 1); tf($('ag'), `translateX(${(1 - ap) * 1100}px) rotate(${(1 - ap) * 8}deg)`);
+  op($('sa0'), t < 10.4 ? 1 : 0); popB($('sa1'), t, 10.4); $('ra').style.borderColor = t >= 10.4 ? `rgba(61,220,111,${1 - .6 * P(t, 10.6, .5)})` : '#2a2a2c';
+  op($('sc0'), t < 11.15 ? 1 : 0); op($('sc1'), win(t, 11.15, 11.5) ? 1 : 0); tf($('sc1'), `scale(${L(.6, 1, back(P(t, 11.15, .25)))})`);
+  const fp = P(t, 11.45, .3); op($('fr'), t < 11.45 ? 0 : C(fp * 3)); tf($('fr'), `scale(${L(.9, 1, back(fp))})`);
+  // exit S4 zoom
+  const ex = ei(P(t, 11.85, .2)); $('s4').style.transform = `scale(${1 + ex * .25})`; $('s4').style.filter = ex > 0 ? `blur(${ex * 14}px)` : 'none';
+  // S5
+  op($('s5'), win(t, 12.05, 14.15) ? 1 : 0);
+  const out5 = eo5(P(t, 13.85, .22));
+  [['w1', 12.05], ['w2', 12.35], ['w3', 12.7], ['w4', 13.1]].forEach(([id, a], i) => { slam($(id), t, a, i == 3 ? 2.1 : 1.6, .15, `translateY(${-out5 * 500}px)`); if (out5 > 0) op($(id), 1 - out5); $(id).style.transformOrigin = '0 50%'; });
+  tf($('ul'), `translateY(${-out5 * 500}px) scaleX(${eo5(P(t, 13.25, .35))})`); op($('ul'), t < 13.25 ? 0 : 1 - out5);
+  // S6 end (circle reveal)
+  const ce = eio(P(t, 14.0, .4)); $('endc').style.clipPath = `circle(${ce * 1300}px at 540px 960px)`; op($('endc'), t >= 14.0 ? 1 : 0);
+  const ep = P(t, 14.25, .5); tf($('xsym'), `scale(${L(1.7, 1, eo5(ep))}) rotate(${(1 - eo5(ep)) * -12}deg)`); op($('xsym'), C(ep * 3));
+  $('xwm').style.clipPath = `inset(0 ${100 - 100 * eo5(P(t, 14.6, .5))}% 0 0)`;
+  [$('x1'), $('x2'), $('x3')].forEach((e, i) => { const p = P(t, 15.0 + i * .16, .4); op(e, C(p * 2.5)); tf(e, `translateY(${(1 - eo5(p)) * 40}px)`); });
+}
+setT(0);
+</script></body></html>
