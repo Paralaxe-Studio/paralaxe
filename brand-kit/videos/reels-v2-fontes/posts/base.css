@@ -1,0 +1,17 @@
+@font-face{font-family:SG;src:url(../fonts/space-grotesk-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:SG;src:url(../fonts/space-grotesk-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:IN;src:url(../fonts/inter-latin-400-normal.woff2);font-weight:400}
+@font-face{font-family:IN;src:url(../fonts/inter-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:IN;src:url(../fonts/inter-latin-600-normal.woff2);font-weight:600}
+@font-face{font-family:IN;src:url(../fonts/inter-latin-800-normal.woff2);font-weight:800}
+@font-face{font-family:IN;src:url(../fonts/inter-latin-900-normal.woff2);font-weight:900}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1080px;background:#111;font-family:IN}
+.sl{position:relative;width:1080px;height:1350px;overflow:hidden}
+.abs{position:absolute}
+.sg{font-family:SG;font-weight:700;letter-spacing:-.03em;line-height:.98}
+.blk{filter:brightness(0)}
+.foot{position:absolute;left:72px;right:72px;bottom:60px;display:flex;justify-content:space-between;align-items:center}
+.foot img{height:30px}
+.dots{display:flex;gap:10px}.dots i{width:12px;height:12px;border-radius:50%;background:currentColor;opacity:.25}.dots i.on{opacity:1;width:34px;border-radius:6px}
+.grain{position:absolute;inset:0;background:url(../img/noise.png);opacity:.05;mix-blend-mode:multiply;pointer-events:none}

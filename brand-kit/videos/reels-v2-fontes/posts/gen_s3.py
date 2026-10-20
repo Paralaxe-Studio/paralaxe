@@ -1,0 +1,44 @@
+def dots(k, total=5): return '<div class="dots">' + ''.join(f'<i class="{"on" if i==k else ""}"></i>' for i in range(total)) + '</div>'
+def foot(k, dark=False):
+    c = '' if dark else 'class="blk" '
+    return f'<div class="foot" style="color:{"#fed301" if dark else "#0a0a0a"}"><div style="display:flex;align-items:center"><img {c}src="../img/paralaxe-simbolo-P.png" style="height:34px"><img {c}src="../img/paralaxe-nome.png" style="height:22px;margin-left:14px"></div>{dots(k)}</div>'
+css = '''
+.cr{background:#f2efe6;color:#0a0a0a}
+.cr:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#e3dfd2 2px,transparent 2px),linear-gradient(90deg,#e3dfd2 2px,transparent 2px);background-size:90px 90px;opacity:.6}
+.num{position:absolute;left:60px;top:70px;font-family:IN;font-weight:900;font-size:260px;letter-spacing:-.06em;line-height:1;color:transparent;-webkit-text-stroke:5px #0a0a0a}
+.qq{position:absolute;left:72px;right:72px;top:360px;font-family:SG;font-weight:700;font-size:96px;letter-spacing:-.03em;line-height:1}
+.ans{position:absolute;left:72px;right:90px;top:640px;font-family:IN;font-weight:500;font-size:38px;line-height:1.38;color:#2f2d28}
+.ans b{font-weight:800;background:linear-gradient(transparent 58%,#fed301 58%)}
+.ui{position:absolute;left:72px;right:72px;top:860px;height:370px;border-radius:36px;background:#fff;border:4px solid #0a0a0a;box-shadow:12px 12px 0 #0a0a0a;padding:36px 44px;font-family:IN}
+.tg{width:84px;height:46px;border-radius:23px;background:#d9d6cc;position:relative;flex:none}.tg:after{content:"";position:absolute;left:5px;top:5px;width:36px;height:36px;border-radius:50%;background:#fff}
+.tg.on{background:#fed301}.tg.on:after{left:43px}
+'''
+S = []
+S.append(f'''<section class="sl cr">
+ <div class="abs" style="left:72px;top:110px;font-family:SG;font-weight:500;font-size:30px;letter-spacing:.22em">SALVA PARA A HORA DE DECIDIR</div>
+ <div class="abs" style="right:-40px;top:120px;width:520px;height:520px;border-radius:50%;background:#fed301;border:6px solid #0a0a0a;display:flex;align-items:center;justify-content:center;font-family:SG;font-weight:700;font-size:420px;line-height:1">?</div>
+ <div class="abs sg" style="left:66px;top:640px;font-size:132px">3 perguntas<br>antes de<br>contratar um<br>sistema.</div>
+ {foot(0)}</section>''')
+ui1 = '''<div style="display:flex;gap:30px;align-items:center;height:100%">
+ <div style="flex:1;border:3px dashed #c9c4b4;border-radius:24px;height:100%;padding:24px;display:flex;flex-direction:column;justify-content:center;gap:12px;color:#8d887a;font-weight:600;font-size:26px">
+  <div>Servidor compartilhado</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">''' + ''.join('<i style="height:34px;border-radius:8px;background:#e1ddd1"></i>' for _ in range(8)) + '''</div><div style="font-size:22px">várias empresas juntas</div></div>
+ <div style="flex:1;border:4px solid #0a0a0a;background:#fff8d1;border-radius:24px;height:100%;padding:24px;display:flex;flex-direction:column;justify-content:center;gap:12px;font-weight:800;font-size:28px">
+  <div>Servidor dedicado</div><div style="height:76px;border-radius:12px;background:#fed301;border:3px solid #0a0a0a;display:flex;align-items:center;justify-content:center;font-size:26px">Só a sua empresa</div><div style="font-size:22px;font-weight:600;color:#55524a">assim na Paralaxe</div></div></div>'''
+rows = [("Agenda", True), ("Clientes", True), ("Financeiro", False)]
+ui2 = '<div style="font-weight:800;font-size:30px;margin-bottom:18px">Perfil: Recepção</div>' + ''.join(f'<div style="display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-top:2px solid #eeeae0;font-weight:600;font-size:32px">{n}<i class="tg {"on" if o else ""}"></i></div>' for n, o in rows)
+ui3 = '''<div style="font-weight:800;font-size:32px">Verificação em duas etapas</div><div style="font-weight:500;font-size:26px;color:#77736a;margin-top:8px">Digite o código enviado para o seu celular</div>
+<div style="display:flex;gap:16px;margin-top:34px">''' + ''.join(f'<div style="width:112px;height:120px;border-radius:20px;border:4px solid {"#0a0a0a" if i<3 else "#d9d6cc"};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:62px">{d}</div>' for i, d in enumerate(["4", "8", "2", "", "", ""])) + '</div>'
+Q = [("Onde ficam os<br>meus dados?", 'Pergunte se o servidor é dividido com outras empresas. Na Paralaxe, <b>cada cliente tem o seu próprio servidor</b>, com a hospedagem incluída.', ui1),
+     ("Quem pode<br>ver o quê?", 'A recepção precisa ver o faturamento? Com <b>acesso por perfil</b>, cada pessoa vê só o que precisa para trabalhar.', ui2),
+     ("Como o acesso<br>é protegido?", 'Só senha é pouco. A <b>verificação em duas etapas</b> pede um código além da senha, nos projetos que pedem esse cuidado.', ui3)]
+for k, (q, a, ui) in enumerate(Q):
+    S.append(f'<section class="sl cr"><div class="num">0{k+1}</div><div class="qq">{q}</div><div class="ans">{a}</div><div class="ui">{ui}</div>{foot(k+1)}</section>')
+S.append(f'''<section class="sl" style="background:#0a0a0a;color:#f4f4f2">
+ <div class="abs" style="inset:0;background:radial-gradient(800px 600px at 10% 100%,rgba(254,211,1,.2),rgba(0,0,0,0) 70%)"></div>
+ <div class="abs" style="left:72px;top:110px;font-family:SG;font-weight:500;font-size:30px;letter-spacing:.22em;color:#fed301">E TEM MAIS</div>
+ <div class="abs sg" style="left:72px;top:200px;font-size:110px">Tudo pensado<br>para a <span style="color:#fed301">LGPD</span>.</div>
+ <div class="abs" style="left:72px;right:90px;top:500px;font-family:IN;font-weight:500;font-size:40px;line-height:1.4;color:#c9c6bc">Dados pessoais dos seus clientes tratados com responsabilidade, com recursos de apoio às obrigações da lei.</div>
+ <div class="abs" style="left:72px;top:820px;background:#fed301;color:#0a0a0a;border-radius:34px;padding:30px 42px;font-family:SG;font-weight:700;font-size:52px;white-space:nowrap">Dúvida? Pergunta pra gente.</div>
+ <div class="abs" style="left:72px;top:990px;font-family:IN;font-weight:600;font-size:38px;color:#f4f4f2">Link na bio · paralaxestudio.com.br</div>
+ {foot(4, True)}</section>''')
+open('s3.html', 'w').write(f'<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>{css}</style></head><body>{"".join(S)}</body></html>')
