@@ -179,7 +179,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 .m-cal{display:grid;grid-template-columns:34px 1fr;gap:6px}
 .m-hours{display:flex;flex-direction:column;justify-content:space-between;padding:32px 0 6px;height:262px;font-size:.58rem;color:var(--muted)}
 .m-week{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.m-week::after{content:"";position:absolute;left:0;right:0;top:158px;height:2px;background:#ff5d73;box-shadow:0 0 10px rgba(255,93,115,.7);border-radius:2px;pointer-events:none}
+.m-week::after{content:"";position:absolute;left:0;right:0;top:139px;height:2px;background:#ff5d73;box-shadow:0 0 10px rgba(255,93,115,.7);border-radius:2px;pointer-events:none}
 .m-day{display:flex;align-items:center;justify-content:center;gap:5px;height:24px;margin-bottom:6px;color:var(--text);font-size:.6rem;white-space:nowrap}
 .av{width:12px;height:12px;border-radius:50%;flex:none}
 .av.a0{background:#7ddc9a}.av.a1{background:#7aa8ff}.av.a2{background:#d6568f}
@@ -193,7 +193,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 .in .blk{animation:pop .55s cubic-bezier(.2,.9,.3,1.2) forwards;animation-delay:calc(var(--i)*80ms + .2s)}
 @keyframes pop{to{opacity:1;transform:none}}
 .in .blk.drag{animation:pop .55s cubic-bezier(.2,.9,.3,1.2) forwards,dragmove 5.5s 1.8s ease-in-out infinite;animation-delay:calc(var(--i)*80ms + .2s),1.8s;z-index:2;box-shadow:0 10px 24px -6px rgba(0,0,0,.7)}
-@keyframes dragmove{0%,100%{transform:translate(0,0)}35%,60%{transform:translate(calc(100% + 6px),64px) rotate(1.5deg)}}
+@keyframes dragmove{0%,100%{transform:translate(0,0);top:var(--t)}35%,60%{transform:translateX(calc(100% + 6px)) rotate(1.5deg);top:75%}}
 
 /* blocos de números (auto e farmácia) */
 .a-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
@@ -373,7 +373,7 @@ ul,ol{margin:0;padding:0;list-style:none}
   .mock-body{min-height:270px}
   .m-track{height:200px}
   .m-hours{height:230px}
-  .m-week::after{top:140px}
+  .m-week::after{top:124px}
   .k-col{min-height:210px}
   .float{font-size:.72rem;padding:7px 10px}
   .hu-row{gap:6px}
@@ -396,6 +396,22 @@ ul,ol{margin:0;padding:0;list-style:none}
 @keyframes grow-line{from{width:0}}
 .foot-links a{background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;padding-bottom:2px;transition:background-size .3s,color .2s}
 .foot-links a:hover,.foot-links a:focus-visible{background-size:100% 1px}
+
+/* linha dos passos se desenhando (só com JS e movimento liberado) */
+@media (min-width:1024px){
+  .js-anim .steps::before{transform-origin:0 50%;transform:scaleX(0);transition:transform 1.6s cubic-bezier(.2,.8,.2,1) .2s}
+  .js-anim .steps.drawn::before{transform:none}
+}
+/* inclinação 3D leve nas telas de demonstração */
+.proj-visual{perspective:1200px}
+.proj-visual .mock{transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s;will-change:transform}
+.proj-visual:hover .mock{box-shadow:0 40px 80px -30px rgba(0,0,0,.85),0 0 0 1px rgba(var(--accent-rgb),.14),0 0 60px -25px rgba(var(--accent-rgb),.35)}
+/* ícones dos cartões reagem ao hover */
+.card-ico{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,background .35s}
+.card:hover .card-ico{transform:translateY(-3px) rotate(-6deg);background:rgba(var(--accent-rgb),.16);box-shadow:0 10px 22px -10px rgba(var(--accent-rgb),.6)}
+/* pulso suave no botão do WhatsApp do contato */
+.contact .btn-wa{animation:wa-pulse 2.8s ease-out 1.5s infinite}
+@keyframes wa-pulse{0%{box-shadow:0 8px 30px -8px var(--glow),inset 0 1px 0 rgba(255,255,255,.35),0 0 0 0 rgba(37,211,102,.45)}70%,100%{box-shadow:0 8px 30px -8px var(--glow),inset 0 1px 0 rgba(255,255,255,.35),0 0 0 14px rgba(37,211,102,0)}}
 
 /* ===== Movimento reduzido ===== */
 @media (prefers-reduced-motion:reduce){

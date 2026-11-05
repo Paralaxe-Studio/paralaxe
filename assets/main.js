@@ -3,6 +3,8 @@
   var doc = document;
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  if (!reduce) doc.documentElement.classList.add("js-anim");
+
   /* --- idioma: lembrar a escolha --- */
   doc.querySelectorAll("[data-lang-switch]").forEach(function (a) {
     a.addEventListener("click", function () {
@@ -99,6 +101,30 @@
         c.style.setProperty("--mx", e.clientX - r.left + "px");
         c.style.setProperty("--my", e.clientY - r.top + "px");
       });
+    });
+  }
+
+  /* --- linha dos passos --- */
+  var steps = doc.querySelector(".steps");
+  if (steps && !reduce && "IntersectionObserver" in window) {
+    var so = new IntersectionObserver(function (en) {
+      if (en[0].isIntersecting) { steps.classList.add("drawn"); so.disconnect(); }
+    }, { threshold: 0.3 });
+    so.observe(steps);
+  }
+
+  /* --- inclinação 3D leve nas telas de demonstração --- */
+  if (!reduce && window.matchMedia && window.matchMedia("(pointer: fine)").matches) {
+    doc.querySelectorAll(".proj-visual").forEach(function (v) {
+      var m = v.querySelector(".mock");
+      if (!m) return;
+      v.addEventListener("pointermove", function (e) {
+        var r = v.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        m.style.setProperty("--ry", (x * 6).toFixed(2) + "deg");
+        m.style.setProperty("--rx", (-y * 5).toFixed(2) + "deg");
+      });
+      v.addEventListener("pointerleave", function () { m.style.setProperty("--ry", "0deg"); m.style.setProperty("--rx", "0deg"); });
     });
   }
 
