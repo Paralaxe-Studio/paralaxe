@@ -307,7 +307,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 .foot{display:grid;gap:18px}
 .foot-brand{display:grid;gap:10px}
 .foot-brand p,.foot-note{color:var(--muted);font-size:.85rem}
-.foot-links{display:flex;flex-wrap:wrap;gap:20px;font-size:.9rem}
+.foot-links{display:flex;flex-wrap:wrap;align-items:center;gap:20px;font-size:.9rem}
 .foot-links a{color:var(--muted);text-decoration:none}
 .foot-links a:hover{color:var(--accent-strong)}
 
@@ -394,8 +394,8 @@ ul,ol{margin:0;padding:0;list-style:none}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.5)}100%{box-shadow:0 0 0 14px rgba(var(--accent-rgb),0)}}
 .sec-head.in .eyebrow::before{animation:grow-line .8s cubic-bezier(.2,.8,.2,1) .15s both}
 @keyframes grow-line{from{width:0}}
-.foot-links a{background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;padding-bottom:2px;transition:background-size .3s,color .2s}
-.foot-links a:hover,.foot-links a:focus-visible{background-size:100% 1px}
+.foot-links > a{background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;padding-bottom:2px;transition:background-size .3s,color .2s}
+.foot-links > a:hover,.foot-links > a:focus-visible{background-size:100% 1px}
 
 /* linha dos passos se desenhando (só com JS e movimento liberado) */
 @media (min-width:1024px){
@@ -412,6 +412,20 @@ ul,ol{margin:0;padding:0;list-style:none}
 /* pulso suave no botão do WhatsApp do contato */
 .contact .btn-wa{animation:wa-pulse 2.8s ease-out 1.5s infinite}
 @keyframes wa-pulse{0%{box-shadow:0 8px 30px -8px var(--glow),inset 0 1px 0 rgba(255,255,255,.35),0 0 0 0 rgba(37,211,102,.45)}70%,100%{box-shadow:0 8px 30px -8px var(--glow),inset 0 1px 0 rgba(255,255,255,.35),0 0 0 14px rgba(37,211,102,0)}}
+
+/* ícones oficiais das redes no rodapé */
+.foot-social{display:flex;gap:10px;margin-right:4px}
+.foot-links .soc{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:color .25s,background .25s,border-color .25s,transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
+.foot-links .soc:hover,.foot-links .soc:focus-visible{color:#fff;background:var(--brand);border-color:var(--brand);transform:translateY(-3px);box-shadow:0 10px 22px -10px var(--brand)}
+.foot-links .soc-instagram:hover,.foot-links .soc-instagram:focus-visible{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%);border-color:transparent}
+.soc-ico{width:19px;height:19px}
+@media (max-width:699px){.foot-social{flex-basis:100%;margin-right:0}}
+/* botão flutuante do WhatsApp */
+.wa-float{position:fixed;right:18px;bottom:18px;z-index:55;display:grid;place-items:center;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#3ee27d,#25d366 55%,#17a34a);color:#fff;box-shadow:0 12px 28px -8px rgba(37,211,102,.55),inset 0 1px 0 rgba(255,255,255,.35);opacity:0;transform:translateY(16px) scale(.9);pointer-events:none;transition:opacity .35s,transform .35s cubic-bezier(.2,.8,.2,1)}
+.wa-float.show{opacity:1;transform:none;pointer-events:auto}
+.wa-float:hover{transform:translateY(-3px) scale(1.04)}
+.wa-float .ico{width:28px;height:28px}
+@media (min-width:1024px){.wa-float{right:28px;bottom:28px;width:58px;height:58px}}
 
 /* ===== Movimento reduzido ===== */
 @media (prefers-reduced-motion:reduce){

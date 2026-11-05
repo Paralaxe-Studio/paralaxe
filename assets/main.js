@@ -128,6 +128,21 @@
     });
   }
 
+  /* --- botão flutuante do WhatsApp: aparece depois do topo e some no contato --- */
+  var waf = doc.querySelector(".wa-float");
+  if (waf) {
+    var heroEl = doc.querySelector(".hero"), contactEl = doc.querySelector(".contact"), nearContact = false;
+    function waUpdate() {
+      var past = window.scrollY > (heroEl ? heroEl.offsetHeight * 0.6 : 500);
+      waf.classList.toggle("show", past && !nearContact);
+    }
+    if (contactEl && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) { nearContact = en[0].isIntersecting; waUpdate(); }, { threshold: 0.15 }).observe(contactEl);
+    }
+    window.addEventListener("scroll", waUpdate, { passive: true });
+    waUpdate();
+  }
+
   /* --- fundo vivo do hero (rede de pontos) --- */
   var canvas = doc.querySelector(".hero-canvas");
   if (!canvas || !canvas.getContext) return;
