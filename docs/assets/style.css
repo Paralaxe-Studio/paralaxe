@@ -417,7 +417,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 .foot-social{display:flex;gap:10px;margin-right:4px}
 .foot-links .soc{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:color .25s,background .25s,border-color .25s,transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
 .foot-links .soc:hover,.foot-links .soc:focus-visible{color:#fff;background:var(--brand);border-color:var(--brand);transform:translateY(-3px);box-shadow:0 10px 22px -10px var(--brand)}
-.foot-links .soc-instagram:hover,.foot-links .soc-instagram:focus-visible{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%);border-color:transparent}
+.foot-links .soc-instagram:hover,.foot-links .soc-instagram:focus-visible{background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);border-color:transparent;box-shadow:0 10px 22px -10px #dc2743}
 .soc-ico{width:19px;height:19px}
 @media (max-width:699px){.foot-social{flex-basis:100%;margin-right:0}}
 /* botão flutuante do WhatsApp */
