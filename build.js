@@ -447,7 +447,7 @@ function contact(t) {
 </section>`;
 }
 
-const SOCIAL_LABELS = { instagram: "Instagram", tiktok: "TikTok", youtube: "YouTube", x: "X", linkedin: "LinkedIn" };
+const SOCIAL_LABELS = { instagram: "Instagram", tiktok: "TikTok", youtube: "YouTube", discord: "Discord", x: "X", linkedin: "LinkedIn" };
 function socialEntries() {
   const soc = cfg.social || {};
   return Object.keys(SOCIAL_LABELS).filter((k) => soc[k]).map((k) => ({ label: SOCIAL_LABELS[k], url: soc[k] }));

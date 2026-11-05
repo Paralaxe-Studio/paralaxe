@@ -20,6 +20,36 @@
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
+  /* --- barra de progresso de leitura + paralaxe leve no hero --- */
+  var bar = null;
+  if (!reduce) {
+    bar = doc.createElement("div");
+    bar.className = "progress";
+    bar.setAttribute("aria-hidden", "true");
+    doc.body.appendChild(bar);
+  }
+  var ticking = false;
+  function paint() {
+    ticking = false;
+    var y = window.scrollY;
+    if (bar) {
+      var max = doc.documentElement.scrollHeight - window.innerHeight;
+      bar.style.setProperty("--p", max > 0 ? Math.min(1, y / max).toFixed(4) : 0);
+      bar.classList.toggle("on", y > 40);
+    }
+    if (y < 1400) doc.documentElement.style.setProperty("--py", Math.round(y));
+  }
+  if (!reduce) {
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(paint); }
+    }, { passive: true });
+    paint();
+  }
+  /* entrada escalonada dos módulos (chips) */
+  doc.querySelectorAll(".mods").forEach(function (ul) {
+    ul.querySelectorAll("li").forEach(function (li, i) { li.style.setProperty("--ci", i); });
+  });
+
   /* --- menu mobile --- */
   var burger = doc.querySelector(".burger");
   var nav = doc.getElementById("nav");

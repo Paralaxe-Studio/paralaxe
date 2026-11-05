@@ -381,6 +381,22 @@ ul,ol{margin:0;padding:0;list-style:none}
   .hero-actions .btn,.contact-actions .btn{width:100%}
 }
 
+/* ===== Animações leves extras ===== */
+.progress{position:fixed;left:0;top:0;width:100%;height:2px;z-index:60;transform-origin:0 50%;transform:scaleX(var(--p,0));background:linear-gradient(90deg,var(--accent-deep),var(--accent-strong));pointer-events:none;opacity:0;transition:opacity .3s}
+.progress.on{opacity:1}
+.hero h1 .grad{background-size:220% 100%;animation:shine 10s ease-in-out infinite}
+@keyframes shine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero-glow{translate:0 calc(var(--py,0) * -.12px)}
+.float{translate:0 calc(var(--py,0) * -.05px)}
+.in .mods li{animation:chip .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--ci,0) * 35ms + .25s)}
+@keyframes chip{from{opacity:0;transform:translateY(8px) scale(.96)}}
+.step.in .step-n{animation:ping 1.3s ease-out .35s 1}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.5)}100%{box-shadow:0 0 0 14px rgba(var(--accent-rgb),0)}}
+.sec-head.in .eyebrow::before{animation:grow-line .8s cubic-bezier(.2,.8,.2,1) .15s both}
+@keyframes grow-line{from{width:0}}
+.foot-links a{background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;padding-bottom:2px;transition:background-size .3s,color .2s}
+.foot-links a:hover,.foot-links a:focus-visible{background-size:100% 1px}
+
 /* ===== Movimento reduzido ===== */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}

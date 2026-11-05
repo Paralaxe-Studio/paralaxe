@@ -40,6 +40,7 @@ module.exports = {
     instagram: "https://instagram.com/paralaxe_studio",
     tiktok: "",
     youtube: "https://www.youtube.com/@ParalaxeStudio",
+    discord: "https://discord.gg/mgEXBtWBJp",
     x: "",
     linkedin: "",
   },
