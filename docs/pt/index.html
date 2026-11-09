@@ -238,7 +238,7 @@
           <label class="cf"><span>Seu nome</span><input name="name" type="text" autocomplete="name" required maxlength="80"></label>
           <label class="cf"><span>Empresa ou ramo <em>opcional</em></span><input name="business" type="text" autocomplete="organization" maxlength="80" placeholder="Ex.: salão de beleza"></label>
         </div>
-        <label class="cf"><span>O que você precisa</span><select name="need" required><option value="" selected disabled>Escolha uma opção</option><option>Sistema de gestão</option><option>Site</option><option>Aplicativo</option><option>Agente de IA ou automação</option><option>Ainda não sei</option></select></label>
+        <fieldset class="cf cf-need"><legend>O que você precisa</legend><div class="pills"><label class="pill"><input type="radio" name="need" value="Sistema de gestão" required><span>Sistema de gestão</span></label><label class="pill"><input type="radio" name="need" value="Site"><span>Site</span></label><label class="pill"><input type="radio" name="need" value="Aplicativo"><span>Aplicativo</span></label><label class="pill"><input type="radio" name="need" value="Agente de IA ou automação"><span>Agente de IA ou automação</span></label><label class="pill"><input type="radio" name="need" value="Ainda não sei"><span>Ainda não sei</span></label></div></fieldset>
         <label class="cf"><span>Conte um pouco do seu negócio <em>opcional</em></span><textarea name="message" rows="4" maxlength="800" placeholder="Ex.: tenho um salão com 4 profissionais e quero organizar a agenda e lembrar os clientes pelo WhatsApp."></textarea></label>
         <p class="cform-err" role="alert" hidden></p>
         <div class="contact-actions">

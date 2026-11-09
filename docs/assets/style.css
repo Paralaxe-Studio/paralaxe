@@ -470,3 +470,14 @@ ul,ol{margin:0;padding:0;list-style:none}
 .cform-hint{color:var(--muted);font-size:.82rem}
 .cform-hint a{color:var(--accent)}
 @media (max-width:520px){.cform .contact-actions .btn{width:100%}}
+/* "O que você precisa": opções em pílulas, no lugar de um select nativo */
+.cf-need{border:0;padding:0;margin:0;min-width:0}
+.cf-need legend{font-size:.86rem;font-weight:600;color:var(--text);padding:0;margin-bottom:8px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{position:relative;cursor:pointer}
+.pill input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.pill span{display:inline-flex;align-items:center;min-height:42px;padding:0 16px;border-radius:999px;border:1px solid var(--border);background:var(--bg);color:var(--muted);font-size:.92rem;transition:border-color .2s,color .2s,background .2s,box-shadow .2s;user-select:none}
+.pill:hover span{border-color:var(--accent-deep);color:var(--text)}
+.pill input:checked+span{border-color:var(--accent);color:var(--on-accent);background:linear-gradient(135deg,var(--accent-strong),var(--accent) 55%,var(--accent-deep));font-weight:600;box-shadow:0 6px 20px -8px rgba(var(--accent-rgb),.6)}
+.pill input:focus-visible+span{box-shadow:0 0 0 3px rgba(var(--accent-rgb),.35)}
+.cf-need.bad .pill span{border-color:#ff6b6b}

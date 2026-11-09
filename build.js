@@ -438,7 +438,9 @@ function waFloat(t) {
 /* Formulário sem servidor: monta a mensagem e abre o WhatsApp ou o e-mail (assets/main.js). */
 function contactForm(c, wa, mail) {
   const f = c.form;
-  const opts = f.needOptions.map((o) => `<option>${esc(o)}</option>`).join("");
+  const opts = f.needOptions
+    .map((o, i) => `<label class="pill"><input type="radio" name="need" value="${esc(o)}"${i === 0 ? " required" : ""}><span>${esc(o)}</span></label>`)
+    .join("");
   const data = {
     wa: cfg.contact.whatsapp,
     mail: cfg.contact.email || "",
@@ -452,7 +454,7 @@ function contactForm(c, wa, mail) {
           <label class="cf"><span>${esc(f.name)}</span><input name="name" type="text" autocomplete="name" required maxlength="80"></label>
           <label class="cf"><span>${esc(f.business)} <em>${esc(f.optional)}</em></span><input name="business" type="text" autocomplete="organization" maxlength="80" placeholder="${esc(f.businessPh)}"></label>
         </div>
-        <label class="cf"><span>${esc(f.need)}</span><select name="need" required><option value="" selected disabled>${esc(f.choose)}</option>${opts}</select></label>
+        <fieldset class="cf cf-need"><legend>${esc(f.need)}</legend><div class="pills">${opts}</div></fieldset>
         <label class="cf"><span>${esc(f.message)} <em>${esc(f.optional)}</em></span><textarea name="message" rows="4" maxlength="800" placeholder="${esc(f.messagePh)}"></textarea></label>
         <p class="cform-err" role="alert" hidden></p>
         <div class="contact-actions">

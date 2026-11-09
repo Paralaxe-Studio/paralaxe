@@ -238,7 +238,7 @@
           <label class="cf"><span>Your name</span><input name="name" type="text" autocomplete="name" required maxlength="80"></label>
           <label class="cf"><span>Company or industry <em>optional</em></span><input name="business" type="text" autocomplete="organization" maxlength="80" placeholder="E.g. beauty salon"></label>
         </div>
-        <label class="cf"><span>What you need</span><select name="need" required><option value="" selected disabled>Choose an option</option><option>Management system</option><option>Website</option><option>App</option><option>AI agent or automation</option><option>Not sure yet</option></select></label>
+        <fieldset class="cf cf-need"><legend>What you need</legend><div class="pills"><label class="pill"><input type="radio" name="need" value="Management system" required><span>Management system</span></label><label class="pill"><input type="radio" name="need" value="Website"><span>Website</span></label><label class="pill"><input type="radio" name="need" value="App"><span>App</span></label><label class="pill"><input type="radio" name="need" value="AI agent or automation"><span>AI agent or automation</span></label><label class="pill"><input type="radio" name="need" value="Not sure yet"><span>Not sure yet</span></label></div></fieldset>
         <label class="cf"><span>Tell us a little about your business <em>optional</em></span><textarea name="message" rows="4" maxlength="800" placeholder="E.g. I run a salon with 4 stylists and want to organize bookings and remind clients on WhatsApp."></textarea></label>
         <p class="cform-err" role="alert" hidden></p>
         <div class="contact-actions">

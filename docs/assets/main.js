@@ -250,6 +250,13 @@
   form.querySelectorAll("[data-via]").forEach(function (b) {
     b.addEventListener("click", function () { via = b.getAttribute("data-via"); });
   });
+  function clearBad(e) {
+    var box = e.target.closest && e.target.closest(".cf");
+    if (box) box.classList.remove("bad");
+    if (!form.querySelector(".cf.bad")) err.hidden = true;
+  }
+  form.addEventListener("input", clearBad);
+  form.addEventListener("change", clearBad);
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var v = function (n) { return (form.elements[n].value || "").trim(); };
@@ -257,9 +264,9 @@
     form.querySelectorAll(".cf").forEach(function (l) { l.classList.remove("bad"); });
     if (!name || !need) {
       if (!name) form.elements.name.closest(".cf").classList.add("bad");
-      if (!need) form.elements.need.closest(".cf").classList.add("bad");
+      if (!need) form.querySelector(".cf-need").classList.add("bad");
       err.textContent = cfg.required; err.hidden = false;
-      (name ? form.elements.need : form.elements.name).focus();
+      (name ? form.querySelector("input[name=need]") : form.elements.name).focus();
       return;
     }
     err.hidden = true;
