@@ -225,3 +225,53 @@
   doc.addEventListener("visibilitychange", function () { if (!doc.hidden) start(); });
   start();
 })();
+
+/* --- faixa de ramos: a cópia para o loop é criada aqui, não no HTML --- */
+(function () {
+  "use strict";
+  document.querySelectorAll(".marquee").forEach(function (m) {
+    var track = m.querySelector(".marquee-track");
+    if (!track || m.querySelectorAll(".marquee-track").length > 1) return;
+    var copy = track.cloneNode(true);
+    copy.setAttribute("aria-hidden", "true");
+    m.appendChild(copy);
+  });
+})();
+
+/* --- formulário de contato: monta a mensagem e abre WhatsApp ou e-mail --- */
+(function () {
+  "use strict";
+  var form = document.querySelector("[data-cform]");
+  if (!form) return;
+  var cfg;
+  try { cfg = JSON.parse(form.getAttribute("data-cform")); } catch (e) { return; }
+  var err = form.querySelector(".cform-err");
+  var via = "wa";
+  form.querySelectorAll("[data-via]").forEach(function (b) {
+    b.addEventListener("click", function () { via = b.getAttribute("data-via"); });
+  });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var v = function (n) { return (form.elements[n].value || "").trim(); };
+    var name = v("name"), business = v("business"), need = v("need"), message = v("message");
+    form.querySelectorAll(".cf").forEach(function (l) { l.classList.remove("bad"); });
+    if (!name || !need) {
+      if (!name) form.elements.name.closest(".cf").classList.add("bad");
+      if (!need) form.elements.need.closest(".cf").classList.add("bad");
+      err.textContent = cfg.required; err.hidden = false;
+      (name ? form.elements.need : form.elements.name).focus();
+      return;
+    }
+    err.hidden = true;
+    var L = cfg.labels, lines = [cfg.intro, "", L[0] + ": " + name];
+    if (business) lines.push(L[1] + ": " + business);
+    lines.push(L[2] + ": " + need);
+    if (message) lines.push(L[3] + ": " + message);
+    var text = lines.join("\n");
+    if (via === "mail" && cfg.mail) {
+      window.location.href = "mailto:" + cfg.mail + "?subject=" + encodeURIComponent(cfg.subject + " — " + need) + "&body=" + encodeURIComponent(text);
+    } else {
+      window.open("https://wa.me/" + cfg.wa + "?text=" + encodeURIComponent(text), "_blank", "noopener");
+    }
+  });
+})();

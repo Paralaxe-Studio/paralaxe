@@ -69,6 +69,8 @@ const ICONS = {
   toggle: I('<rect x="2.5" y="7" width="19" height="10" rx="5"/><circle cx="16.5" cy="12" r="2.6"/>'),
   server: I('<rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01M12 7h5M12 17h5"/>'),
   mobile: I('<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>'),
+  bot: I('<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9.5 16.5h5M2 13v3M22 13v3"/><circle cx="12" cy="3.5" r="1"/>'),
+  bolt: I('<path d="M13 2.5L4.5 13.5H11l-1 8 8.5-11H12l1-8z"/>'),
   arrow: I('<path d="M5 12h14M13 6l6 6-6 6"/>'),
   mail: I('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/>'),
   check: I('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
@@ -322,12 +324,11 @@ function what(t) {
   return `<section class="sec" id="${w.id}" aria-labelledby="h-what">
   <div class="wrap">
     ${sectionHead(w.eyebrow, w.title, w.intro).replace("<h2>", '<h2 id="h-what">')}
-    <div class="grid-3 grid-4">${cards}</div>
+    <div class="grid-3">${cards}</div>
     <div class="niches" data-reveal>
       <div class="niches-head"><h3>${esc(w.nichesTitle)}</h3><p>${esc(w.nichesNote)}</p></div>
       <div class="marquee" aria-label="${esc(w.nichesTitle)}">
         <ul class="marquee-track">${items}</ul>
-        <ul class="marquee-track" aria-hidden="true">${items}</ul>
       </div>
     </div>
   </div>
@@ -347,6 +348,7 @@ function projects(t) {
           <p class="tag">${esc(it.tag)}${cfg.projectStatus && cfg.projectStatus[it.key] ? ` <span class="badge badge-live">${esc(p.badges[cfg.projectStatus[it.key]])}</span>` : ""}</p>
           <h3>${esc(title)}</h3>
           <p>${esc(it.text)}</p>
+          ${it.gains ? `<div class="gains"><p class="gains-title">${esc(p.gainsTitle)}</p><ul>${it.gains.map((g) => `<li>${ICONS.check}<span>${esc(g)}</span></li>`).join("")}</ul></div>` : ""}
           <p class="mod-title">${esc(p.modulesTitle)}</p>
           <ul class="mods">${it.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
         </div>
@@ -433,6 +435,35 @@ function waFloat(t) {
   return `<a class="wa-float" href="${wa}" target="_blank" rel="noopener" aria-label="${esc(c.whatsapp)}" title="${esc(c.whatsapp)}">${ICONS.wa}</a>`;
 }
 
+/* Formulário sem servidor: monta a mensagem e abre o WhatsApp ou o e-mail (assets/main.js). */
+function contactForm(c, wa, mail) {
+  const f = c.form;
+  const opts = f.needOptions.map((o) => `<option>${esc(o)}</option>`).join("");
+  const data = {
+    wa: cfg.contact.whatsapp,
+    mail: cfg.contact.email || "",
+    subject: c.emailSubject,
+    intro: f.intro,
+    labels: [f.lName, f.lBusiness, f.lNeed, f.lMessage],
+    required: f.required,
+  };
+  return `<form class="cform" novalidate data-cform="${esc(JSON.stringify(data))}">
+        <div class="cform-row">
+          <label class="cf"><span>${esc(f.name)}</span><input name="name" type="text" autocomplete="name" required maxlength="80"></label>
+          <label class="cf"><span>${esc(f.business)} <em>${esc(f.optional)}</em></span><input name="business" type="text" autocomplete="organization" maxlength="80" placeholder="${esc(f.businessPh)}"></label>
+        </div>
+        <label class="cf"><span>${esc(f.need)}</span><select name="need" required><option value="" selected disabled>${esc(f.choose)}</option>${opts}</select></label>
+        <label class="cf"><span>${esc(f.message)} <em>${esc(f.optional)}</em></span><textarea name="message" rows="4" maxlength="800" placeholder="${esc(f.messagePh)}"></textarea></label>
+        <p class="cform-err" role="alert" hidden></p>
+        <div class="contact-actions">
+          <button class="btn btn-wa" type="submit" data-via="wa">${ICONS.wa}<span>${esc(f.sendWa)}</span></button>
+          ${cfg.contact.email ? `<button class="btn btn-ghost" type="submit" data-via="mail">${ICONS.mail}<span>${esc(f.sendMail)}</span></button>` : ""}
+        </div>
+        <p class="cform-hint">${esc(f.hint)}</p>
+        <noscript><p class="cform-hint"><a href="${wa}">${esc(c.whatsapp)}</a> · <a href="${mail}">${esc(c.email)}</a></p></noscript>
+      </form>`;
+}
+
 function contact(t) {
   const c = t.contact;
   const wa = `https://wa.me/${cfg.contact.whatsapp}?text=${encodeURIComponent(c.waMessage)}`;
@@ -443,10 +474,10 @@ function contact(t) {
       <p class="eyebrow">${esc(c.eyebrow)}</p>
       <h2 id="h-contact">${esc(c.title)}</h2>
       <p class="lead">${esc(c.text)}</p>
-      <div class="contact-actions">
+      ${c.form ? contactForm(c, wa, mail) : `<div class="contact-actions">
         <a class="btn btn-wa" href="${wa}" target="_blank" rel="noopener">${ICONS.wa}<span>${esc(c.whatsapp)}</span></a>
         ${cfg.contact.email ? `<a class="btn btn-ghost" href="${mail}">${ICONS.mail}<span>${esc(c.email)}</span></a>` : ""}
-      </div>
+      </div>`}
       <p class="contact-note">${esc(c.note)}</p>
     </div>
   </div>

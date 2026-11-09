@@ -442,3 +442,31 @@ ul,ol{margin:0;padding:0;list-style:none}
 
 @media (min-width:1100px){.grid-3.grid-4{grid-template-columns:repeat(4,1fr)}.grid-4 .card{padding:24px}}
 @media (min-width:980px) and (max-width:1279px){.site-header .logo-wordimg{display:none}.nav{gap:2px}.nav a{padding:8px 9px;font-size:.86rem}.nav .nav-cta{margin-left:4px;padding:0 14px}}
+
+/* ===== Ganho estimado nos cases ===== */
+.gains{margin:4px 0 2px;padding:14px 16px;border-radius:14px;border:1px solid rgba(var(--accent-rgb),.28);background:rgba(var(--accent-rgb),.06)}
+.gains-title{font:600 .72rem var(--f-body);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.gains ul{display:grid;gap:6px}
+.gains li{display:flex;gap:8px;align-items:flex-start;font-size:.92rem;color:var(--text)}
+.gains li .ico{flex:none;width:16px;height:16px;margin-top:3px;color:var(--accent)}
+
+/* ===== Formulário de contato ===== */
+.cform{width:100%;max-width:600px;display:grid;gap:14px;text-align:left;margin-top:6px}
+.cform-row{display:grid;gap:14px}
+@media (min-width:640px){.cform-row{grid-template-columns:1fr 1fr}}
+.cf{display:grid;gap:6px}
+.cf>span{font-size:.86rem;font-weight:600;color:var(--text)}
+.cf em{font-style:normal;font-weight:400;color:var(--muted);font-size:.8rem;margin-left:4px}
+.cf input,.cf select,.cf textarea{width:100%;font:inherit;font-size:1rem;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px;transition:border-color .2s,box-shadow .2s}
+.cf textarea{resize:vertical;min-height:110px}
+.cf select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 20px) 52%,calc(100% - 15px) 52%;background-size:5px 5px;background-repeat:no-repeat;padding-right:38px}
+.cf select option{background:var(--surface);color:var(--text)}
+.cf input::placeholder,.cf textarea::placeholder{color:#6f6f75}
+.cf input:focus,.cf select:focus,.cf textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.18)}
+.cf.bad input,.cf.bad select{border-color:#ff6b6b}
+.cform-err{color:#ff8a8a;font-size:.9rem}
+.cform .contact-actions{justify-content:flex-start;margin-top:2px}
+.cform button.btn{border:0;cursor:pointer}
+.cform-hint{color:var(--muted);font-size:.82rem}
+.cform-hint a{color:var(--accent)}
+@media (max-width:520px){.cform .contact-actions .btn{width:100%}}

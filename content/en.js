@@ -6,7 +6,7 @@ module.exports = {
   meta: {
     title: "{brand} — Custom business software and websites",
     description:
-      "We build custom management systems for any kind of business, plus websites and apps. Monthly license, dedicated hosting and fair pricing. Request a quote.",
+      "We build custom management systems, websites, apps, AI agents and automations for any line of business. Monthly license, dedicated hosting and fair pricing.",
     privacyTitle: "Privacy policy — {brand}",
     privacyDescription: "How the {brand} website handles personal data, in line with Brazil's LGPD.",
   },
@@ -32,9 +32,9 @@ module.exports = {
   hero: {
     eyebrow: "Custom software",
     title: ["Software that fits your business,", "not the other way around."],
-    sub: "We build custom management systems, websites and apps for any line of business. More complete than an off-the-shelf tool, without the price of a large agency.",
+    sub: "We build custom management systems, websites, apps and AI agents for any line of business. More complete than an off-the-shelf tool, without the price of a large agency.",
     secondary: "See what we build",
-    chips: ["Built to fit", "Dedicated hosting", "Designed for LGPD"],
+    chips: ["Built to fit", "AI and automation", "Dedicated hosting", "Designed for LGPD"],
     floatA: "Today's schedule",
     floatB: "Active modules",
     floatC: "Data protected",
@@ -60,6 +60,17 @@ module.exports = {
         icon: "mobile",
         title: "Apps",
         text: "Android apps and installable mobile systems (PWA) that also work on iPhone, without going through the Apple store.",
+      },
+      {
+        icon: "bot",
+        title: "AI agents",
+        text: "A WhatsApp assistant that answers questions, books appointments and checks your system, then hands the conversation to a person when needed.",
+        badge: "New",
+      },
+      {
+        icon: "bolt",
+        title: "Automations",
+        text: "Reminders, confirmations, payment requests, follow-ups and reports that go out on their own, without anyone having to remember.",
       },
       {
         icon: "game",
@@ -88,7 +99,8 @@ module.exports = {
     title: "Examples of our work, not the limit of it.",
     intro:
       "These are some of the systems we have developed. They show how we think about product, and any of them can be adapted or turned into something entirely different.",
-    disclaimer: "The screens show fictional data, created for demonstration only.",
+    disclaimer: "The screens show fictional data, created for demonstration only. The gains shown are estimates based on what each system automates and vary from business to business.",
+    gainsTitle: "Estimated gain",
     badges: { ready: "Ready to deploy", live: "In production" },
     more: {
       title: "Don't see your industry?",
@@ -115,6 +127,7 @@ module.exports = {
           "Two-step verification",
           "LGPD",
         ],
+        gains: ["About 5 hours a week saved on scheduling and confirmations", "Fewer no-shows with automatic WhatsApp reminders"],
       },
       {
         key: "auto",
@@ -122,6 +135,7 @@ module.exports = {
         title: "Auto service center system",
         text: "Keeps the shop's workflow organized from vehicle check-in to delivery, with work orders, customers, vehicles and parts in one place.",
         features: ["Work orders", "Customers and vehicles", "Estimates", "Parts inventory", "Finance"],
+        gains: ["About 4 hours a week saved looking for work orders and calling customers", "Estimates ready in minutes, with parts and labor"],
       },
       {
         key: "pharmacy",
@@ -129,6 +143,7 @@ module.exports = {
         title: "Compounding pharmacy system",
         text: "Formulas, ingredients and batches, prescriptions, orders and payments, with special attention to security and data traceability.",
         features: ["Formulas and products", "Batch-based inventory", "Customers and prescriptions", "Orders and payments", "Access control"],
+        gains: ["About 30 minutes a day saved on batch and expiry control", "Alerts before an ingredient expires or runs out"],
       },
       {
         key: "crm",
@@ -136,6 +151,7 @@ module.exports = {
         title: "Generic CRM",
         text: "A starting point to track contacts, opportunities and sales conversations, which can be shaped around each company's sales process.",
         features: ["Contacts and companies", "Opportunity pipeline", "Interaction history", "Tasks and reminders"],
+        gains: ["No forgotten opportunity: every contact has a next step", "The whole team's pipeline on one screen"],
       },
     ],
     mock: {
@@ -185,8 +201,8 @@ module.exports = {
       },
       {
         icon: "chat",
-        title: "WhatsApp",
-        text: "Reminders and communication with your customers on the channel they already use, in projects where it makes sense.",
+        title: "WhatsApp and AI",
+        text: "Reminders, confirmations and an AI assistant on the channel your customers already use, in projects where it makes sense.",
       },
       {
         icon: "toggle",
@@ -237,12 +253,32 @@ module.exports = {
     eyebrow: "Contact",
     id: "contato",
     title: "Shall we talk about your system?",
-    text: "Tell us what your business needs. We'll reply with a proposal made to fit.",
+    text: "Tell us in a few lines what your business needs. We'll reply with a proposal made to fit.",
     whatsapp: "Message on WhatsApp",
     email: "Send an email",
     waMessage: "Hello! I'd like to request a quote.",
     emailSubject: "Quote request",
     note: "Pricing is set case by case, after we understand your project.",
+    form: {
+      name: "Your name",
+      business: "Company or industry",
+      businessPh: "E.g. beauty salon",
+      need: "What you need",
+      needOptions: ["Management system", "Website", "App", "AI agent or automation", "Not sure yet"],
+      message: "Tell us a little about your business",
+      messagePh: "E.g. I run a salon with 4 stylists and want to organize bookings and remind clients on WhatsApp.",
+      choose: "Choose an option",
+      optional: "optional",
+      sendWa: "Send via WhatsApp",
+      sendMail: "Send by email",
+      hint: "The form only builds the message and opens your WhatsApp or email. Nothing you type is stored on this site.",
+      required: "Please fill in your name and what you need.",
+      intro: "Hello! I found Paralaxe through the website and would like a quote.",
+      lName: "Name",
+      lBusiness: "Company/industry",
+      lNeed: "I need",
+      lMessage: "Details",
+    },
   },
   footer: {
     privacy: "Privacy (LGPD)",
@@ -251,7 +287,7 @@ module.exports = {
   },
   privacy: {
     title: "Privacy policy",
-    updated: "Last updated: October 2026",
+    updated: "Last updated: November 2026",
     // Aviso de texto provisório (deixe "" para não exibir).
     draftNote: "",
     sections: [
@@ -264,14 +300,15 @@ module.exports = {
       {
         h: "What data we process",
         p: [
-          "The site has no forms, requires no sign-up and uses no analytics or advertising tools. We do not collect personal data through browsing.",
+          "The site requires no sign-up and uses no analytics or advertising tools. We do not collect personal data through browsing.",
+          "The contact form only builds a message and opens your WhatsApp or email app. Nothing you type is sent to us or stored by the site until you send the message yourself.",
           "We store only your language preference, locally in your browser, so the site opens in the language you chose. That information is not sent to us.",
         ],
       },
       {
         h: "When you contact us",
         p: [
-          "If you write to us on WhatsApp or by email, we will process the information you send (such as your name, phone number and a description of what you need) only to answer your request and prepare a proposal. These messages also pass through the platforms you choose to use, which have their own privacy policies.",
+          "If you write to us on WhatsApp or by email (including through the form), we will process the information you send (such as your name, phone number and a description of what you need) only to answer your request and prepare a proposal. These messages also pass through the platforms you choose to use, which have their own privacy policies.",
         ],
       },
       {

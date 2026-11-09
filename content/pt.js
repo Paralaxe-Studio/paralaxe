@@ -6,7 +6,7 @@ module.exports = {
   meta: {
     title: "{brand} — Sistemas de gestão sob medida e sites",
     description:
-      "Desenvolvemos sistemas de gestão sob medida para qualquer ramo de negócio, além de sites e aplicativos. Licença mensal, hospedagem dedicada e preço justo. Peça um orçamento.",
+      "Desenvolvemos sistemas de gestão sob medida, sites, aplicativos, agentes de IA e automações para qualquer ramo. Licença mensal, hospedagem dedicada e preço justo.",
     privacyTitle: "Política de privacidade — {brand}",
     privacyDescription: "Como o site da {brand} trata dados pessoais, em conformidade com a LGPD.",
   },
@@ -32,9 +32,9 @@ module.exports = {
   hero: {
     eyebrow: "Software sob medida",
     title: ["Sistemas que se encaixam no seu negócio,", "não o contrário."],
-    sub: "Criamos sistemas de gestão, sites e aplicativos sob medida para qualquer ramo. Mais completos que um sistema genérico, sem o preço de uma grande agência.",
+    sub: "Criamos sistemas de gestão, sites, aplicativos e agentes de IA sob medida para qualquer ramo. Mais completos que um sistema genérico, sem o preço de uma grande agência.",
     secondary: "Ver o que construímos",
-    chips: ["Sob medida", "Hospedagem dedicada", "Pensado para a LGPD"],
+    chips: ["Sob medida", "IA e automação", "Hospedagem dedicada", "Pensado para a LGPD"],
     floatA: "Agenda do dia",
     floatB: "Módulos ativos",
     floatC: "Dados protegidos",
@@ -60,6 +60,17 @@ module.exports = {
         icon: "mobile",
         title: "Aplicativos",
         text: "Aplicativos para Android e sistemas instaláveis no celular (PWA), que funcionam também no iPhone sem passar pela loja da Apple.",
+      },
+      {
+        icon: "bot",
+        title: "Agentes de IA",
+        text: "Um atendente no WhatsApp que responde dúvidas, marca horários e consulta o seu sistema, e passa a conversa para uma pessoa quando precisa.",
+        badge: "Novo",
+      },
+      {
+        icon: "bolt",
+        title: "Automações",
+        text: "Lembretes, confirmações, cobranças, pós-venda e relatórios que saem sozinhos, sem ninguém precisar lembrar de fazer.",
       },
       {
         icon: "game",
@@ -88,7 +99,8 @@ module.exports = {
     title: "Exemplos do nosso trabalho, não o limite dele.",
     intro:
       "Estes são alguns sistemas que desenvolvemos. Servem para você ver como pensamos produto, e qualquer um deles pode ser adaptado ou virar algo completamente diferente.",
-    disclaimer: "As telas mostram dados fictícios, criados apenas para demonstração.",
+    disclaimer: "As telas mostram dados fictícios, criados apenas para demonstração. Os ganhos indicados são estimativas com base no que cada sistema automatiza e variam de negócio para negócio.",
+    gainsTitle: "Ganho estimado",
     badges: { ready: "Pronto para implantação", live: "Em produção" },
     more: {
       title: "Não viu o seu ramo?",
@@ -115,6 +127,7 @@ module.exports = {
           "Verificação em duas etapas",
           "LGPD",
         ],
+        gains: ["Cerca de 5 horas por semana a menos com agenda e confirmações", "Menos faltas com lembrete automático no WhatsApp"],
       },
       {
         key: "auto",
@@ -122,6 +135,7 @@ module.exports = {
         title: "Sistema para centro automotivo",
         text: "Organiza o fluxo da oficina, da entrada do veículo à entrega, com ordens de serviço, clientes, veículos e peças em um só lugar.",
         features: ["Ordens de serviço", "Clientes e veículos", "Orçamentos", "Estoque de peças", "Financeiro"],
+        gains: ["Cerca de 4 horas por semana a menos procurando ordens e ligando para avisar o cliente", "Orçamento pronto em minutos, com peças e mão de obra"],
       },
       {
         key: "pharmacy",
@@ -129,6 +143,7 @@ module.exports = {
         title: "Sistema para farmácia de manipulação",
         text: "Cadastro de fórmulas, insumos e lotes, receitas, pedidos e pagamentos, com atenção especial à segurança e à rastreabilidade dos dados.",
         features: ["Fórmulas e produtos", "Estoque com lotes", "Clientes e receitas", "Pedidos e pagamentos", "Controle de acesso"],
+        gains: ["Cerca de 30 minutos por dia a menos no controle de lotes e validades", "Aviso antes de um insumo vencer ou acabar"],
       },
       {
         key: "crm",
@@ -136,6 +151,7 @@ module.exports = {
         title: "CRM genérico",
         text: "Um ponto de partida para acompanhar contatos, oportunidades e conversas comerciais, que pode ser moldado ao processo de venda de cada empresa.",
         features: ["Contatos e empresas", "Funil de oportunidades", "Histórico de atendimento", "Tarefas e lembretes"],
+        gains: ["Nenhuma oportunidade esquecida: cada contato com a próxima ação marcada", "O funil da equipe inteira numa tela só"],
       },
     ],
     mock: {
@@ -185,8 +201,8 @@ module.exports = {
       },
       {
         icon: "chat",
-        title: "WhatsApp",
-        text: "Lembretes e comunicação com seus clientes pelo canal que eles já usam, nos projetos em que isso faz sentido.",
+        title: "WhatsApp e IA",
+        text: "Lembretes, confirmações e um atendente com IA no canal que os seus clientes já usam, nos projetos em que isso faz sentido.",
       },
       {
         icon: "toggle",
@@ -237,12 +253,32 @@ module.exports = {
     eyebrow: "Contato",
     id: "contato",
     title: "Vamos conversar sobre o seu sistema?",
-    text: "Conte o que o seu negócio precisa. Respondemos com uma proposta feita sob medida.",
+    text: "Conte em poucas linhas o que o seu negócio precisa. Respondemos com uma proposta feita sob medida.",
     whatsapp: "Chamar no WhatsApp",
     email: "Enviar e-mail",
     waMessage: "Olá! Gostaria de pedir um orçamento.",
     emailSubject: "Pedido de orçamento",
     note: "Os valores são definidos caso a caso, depois de entendermos o seu projeto.",
+    form: {
+      name: "Seu nome",
+      business: "Empresa ou ramo",
+      businessPh: "Ex.: salão de beleza",
+      need: "O que você precisa",
+      needOptions: ["Sistema de gestão", "Site", "Aplicativo", "Agente de IA ou automação", "Ainda não sei"],
+      message: "Conte um pouco do seu negócio",
+      messagePh: "Ex.: tenho um salão com 4 profissionais e quero organizar a agenda e lembrar os clientes pelo WhatsApp.",
+      choose: "Escolha uma opção",
+      optional: "opcional",
+      sendWa: "Enviar pelo WhatsApp",
+      sendMail: "Enviar por e-mail",
+      hint: "O formulário só monta a mensagem e abre o seu WhatsApp ou e-mail. Nada do que você digita fica guardado neste site.",
+      required: "Preencha o seu nome e o que você precisa.",
+      intro: "Olá! Vim pelo site da Paralaxe e gostaria de um orçamento.",
+      lName: "Nome",
+      lBusiness: "Empresa/ramo",
+      lNeed: "Preciso de",
+      lMessage: "Detalhes",
+    },
   },
   footer: {
     privacy: "Privacidade (LGPD)",
@@ -251,7 +287,7 @@ module.exports = {
   },
   privacy: {
     title: "Política de privacidade",
-    updated: "Última atualização: outubro de 2026",
+    updated: "Última atualização: novembro de 2026",
     // Aviso de texto provisório (deixe "" para não exibir).
     draftNote: "",
     sections: [
@@ -264,14 +300,15 @@ module.exports = {
       {
         h: "Quais dados tratamos",
         p: [
-          "O site não possui formulários, não exige cadastro e não usa ferramentas de análise ou publicidade. Não coletamos dados pessoais pela navegação.",
+          "O site não exige cadastro e não usa ferramentas de análise ou publicidade. Não coletamos dados pessoais pela navegação.",
+          "O formulário de contato apenas monta uma mensagem e abre o seu WhatsApp ou o seu e-mail. Nada do que você digita é enviado para nós ou guardado pelo site antes de você mesmo enviar a mensagem.",
           "Guardamos no seu navegador, localmente, apenas a sua preferência de idioma, para abrir o site na língua que você escolheu. Essa informação não é enviada para nós.",
         ],
       },
       {
         h: "Quando você entra em contato",
         p: [
-          "Se você nos escrever por WhatsApp ou e-mail, trataremos as informações que você enviar (como nome, telefone e a descrição do que precisa) somente para responder ao seu pedido e elaborar uma proposta. Essas mensagens também passam pelas plataformas que você escolheu usar, que têm as próprias políticas de privacidade.",
+          "Se você nos escrever por WhatsApp ou e-mail (inclusive pelo formulário), trataremos as informações que você enviar (como nome, telefone e a descrição do que precisa) somente para responder ao seu pedido e elaborar uma proposta. Essas mensagens também passam pelas plataformas que você escolheu usar, que têm as próprias políticas de privacidade.",
         ],
       },
       {
