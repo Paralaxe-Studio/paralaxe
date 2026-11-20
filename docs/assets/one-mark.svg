@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Paralaxe One: o "O" de One aberto e a lâmina da Paralaxe subindo, com a camada de profundidade atrás -->
+  <defs>
+    <linearGradient id="ouro" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#FFE55C"/><stop offset="0.5" stop-color="#FED301"/><stop offset="1" stop-color="#FFAE1A"/>
+    </linearGradient>
+    <path id="arco" d="M 370.1 289.5 A 124 124 0 1 1 290.4 151.5" fill="none" stroke-width="52"/>
+    <polygon id="lamina" points="196,334 270,282 446,78 368,78"/>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#050505"/><g transform="translate(-20 -6)"><use href="#arco" stroke="#2a2a2f" transform="translate(16 14)"/><use href="#lamina" fill="#2a2a2f" transform="translate(16 14)"/><use href="#arco" stroke="url(#ouro)"/><use href="#lamina" fill="url(#ouro)"/></g>
+</svg>

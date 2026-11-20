@@ -16,6 +16,14 @@ Antes de publicar, troque no `site.config.js`:
 Nomes de clientes reais **não** aparecem no site. Só ative `showClientNames` depois que o cliente autorizar.
 O selo de cada projeto fica em `projectStatus` ("ready" = pronto para implantação; "live" = em produção, só quando estiver no ar com cliente).
 
+## Paralaxe One (app de gestão)
+
+A seção do app (ramos, telas e planos) fica em `content/one.pt.js` e `content/one.en.js`.
+Os preços precisam bater com `frontend/src/lib/planos.ts` do app.
+Enquanto o app não estiver no ar, `one.appUrl` fica vazio no `site.config.js` e os botões abrem o WhatsApp
+com a mensagem pronta. Quando estiver no ar, coloque `https://one.paralaxestudio.com`: os botões passam a abrir
+o cadastro já com o ramo escolhido (`/cadastro?nicho=...`).
+
 ## Comandos
 
 ```bash

@@ -262,7 +262,9 @@ ${fontPre}
 
 function header(t, ctx) {
   const { homeHref, anchor, switchHref } = ctx;
-  const links = t.nav.map((n) => `<a href="${anchor(n.id)}">${esc(n.label)}</a>`).join("");
+  const links =
+    `<a class="nav-one" href="${anchor(t.one.id)}">${esc(t.one.nav)}<span class="nav-new">${esc(t.one.navBadge)}</span></a>` +
+    t.nav.map((n) => `<a href="${anchor(n.id)}">${esc(n.label)}</a>`).join("");
   return `<a class="skip" href="#main">${esc(t.ui.skip)}</a>
 <header class="site-header" id="top">
   <div class="wrap bar">
@@ -287,6 +289,99 @@ function sectionHead(eyebrow, title, intro) {
   </div>`;
 }
 
+/* ---------- Paralaxe One: o app de gestão, com troca de ramo e planos ---------- */
+function oneLinks(o, niche, plan) {
+  if (cfg.one.appUrl) {
+    const base = cfg.one.appUrl.replace(/\/$/, "") + cfg.one.signupPath;
+    return `${base}?nicho=${encodeURIComponent(niche.key)}${plan ? `&plano=${plan.key}` : ""}`;
+  }
+  const msg = plan ? o.waPlan.replace("{plan}", plan.name) : o.waMessage.replace("{niche}", niche.name);
+  return `https://wa.me/${cfg.contact.whatsapp}?text=${encodeURIComponent(msg)}`;
+}
+
+function oneScreen(o, n) {
+  const stats = n.stats.map(([k, v], i) => `<div class="os-stat"><span data-one="stat${i}k">${esc(k)}</span><b data-one="stat${i}v">${esc(v)}</b></div>`).join("");
+  const rows = n.list
+    .map(([a, b, c], i) => `<li><span class="os-time" data-one="row${i}a">${esc(a)}</span><span class="os-who"><b data-one="row${i}b">${esc(b)}</b><small data-one="row${i}c">${esc(c)}</small></span></li>`)
+    .join("");
+  const bars = [42, 64, 50, 78, 58, 90, 72].map((v, i) => `<i style="--h:${v}%;--i:${i}"></i>`).join("");
+  return `<div class="dev-laptop">
+      <div class="os-screen">
+        <aside class="os-side"><img src="ASSETS/one-mark.svg" alt="" width="26" height="26"><i class="on"></i><i></i><i></i><i></i><i></i></aside>
+        <div class="os-main">
+          <div class="os-top"><div><small>${esc(o.greeting)}</small><strong>${esc(o.today)}</strong></div><span class="os-niche" data-one="name">${esc(n.name)}</span></div>
+          <div class="os-stats">${stats}</div>
+          <div class="os-cols"><ul class="os-list">${rows}</ul><div class="os-bars" aria-hidden="true">${bars}</div></div>
+        </div>
+      </div>
+      <div class="dev-base"></div>
+    </div>
+    <div class="dev-phone">
+      <div class="op-notch"></div>
+      <div class="op-screen">
+        <div class="op-top"><strong>${esc(o.today)}</strong><img src="ASSETS/one-mark.svg" alt="" width="20" height="20"></div>
+        <div class="op-hero"><span data-one="stat0k">${esc(n.stats[0][0])}</span><b data-one="stat0v">${esc(n.stats[0][1])}</b></div>
+        <ul class="op-list">${n.list.map(([a, b, c], i) => `<li><span data-one="row${i}a">${esc(a)}</span><b data-one="row${i}b">${esc(b)}</b><small data-one="row${i}c">${esc(c)}</small></li>`).join("")}</ul>
+        <div class="op-nav"><i class="on"></i><i></i><i></i><i></i></div>
+      </div>
+    </div>`;
+}
+
+function one(t, ctx) {
+  const o = t.one;
+  const n0 = o.niches[0];
+  const tabs = o.niches
+    .map((n, i) => `<button type="button" role="tab" id="one-tab-${n.key}" aria-controls="one-stage" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}" data-niche="${n.key}" style="--c:${n.color}"><i aria-hidden="true"></i>${esc(n.name)}</button>`)
+    .join("");
+  const data = o.niches.map((n) => ({ ...n, href: oneLinks(o, n) }));
+  const plans = o.plans
+    .map((p, i) => `<article class="plan${p.popular ? " plan-pop" : ""}" data-reveal style="--d:${i * 90}ms">
+      ${p.popular ? `<span class="plan-flag">${esc(o.popular)}</span>` : ""}
+      <h3>${esc(p.name)}</h3>
+      <p class="plan-for">${esc(p.for)}</p>
+      <p class="plan-price"><span class="cur">R$</span><b>${esc(p.price)}</b><span class="per">${esc(o.perMonth)}</span></p>
+      <ul>${p.items.map((x) => `<li>${ICONS.check}<span>${esc(x)}</span></li>`).join("")}</ul>
+      <a class="btn ${p.popular ? "" : "btn-ghost"} plan-cta" href="${esc(oneLinks(o, n0, p))}" data-plan="${p.key}" target="_blank" rel="noopener">${esc(o.choose.replace("{plan}", p.name))}</a>
+    </article>`)
+    .join("");
+  return `<section class="one" id="${o.id}" aria-labelledby="h-one" style="--na:${n0.color}">
+  <div class="one-slab">
+    <svg class="one-ring" viewBox="0 0 512 512" aria-hidden="true"><path d="M 370.1 289.5 A 124 124 0 1 1 290.4 151.5" fill="none" stroke-width="52"/><polygon points="196,334 270,282 446,78 368,78"/></svg>
+    <div class="wrap">
+      <div class="one-head" data-reveal>
+        <p class="one-kicker"><img src="${ctx.up}assets/one-mark.svg" alt="" width="44" height="44"><span><b>Paralaxe One</b>${esc(o.kicker)}</span></p>
+        <h2 id="h-one">${esc(o.title)}</h2>
+        <p class="one-sub">${esc(o.sub)}</p>
+      </div>
+      <p class="one-pick-label" id="one-pick-label" data-reveal>${esc(o.pickLabel)}</p>
+      <div class="one-pick" role="tablist" aria-labelledby="one-pick-label" data-reveal>${tabs}</div>
+      <div class="one-stage" id="one-stage" role="tabpanel" aria-labelledby="one-tab-${n0.key}">
+        <div class="one-devices" aria-hidden="true" data-reveal>${oneScreen(o, n0).replace(/ASSETS\//g, ctx.up + "assets/")}</div>
+        <div class="one-ready" data-reveal style="--d:120ms" aria-live="polite">
+          <h3>${esc(o.readyTitle)} <span data-one="name">${esc(n0.name)}</span></h3>
+          <ul data-one="ready">${n0.ready.map((x) => `<li>${ICONS.check}<span>${esc(x)}</span></li>`).join("")}</ul>
+          <p class="one-meta">${esc(o.setup)}</p>
+          <div class="one-actions">
+            <a class="btn btn-dark" data-one="try" href="${esc(data[0].href)}" target="_blank" rel="noopener"><span>${esc(o.ctaTry)}</span>${ICONS.arrow}</a>
+            <a class="one-link" href="#planos">${esc(o.ctaPlans)}</a>
+          </div>
+          <p class="one-trial">${ICONS.check}${esc(o.trial)} · ${esc(o.devices)}</p>
+        </div>
+      </div>
+      <p class="one-note">${esc(o.mockNote)}</p>
+    </div>
+    <script type="application/json" id="one-data">${JSON.stringify(data).replace(/</g, "\\u003c")}</script>
+  </div>
+  <div class="one-plans" id="planos">
+    <div class="wrap">
+      ${sectionHead(o.plansKicker, o.plansTitle, o.plansSub)}
+      <div class="plans">${plans}</div>
+      <ul class="plan-fine" data-reveal>${o.fine.map((x) => `<li>${ICONS.check}${esc(x)}</li>`).join("")}</ul>
+    </div>
+  </div>
+</section>`;
+}
+
 function hero(t, ctx) {
   const h = t.hero;
   return `<section class="hero" aria-labelledby="hero-title">
@@ -294,6 +389,7 @@ function hero(t, ctx) {
   <div class="hero-glow g1" aria-hidden="true"></div><div class="hero-glow g2" aria-hidden="true"></div>
   <div class="wrap hero-grid">
     <div class="hero-copy">
+      <a class="announce" href="${ctx.anchor(t.one.id)}" data-reveal><span class="announce-tag">${esc(t.one.announce.tag)}</span><span class="announce-text">${esc(t.one.announce.text)}</span><span class="announce-cta">${esc(t.one.announce.cta)}${ICONS.arrow}</span></a>
       <p class="eyebrow" data-reveal>${esc(h.eyebrow)}</p>
       <h1 id="hero-title" data-reveal style="--d:80ms">${esc(h.title[0])} <span class="grad">${esc(h.title[1])}</span></h1>
       <p class="hero-sub" data-reveal style="--d:160ms">${esc(h.sub)}</p>
@@ -566,7 +662,7 @@ function buildPage(lang, page) {
           .map((s) => `<section><h2>${esc(s.h)}</h2>${s.p.map((x) => `<p>${esc(x)}</p>`).join("")}</section>`)
           .join("")}
       </div></main>`
-    : `<main id="main">${hero(t, ctx)}${what(t)}${projects(t)}${deliver(t)}${process(t)}${games(t)}${contact(t)}</main>`;
+    : `<main id="main">${hero(t, ctx)}${one(t, ctx)}${what(t)}${projects(t)}${deliver(t)}${process(t)}${games(t)}${contact(t)}</main>`;
 
   return `${head(t, { lang, up, canonical, alt, title, description, jsonld })}
 <body class="${isPriv ? "page-legal" : "page-home"}">

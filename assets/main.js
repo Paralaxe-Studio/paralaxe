@@ -281,4 +281,151 @@
       window.open("https://wa.me/" + cfg.wa + "?text=" + encodeURIComponent(text), "_blank", "noopener");
     }
   });
+
+})();
+
+/* Paralaxe One: troca de ramo, contagem dos números e troca automática */
+(function () {
+  "use strict";
+  /* --- Paralaxe One: trocar o ramo mostrado nas telas --- */
+  var doc = document;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var oneData = doc.getElementById("one-data");
+  var oneSec = doc.querySelector(".one");
+  if (oneData && oneSec) {
+    var niches = [];
+    try { niches = JSON.parse(oneData.textContent); } catch (e) {}
+    var tabs = Array.prototype.slice.call(oneSec.querySelectorAll(".one-pick [role=tab]"));
+    var devices = oneSec.querySelector(".one-devices");
+    var stage = doc.getElementById("one-stage");
+    var check = (oneSec.querySelector(".one-ready li .ico") || {}).outerHTML || "";
+    var setText = function (key, value) {
+      oneSec.querySelectorAll('[data-one="' + key + '"]').forEach(function (el) { el.textContent = value; });
+    };
+    var contar = function (el, alvo) {
+      // "R$ 1.870" ou "7/12": anima só o primeiro número, mantendo o resto do texto.
+      var m = String(alvo).match(/^(\D*)(\d[\d.,]*)(.*)$/);
+      if (reduce || !m) { el.textContent = alvo; return; }
+      var sep = /\d\.\d{3}/.test(m[2]) ? "." : /\d,\d{3}/.test(m[2]) ? "," : "";
+      var fim = Number(m[2].replace(/[.,]/g, "")), t0 = null;
+      if (!isFinite(fim) || /[.,]\d{1,2}$/.test(m[2])) { el.textContent = alvo; return; }
+      var passo = function (ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / 700), v = Math.round(fim * (1 - Math.pow(1 - p, 3)));
+        var txt = sep ? String(v).replace(/\B(?=(\d{3})+(?!\d))/g, sep) : String(v);
+        el.textContent = m[1] + txt + m[3];
+        if (p < 1) requestAnimationFrame(passo);
+      };
+      requestAnimationFrame(passo);
+    };
+    var animarTela = function () {
+      if (reduce || !devices) return;
+      devices.classList.add("crescer");
+      void devices.offsetWidth;
+      devices.classList.remove("crescer");
+      oneSec.querySelectorAll('[data-one^="stat"][data-one$="v"]').forEach(function (el) { contar(el, el.getAttribute("data-alvo") || el.textContent); });
+      var rl = oneSec.querySelector(".one-ready");
+      if (rl) {
+        rl.classList.remove("ligado");
+        rl.querySelectorAll("li").forEach(function (li, i) { li.style.setProperty("--li", i); });
+        void rl.offsetWidth;
+        rl.classList.add("ligado");
+      }
+    };
+    var apply = function (n) {
+      oneSec.style.setProperty("--na", n.color);
+      n.stats.forEach(function (s, i) {
+        oneSec.querySelectorAll('[data-one="stat' + i + 'v"]').forEach(function (el) { el.setAttribute("data-alvo", s[1]); });
+      });
+      setText("name", n.name);
+      n.stats.forEach(function (s, i) { setText("stat" + i + "k", s[0]); setText("stat" + i + "v", s[1]); });
+      n.list.forEach(function (r, i) { setText("row" + i + "a", r[0]); setText("row" + i + "b", r[1]); setText("row" + i + "c", r[2]); });
+      var ul = oneSec.querySelector('[data-one="ready"]');
+      if (ul) {
+        ul.innerHTML = "";
+        n.ready.forEach(function (x) {
+          var li = doc.createElement("li");
+          li.innerHTML = check;
+          var sp = doc.createElement("span");
+          sp.textContent = x;
+          li.appendChild(sp);
+          ul.appendChild(li);
+        });
+      }
+      var tryBtn = oneSec.querySelector('[data-one="try"]');
+      if (tryBtn) tryBtn.href = n.href;
+      animarTela();
+    };
+    var select = function (tab, focus, rolar) {
+      var n = niches.filter(function (x) { return x.key === tab.getAttribute("data-niche"); })[0];
+      if (!n || tab.getAttribute("aria-selected") === "true") { if (focus) tab.focus(); return; }
+      tabs.forEach(function (t) { var on = t === tab; t.setAttribute("aria-selected", on ? "true" : "false"); t.tabIndex = on ? 0 : -1; });
+      if (stage) stage.setAttribute("aria-labelledby", tab.id);
+      if (focus) tab.focus();
+      // Rola só a fileira de chips (nunca a página) para mostrar o ramo escolhido.
+      var fila = tab.parentNode;
+      if (rolar !== false && fila.scrollWidth > fila.clientWidth) {
+        fila.scrollTo({ left: tab.offsetLeft - (fila.clientWidth - tab.offsetWidth) / 2, behavior: reduce ? "auto" : "smooth" });
+      }
+      if (reduce || !devices) { apply(n); return; }
+      devices.classList.add("troca");
+      setTimeout(function () { apply(n); devices.classList.remove("troca"); }, 170);
+    };
+    /* troca sozinha a cada 4,2 s enquanto a seção está na tela, até a pessoa mexer */
+    var pick = oneSec.querySelector(".one-pick");
+    var TEMPO = 4200, timer = null, parado = reduce, visivel = false;
+    var proximo = function () {
+      var atual = tabs.filter(function (t) { return t.getAttribute("aria-selected") === "true"; })[0];
+      var j = (tabs.indexOf(atual) + 1) % tabs.length;
+      select(tabs[j], false, true);
+    };
+    var agendar = function () {
+      clearTimeout(timer);
+      if (parado || !visivel) { if (pick) pick.classList.remove("girando"); return; }
+      if (pick) { pick.classList.remove("girando"); void pick.offsetWidth; pick.style.setProperty("--tempo", TEMPO + "ms"); pick.classList.add("girando"); }
+      timer = setTimeout(function () { proximo(); agendar(); }, TEMPO);
+    };
+    var parar = function () { parado = true; agendar(); };
+    if (devices && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) {
+        visivel = en[0].isIntersecting;
+        if (visivel && !devices.classList.contains("ligado")) {
+          devices.classList.add("ligado");
+          oneSec.querySelectorAll('[data-one^="stat"][data-one$="v"]').forEach(function (el) { el.setAttribute("data-alvo", el.textContent); });
+          animarTela();
+        }
+        agendar();
+      }, { threshold: 0.35 }).observe(devices);
+    } else if (devices) {
+      devices.classList.add("ligado");
+      var rl0 = oneSec.querySelector(".one-ready");
+      if (rl0) rl0.classList.add("ligado");
+    }
+    ["pointerdown", "keydown", "focusin"].forEach(function (ev) { if (pick) pick.addEventListener(ev, parar); });
+    /* inclinação leve das telas acompanhando o mouse */
+    if (devices && !reduce && window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+      devices.addEventListener("pointermove", function (e) {
+        var r = devices.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        devices.classList.add("seguindo");
+        devices.style.setProperty("--ry", (x * 6).toFixed(2) + "deg");
+        devices.style.setProperty("--rx", (-y * 5).toFixed(2) + "deg");
+      });
+      devices.addEventListener("pointerleave", function () {
+        devices.style.setProperty("--ry", "0deg");
+        devices.style.setProperty("--rx", "0deg");
+      });
+    }
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener("click", function () { select(tab, false); });
+      tab.addEventListener("keydown", function (e) {
+        var k = e.key, j = -1;
+        if (k === "ArrowRight" || k === "ArrowDown") j = (i + 1) % tabs.length;
+        else if (k === "ArrowLeft" || k === "ArrowUp") j = (i - 1 + tabs.length) % tabs.length;
+        else if (k === "Home") j = 0;
+        else if (k === "End") j = tabs.length - 1;
+        if (j >= 0) { e.preventDefault(); select(tabs[j], true); }
+      });
+    });
+  }
 })();

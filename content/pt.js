@@ -1,5 +1,6 @@
 module.exports = {
   lang: "pt",
+  one: require("./one.pt.js"),
   htmlLang: "pt-BR",
   ogLocale: "pt_BR",
   paths: { privacy: "privacidade" },
@@ -24,7 +25,6 @@ module.exports = {
   nav: [
     { id: "o-que-fazemos", label: "O que fazemos" },
     { id: "sistemas", label: "Sistemas" },
-    { id: "entregamos", label: "O que entregamos" },
     { id: "como-trabalhamos", label: "Como trabalhamos" },
     { id: "jogos", label: "Jogos" },
   ],

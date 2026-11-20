@@ -25,6 +25,13 @@ module.exports = {
   // Domínio próprio publicado pelo GitHub Pages (gera o arquivo docs/CNAME). Deixe "" para não usar.
   customDomain: "paralaxestudio.com.br",
 
+  // Paralaxe One (app de gestão). Enquanto o app não estiver no ar, deixe appUrl "" e os botões
+  // abrem o WhatsApp com a mensagem pronta. No ar: "https://one.paralaxestudio.com" (abre o cadastro com o ramo).
+  one: {
+    appUrl: "",
+    signupPath: "/cadastro",
+  },
+
   languages: ["pt", "en"],
   defaultLang: "pt",
 
