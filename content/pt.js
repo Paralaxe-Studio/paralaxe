@@ -54,7 +54,7 @@ module.exports = {
       {
         icon: "site",
         title: "Sites",
-        text: "Sites institucionais e páginas de apresentação rápidas, bonitas e fáceis de encontrar, feitos com o mesmo cuidado dos nossos sistemas.",
+        text: "Sites institucionais e páginas de apresentação rápidas, bonitas e fáceis de encontrar. Com o Paralaxe One, a agenda e o cardápio funcionam dentro do próprio site.",
       },
       {
         icon: "mobile",

@@ -54,7 +54,7 @@ module.exports = {
       {
         icon: "site",
         title: "Websites",
-        text: "Company websites and landing pages that are fast, good-looking and easy to find, built with the same care as our systems.",
+        text: "Company websites and landing pages that are fast, good-looking and easy to find. With Paralaxe One, booking and the menu work right inside the site.",
       },
       {
         icon: "mobile",

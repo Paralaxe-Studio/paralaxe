@@ -107,7 +107,7 @@ module.exports = {
   plans: [
     {
       key: "essencial", name: "Essencial", price: "129", for: "Para quem trabalha sozinho ou em dupla.",
-      items: ["Até 2 pessoas com acesso", "Todos os módulos do seu ramo", "Clientes, catálogo, caixa e estoque", "Link para o cliente marcar ou aprovar orçamento", "Avisos pelo WhatsApp com mensagem pronta", "Backup diário"],
+      items: ["Até 2 pessoas com acesso", "Todos os módulos do seu ramo", "Clientes, catálogo, caixa e estoque", "Link e botão no seu site para o cliente marcar ou aprovar orçamento", "Avisos pelo WhatsApp com mensagem pronta", "Backup diário"],
     },
     {
       key: "profissional", name: "Profissional", price: "189", popular: true, for: "Para equipes pequenas que querem controle.",
@@ -119,7 +119,8 @@ module.exports = {
     },
   ],
   fine: [
-    "7 dias grátis, sem cartão",
+    "7 dias grátis, sem cartão (um teste por CPF/CNPJ)",
+    "Agenda e cardápio dentro do seu site. Site feito pela Paralaxe já vem ligado ao app",
     "Sem fidelidade: cancele quando quiser",
     "Seus dados exportados em planilha a qualquer momento",
     "Dados de cada empresa isolados e com backup diário",

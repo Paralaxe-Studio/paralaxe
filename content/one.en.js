@@ -107,7 +107,7 @@ module.exports = {
   plans: [
     {
       key: "essencial", name: "Essential", price: "129", for: "For people working alone or in pairs.",
-      items: ["Up to 2 people with access", "Every module for your business", "Customers, catalog, cash register and inventory", "Links for customers to book or approve quotes", "WhatsApp messages ready to send", "Daily backup"],
+      items: ["Up to 2 people with access", "Every module for your business", "Customers, catalog, cash register and inventory", "A link and a button on your website for customers to book or approve quotes", "WhatsApp messages ready to send", "Daily backup"],
     },
     {
       key: "profissional", name: "Professional", price: "189", popular: true, for: "For small teams that want control.",
@@ -119,7 +119,8 @@ module.exports = {
     },
   ],
   fine: [
-    "7-day free trial, no card",
+    "7-day free trial, no card (one trial per tax ID)",
+    "Booking and menu right inside your website. Sites built by Paralaxe come connected to the app",
     "No lock-in: cancel any time",
     "Export your data to spreadsheets at any time",
     "Each company's data kept separate, backed up daily",
