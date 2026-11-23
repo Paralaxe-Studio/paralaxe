@@ -340,6 +340,7 @@ function one(t, ctx) {
       <h3>${esc(p.name)}</h3>
       <p class="plan-for">${esc(p.for)}</p>
       <p class="plan-price"><span class="cur">R$</span><b>${esc(p.price)}</b><span class="per">${esc(o.perMonth)}</span></p>
+      ${p.annual ? `<p class="plan-annual">${esc(o.annualNote.replace("{v}", p.annual))}</p>` : ""}
       <ul>${p.items.map((x) => `<li>${ICONS.check}<span>${esc(x)}</span></li>`).join("")}</ul>
       <a class="btn ${p.popular ? "" : "btn-ghost"} plan-cta" href="${esc(oneLinks(o, n0, p))}" data-plan="${p.key}" target="_blank" rel="noopener">${esc(o.choose.replace("{plan}", p.name))}</a>
     </article>`)
