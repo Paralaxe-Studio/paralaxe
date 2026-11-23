@@ -107,22 +107,22 @@ module.exports = {
   choose: "Start with {plan}",
   plans: [
     {
-      key: "essencial", name: "Essential", price: "149", annual: "127", for: "For people working alone or in pairs.",
+      key: "essencial", name: "Essential", price: "149", annual: "134", for: "For people working alone or in pairs.",
       items: ["Up to 2 people with access", "Every module for your business", "Customers, catalog, cash register and inventory", "A link and a button on your website for customers to book or approve quotes", "WhatsApp messages ready to send", "Daily backup"],
     },
     {
-      key: "profissional", name: "Professional", price: "219", annual: "186", popular: true, for: "For small teams that want control.",
+      key: "profissional", name: "Professional", price: "219", annual: "197", popular: true, for: "For small teams that want control.",
       items: ["Up to 6 people with access", "Everything in Essential", "Commission per professional", "Full reports, profit and monthly goal", "Recurring fees for your customers", "Photos on work orders and plate lookup"],
     },
     {
-      key: "completo", name: "Complete", price: "319", annual: "271", for: "For businesses that want to run on autopilot.",
+      key: "completo", name: "Complete", price: "319", annual: "287", for: "For businesses that want to run on autopilot.",
       items: ["Unlimited team", "Everything in Professional", "AI assistant on WhatsApp: answers, clears doubts and books appointments (2,000 replies/month)", "Automatic WhatsApp through the official API", "Service invoices (Brazil)", "Priority support"],
     },
   ],
   fine: [
     "7-day free trial, no card (one trial per tax ID)",
     "Booking and menu right inside your website. Sites built by Paralaxe come connected to the app",
-    "Monthly with no lock-in. Yearly with about 15% off",
+    "Monthly with no lock-in. Yearly with about 10% off",
     "Export your data to spreadsheets at any time",
     "Each company's data kept separate, backed up daily",
   ],
