@@ -429,3 +429,54 @@
     });
   }
 })();
+
+/* --- cidade da abertura: cada camada anda numa velocidade (paralaxe) --- */
+(function () {
+  "use strict";
+  var cidade = document.querySelector(".cidade");
+  if (!cidade) return;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+  var hero = cidade.parentNode;
+  var alvo = { x: 0, y: 0 }, atual = { x: 0, y: 0 }, raf = 0;
+
+  function passo() {
+    atual.x += (alvo.x - atual.x) * 0.08;
+    atual.y += (alvo.y - atual.y) * 0.08;
+    cidade.style.setProperty("--mx", atual.x.toFixed(3));
+    cidade.style.setProperty("--my", atual.y.toFixed(3));
+    if (Math.abs(alvo.x - atual.x) > 0.002 || Math.abs(alvo.y - atual.y) > 0.002) raf = requestAnimationFrame(passo);
+    else raf = 0;
+  }
+  function mirar(x, y) {
+    alvo.x = Math.max(-1, Math.min(1, x));
+    alvo.y = Math.max(-1, Math.min(1, y));
+    if (!raf) raf = requestAnimationFrame(passo);
+  }
+
+  // Mouse (computador).
+  hero.addEventListener("pointermove", function (e) {
+    if (e.pointerType !== "mouse") return;
+    var r = hero.getBoundingClientRect();
+    mirar(((e.clientX - r.left) / r.width) * 2 - 1, ((e.clientY - r.top) / r.height) * 2 - 1);
+  }, { passive: true });
+  hero.addEventListener("pointerleave", function () { mirar(0, 0); });
+
+  // Celular inclinado (Android libera direto; no iPhone fica só a rolagem).
+  window.addEventListener("deviceorientation", function (e) {
+    if (e.gamma == null || e.beta == null) return;
+    mirar(e.gamma / 25, (e.beta - 45) / 35);
+  }, { passive: true });
+
+  // Rolagem: as camadas de trás descem mais devagar.
+  var agendado = false;
+  window.addEventListener("scroll", function () {
+    if (agendado) return;
+    agendado = true;
+    requestAnimationFrame(function () {
+      agendado = false;
+      var y = Math.min(window.scrollY, hero.offsetHeight);
+      cidade.style.setProperty("--sy", y.toFixed(0));
+    });
+  }, { passive: true });
+})();

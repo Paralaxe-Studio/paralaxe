@@ -7,6 +7,7 @@
 const fs = require("fs");
 const path = require("path");
 const cfg = require("./site.config.js");
+const { cidade } = require("./cidade.js");
 
 const ROOT = __dirname;
 const DIST = path.join(ROOT, "docs"); // "docs" porque o GitHub Pages publica a partir dessa pasta
@@ -191,32 +192,6 @@ function mockCrm(t, label) {
 
 const MOCKS = { salon: mockSalon, auto: mockAuto, pharmacy: mockPharmacy, crm: mockCrm };
 
-function heroUi(t) {
-  const h = t.hero;
-  const bars = [38, 62, 46, 80, 58, 92, 70]
-    .map((v, i) => `<i style="--h:${v}%;--i:${i}"></i>`)
-    .join("");
-  return `<div class="hero-ui" aria-hidden="true">
-    <div class="mock hero-mock">
-      <div class="mock-bar"><i></i><i></i><i></i><span>${esc(cfgName())}</span></div>
-      <div class="hero-body">
-        <div class="hu-side"><b></b><b class="on"></b><b></b><b></b></div>
-        <div class="hu-main">
-          <div class="hu-row">
-            <div class="hu-card hu-a"><span class="hu-k"></span><span class="hu-l"></span><span class="hu-s"></span></div>
-            <div class="hu-card hu-b"><span class="hu-k"></span><span class="hu-l"></span><span class="hu-s"></span></div>
-            <div class="hu-card hu-c"><span class="hu-k"></span><span class="hu-l"></span><span class="hu-s"></span></div>
-          </div>
-          <div class="hu-chart"><div class="hu-bars">${bars}</div><svg class="hu-line" viewBox="0 0 200 60" preserveAspectRatio="none"><path d="M0 46 C25 40 35 18 62 26 S105 52 130 28 S175 6 200 12"/></svg></div>
-          <div class="hu-list"><i></i><i></i><i></i></div>
-        </div>
-      </div>
-    </div>
-    <div class="float f1">${ICONS.system}<span>${esc(h.floatA)}</span></div>
-    <div class="float f2">${ICONS.toggle}<span>${esc(h.floatB)}</span></div>
-    <div class="float f3">${ICONS.shield}<span>${esc(h.floatC)}</span></div>
-  </div>`;
-}
 const cfgName = () => cfg.brand.name;
 
 /* ---------- partes da página ---------- */
@@ -388,6 +363,7 @@ function hero(t, ctx) {
   return `<section class="hero" aria-labelledby="hero-title">
   <canvas class="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-glow g1" aria-hidden="true"></div><div class="hero-glow g2" aria-hidden="true"></div>
+  ${cidade()}
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <a class="announce" href="${ctx.anchor(t.one.id)}" data-reveal><span class="announce-tag">${esc(t.one.announce.tag)}</span><span class="announce-text">${esc(t.one.announce.text)}</span><span class="announce-cta">${esc(t.one.announce.cta)}${ICONS.arrow}</span></a>
@@ -400,7 +376,6 @@ function hero(t, ctx) {
       </div>
       <ul class="chips" data-reveal style="--d:320ms">${h.chips.map((c) => `<li>${ICONS.check}${esc(c)}</li>`).join("")}</ul>
     </div>
-    <div class="hero-visual" data-reveal style="--d:200ms">${heroUi(t)}</div>
   </div>
 </section>`;
 }

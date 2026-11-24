@@ -28,7 +28,7 @@ module.exports = {
   // Paralaxe One (app de gestão). Enquanto o app não estiver no ar, deixe appUrl "" e os botões
   // abrem o WhatsApp com a mensagem pronta. No ar: "https://one.paralaxestudio.com" (abre o cadastro com o ramo).
   one: {
-    appUrl: "",
+    appUrl: "https://one.paralaxestudio.com",
     signupPath: "/cadastro",
   },
 
