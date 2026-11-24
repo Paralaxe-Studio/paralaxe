@@ -98,110 +98,120 @@ function camada(semente, { minimo, maximo, larguraMin, larguraMax, cor, borda, j
 
 
 /**
- * Obra com guindaste-robô: a planta tracejada vira prédio, andar por andar (o que a Paralaxe faz com sistemas).
- * Linha do tempo de 28 s: 6 andares de 4 s cada e uma pausa com o prédio pronto. Sem animação, mostra o prédio pronto.
+ * Robô montando um sistema em holograma: um projetor no telhado acende a tela, o robô desenha as partes com o laser
+ * (menu, indicadores, gráfico, lista), o sistema "entra no ar" e os dados descem para a cidade.
+ * Linha do tempo de 16 s, gerada aqui. Sem animação, mostra a tela pronta.
  */
-const OBRA = { x: 1002, w: 110, base: 442, andar: 22, andares: 6, pega: 1196, solta: 1057, telhadoPega: 471, trilho: 244, alto: 262 };
-const CICLO = 28;
+const HOLO = { x: 992, y: 148, w: 252, h: 172, emissor: { x: 1057, y: 442 } };
+const CICLO = 16;
 
 function pct(t) { return +((t / CICLO) * 100).toFixed(3); }
-
 function quadros(nome, pontos) {
-  // pontos: [[tempo em s, "propriedades css"], ...] em ordem
   return `@keyframes ${nome}{${pontos.map(([t, v]) => `${pct(t)}%{${v}}`).join("")}}`;
 }
+/** Peça que aparece no tempo t e some junto com a tela. */
+function surge(nome, t, extra = "") {
+  return quadros(nome, [[0, `opacity:0;${extra}`], [t, `opacity:0;${extra}`], [t + 0.25, "opacity:1;transform:none"], [12, "opacity:1;transform:none"], [12.8, `opacity:0`], [CICLO, "opacity:0"]]);
+}
 
-function obra() {
-  const o = OBRA;
-  const r = sorteio(77);
-  const ganchoPega = o.telhadoPega - 14;
-  const ganchoSolta = (k) => o.base - o.andar * k - 14;
-  const carrinho = [[0, `transform:translate(${o.pega}px,0)`]];
-  const gancho = [[0, `transform:translate(0,${o.alto}px)`]];
-  const cabo = [[0, `transform:scaleY(${o.alto - o.trilho})`]];
-  const olho = [[0, "transform:translateX(5px)"]];
-  const bloco = [[0, "opacity:0"]];
-  const pousos = [];
-  const passo = (lista, t, v) => lista.push([t, v]);
-  for (let k = 0; k < o.andares; k++) {
-    const t0 = k * 4;
-    const desce = (y) => [`transform:translate(0,${y}px)`, `transform:scaleY(${y - o.trilho})`];
-    // desce na pilha, pega o bloco, sobe
-    passo(gancho, t0 + 0.05, desce(o.alto)[0]); passo(cabo, t0 + 0.05, desce(o.alto)[1]);
-    passo(gancho, t0 + 0.45, desce(ganchoPega)[0]); passo(cabo, t0 + 0.45, desce(ganchoPega)[1]);
-    passo(bloco, t0 + 0.44, "opacity:0"); passo(bloco, t0 + 0.46, "opacity:1");
-    passo(gancho, t0 + 0.85, desce(o.alto)[0]); passo(cabo, t0 + 0.85, desce(o.alto)[1]);
-    // leva até a obra
-    passo(carrinho, t0 + 0.85, `transform:translate(${o.pega}px,0)`);
-    passo(olho, t0 + 0.85, "transform:translateX(5px)");
-    passo(carrinho, t0 + 1.9, `transform:translate(${o.solta}px,0)`);
-    passo(olho, t0 + 1.9, "transform:translateX(-5px)");
-    // desce até o andar de cima, solta
-    passo(gancho, t0 + 1.95, desce(o.alto)[0]); passo(cabo, t0 + 1.95, desce(o.alto)[1]);
-    passo(gancho, t0 + 2.5, desce(ganchoSolta(k))[0]); passo(cabo, t0 + 2.5, desce(ganchoSolta(k))[1]);
-    passo(bloco, t0 + 2.5, "opacity:1"); passo(bloco, t0 + 2.52, "opacity:0");
-    pousos.push(t0 + 2.5);
-    passo(gancho, t0 + 3.0, desce(o.alto)[0]); passo(cabo, t0 + 3.0, desce(o.alto)[1]);
-    // volta
-    passo(carrinho, t0 + 3.05, `transform:translate(${o.solta}px,0)`);
-    passo(olho, t0 + 3.05, "transform:translateX(-5px)");
-    passo(carrinho, t0 + 3.95, `transform:translate(${o.pega}px,0)`);
-    passo(olho, t0 + 3.95, "transform:translateX(5px)");
-  }
-  [carrinho, gancho, cabo, olho, bloco].forEach((l) => l.push([CICLO, l[l.length - 1][1]]));
-
-  const css = [
-    quadros("obra-carrinho", carrinho), quadros("obra-gancho", gancho), quadros("obra-cabo", cabo),
-    quadros("obra-olho", olho), quadros("obra-bloco", bloco),
-  ];
-  const andares = [];
-  for (let k = 0; k < o.andares; k++) {
-    const y = o.base - o.andar * (k + 1);
-    const janelas = [];
-    for (let jx = o.x + 9; jx < o.x + o.w - 8; jx += 11) {
-      if (r() < 0.45) janelas.push(`<rect class="${r() < 0.3 ? "jf" : "j"}" x="${jx}" y="${y + 8}" width="4" height="6"/>`);
-    }
-    const t = pousos[k];
-    css.push(quadros(`obra-andar${k}`, [[0, "opacity:0"], [t - 0.01, "opacity:0"], [t, "opacity:1"], [CICLO - 1.2, "opacity:1"], [CICLO - 0.3, "opacity:0"], [CICLO, "opacity:0"]]));
-    css.push(quadros(`obra-brilho${k}`, [[0, "opacity:0"], [t, "opacity:0"], [t + 0.04, "opacity:.9"], [t + 0.7, "opacity:0"], [CICLO, "opacity:0"]]));
-    andares.push(`<g class="andar" style="--a:obra-andar${k}"><rect class="corpo" x="${o.x}" y="${y}" width="${o.w}" height="${o.andar}"/><path class="laje" d="M${o.x} ${y + 0.5}H${o.x + o.w}"/>${janelas.join("")}<rect class="brilho" style="--a:obra-brilho${k}" x="${o.x}" y="${y}" width="${o.w}" height="${o.andar}"/></g>`);
-  }
-  // Prédio pronto acende tudo por um instante antes de recomeçar.
-  css.push(quadros("obra-pronto", [[0, "opacity:0"], [CICLO - 3.2, "opacity:0"], [CICLO - 2.6, "opacity:.55"], [CICLO - 1.6, "opacity:0"], [CICLO, "opacity:0"]]));
-
-  const topo = o.base - o.andar * o.andares;
-  const planta = `<rect class="planta" x="${o.x + 0.5}" y="${topo + 0.5}" width="${o.w - 1}" height="${o.base - topo - 1}"/>`
-    + Array.from({ length: o.andares - 1 }, (_, i) => `<path class="planta" d="M${o.x} ${o.base - o.andar * (i + 1)}H${o.x + o.w}"/>`).join("");
-
-  // Torre do guindaste em treliça.
-  const mx = 1121, mw = 10, mtopo = 236;
-  let trelica = `M${mx} 720V${mtopo}M${mx + mw} 720V${mtopo}`;
-  for (let y = 720; y > mtopo + 10; y -= 14) trelica += `M${mx} ${y}L${mx + mw} ${y - 14}`;
-  const jib = { de: 962, ate: 1236, y: 236 };
-  let lanca = `M${jib.de} ${jib.y}H${jib.ate}M${jib.de + 6} ${jib.y + 8}H${jib.ate}`;
-  for (let x = jib.de + 6; x < jib.ate - 4; x += 12) lanca += `M${x} ${jib.y + 8}L${x + 6} ${jib.y}L${x + 12} ${jib.y + 8}`;
-  const pilha = [0, 1, 2].map((i) => `<rect class="caixote" x="${o.pega - 26 + i * 15}" y="${o.telhadoPega - 12}" width="12" height="12" rx="1.5"/>`).join("")
-    + `<rect class="caixote" x="${o.pega - 19}" y="${o.telhadoPega - 24}" width="12" height="12" rx="1.5"/>`;
-
-  const robo = `<g class="robo">
-    <path class="antena" d="M1126 206V194"/><circle class="farol" cx="1126" cy="193" r="2.6" style="--d:.3s"/>
-    <rect class="cabeca" x="1109" y="205" width="34" height="27" rx="7"/>
-    <rect class="visor" x="1114" y="212" width="24" height="10" rx="5"/>
-    <circle class="olho" cx="1126" cy="217" r="2.8"/>
-  </g>`;
-
-  return {
-    css: css.join(""),
-    svg: `<g class="obra">${planta}<g class="andares">${andares.join("")}</g>`
-      + `<rect class="pronto" x="${o.x}" y="${topo}" width="${o.w}" height="${o.base - topo}"/>`
-      + `<path class="guindaste" d="${trelica}"/><path class="guindaste" d="${lanca}"/>`
-      + `<rect class="contrapeso" x="1214" y="${jib.y + 8}" width="20" height="14" rx="2"/>`
-      + pilha
-      + `<g class="carrinho"><rect class="carro-trilho" x="-6" y="${o.trilho - 4}" width="12" height="5" rx="1.5"/>`
-      + `<rect class="cabo" x="-0.6" y="${o.trilho}" width="1.2" height="1"/>`
-      + `<g class="gancho"><path class="garra" d="M-7 0H7M-7 0V5M7 0V5"/><rect class="bloco" x="-6" y="2" width="12" height="12" rx="1.5"/></g></g>`
-      + robo + `</g>`,
+function holograma() {
+  const H = HOLO;
+  const css = [];
+  const pecas = [];
+  const alvos = []; // [tempo, x, y] para onde o laser aponta
+  let n = 0;
+  const peca = (t, svgPeca, alvo, extra) => {
+    const nome = `holo-p${n++}`;
+    css.push(surge(nome, t, extra));
+    pecas.push(`<g class="holo-peca" style="--a:${nome}">${svgPeca}</g>`);
+    if (alvo) alvos.push([t, ...alvo]);
   };
+  const X = (v) => H.x + v;
+  const Y = (v) => H.y + v;
+
+  // barra do topo
+  peca(0.9, `<rect class="hp" x="${X(0)}" y="${Y(0)}" width="${H.w}" height="16" rx="8"/><circle class="hf" cx="${X(10)}" cy="${Y(8)}" r="2.4"/><circle class="hp2" cx="${X(19)}" cy="${Y(8)}" r="2.4"/><circle class="hp2" cx="${X(28)}" cy="${Y(8)}" r="2.4"/>`, [X(30), Y(8)]);
+  // menu lateral
+  [0, 1, 2, 3, 4].forEach((i) => peca(1.4 + i * 0.22, `<rect class="${i === 0 ? "hf" : "hp2"}" x="${X(10)}" y="${Y(28 + i * 14)}" width="${i === 0 ? 34 : 26 + (i % 2) * 8}" height="5" rx="2.5"/>`, [X(24), Y(30 + i * 14)], "transform:translateX(-6px)"));
+  // indicadores
+  [0, 1, 2].forEach((i) => peca(2.7 + i * 0.4, `<rect class="hp" x="${X(56 + i * 64)}" y="${Y(26)}" width="56" height="30" rx="6"/><rect class="hf" x="${X(63 + i * 64)}" y="${Y(33)}" width="${22 + i * 6}" height="6" rx="3"/><rect class="hp2" x="${X(63 + i * 64)}" y="${Y(44)}" width="34" height="4" rx="2"/>`, [X(84 + i * 64), Y(41)], "transform:scale(.85)"));
+  // gráfico de barras
+  const alturas = [26, 40, 32, 52, 44, 66, 78];
+  alturas.forEach((h, i) => peca(4.1 + i * 0.22, `<rect class="${i === alturas.length - 1 ? "hf" : "hb"}" x="${X(58 + i * 15)}" y="${Y(158 - h)}" width="10" height="${h}" rx="2"/>`, [X(63 + i * 15), Y(158 - h)], "transform:scaleY(0)"));
+  // lista com confirmações
+  [0, 1, 2, 3].forEach((i) => peca(5.9 + i * 0.3, `<circle class="hc" cx="${X(176)}" cy="${Y(76 + i * 22)}" r="5"/><path class="hk" d="M${X(173.5)} ${Y(76 + i * 22)}l1.8 1.8 3.4-3.6"/><rect class="hp2" x="${X(186)}" y="${Y(73 + i * 22)}" width="${46 - (i % 2) * 10}" height="5" rx="2.5"/>`, [X(176), Y(76 + i * 22)], "transform:translateX(6px)"));
+  // selo de pronto
+  peca(7.4, `<circle class="hselo" cx="${X(H.w - 14)}" cy="${Y(8)}" r="5"/>`, null, "transform:scale(0)");
+
+  // tela (moldura e fundo)
+  css.push(quadros("holo-tela", [[0, "opacity:0"], [0.2, "opacity:0"], [0.7, "opacity:1"], [12, "opacity:1"], [12.9, "opacity:0"], [CICLO, "opacity:0"]]));
+  css.push(quadros("holo-moldura", [[0, "stroke-dashoffset:860"], [0.3, "stroke-dashoffset:860"], [1.0, "stroke-dashoffset:0"], [CICLO, "stroke-dashoffset:0"]]));
+  css.push(quadros("holo-feixe", [[0, "opacity:0"], [0.1, "opacity:0"], [0.5, "opacity:1"], [12.2, "opacity:1"], [12.9, "opacity:0"], [CICLO, "opacity:0"]]));
+  css.push(quadros("holo-pronto", [[0, "opacity:0"], [7.4, "opacity:0"], [7.6, "opacity:.5"], [8.6, "opacity:0"], [CICLO, "opacity:0"]]));
+  // dados descendo para a cidade quando o sistema entra no ar
+  css.push(quadros("holo-desce", [[0, "stroke-dashoffset:0;opacity:0"], [7.5, "stroke-dashoffset:0;opacity:0"], [7.6, "stroke-dashoffset:0;opacity:1"], [9.4, "stroke-dashoffset:-320;opacity:1"], [9.6, "stroke-dashoffset:-320;opacity:0"], [CICLO, "opacity:0"]]));
+
+  // Robô: vai de peça em peça, laser aceso enquanto desenha.
+  const base = { x: H.x + H.w + 44, y: H.y + 60 };
+  const robo = [[0, `transform:translate(${base.x}px,${base.y + 40}px)`]];
+  const raios = [];
+  let ultimo = { x: base.x, y: base.y + 40 };
+  alvos.forEach(([t, tx, ty]) => {
+    const rx = base.x + ((tx - H.x) / H.w) * 18;
+    const ry = Math.max(H.y - 6, Math.min(H.y + H.h - 10, ty - 6));
+    robo.push([t - 0.3, `transform:translate(${ultimo.x}px,${ultimo.y}px)`]);
+    robo.push([t - 0.05, `transform:translate(${rx}px,${ry}px)`]);
+    const nome = `holo-r${raios.length}`;
+    css.push(quadros(nome, [[0, "opacity:0"], [t - 0.06, "opacity:0"], [t - 0.02, "opacity:1"], [t + 0.24, "opacity:1"], [t + 0.3, "opacity:0"], [CICLO, "opacity:0"]]));
+    raios.push(`<path class="holo-raio" style="--a:${nome}" d="M${(rx - 8).toFixed(1)} ${(ry - 2).toFixed(1)}L${tx.toFixed(1)} ${ty.toFixed(1)}"/><circle class="holo-faisca" style="--a:${nome}" cx="${tx.toFixed(1)}" cy="${ty.toFixed(1)}" r="3"/>`);
+    ultimo = { x: rx, y: ry };
+  });
+  robo.push([8.2, `transform:translate(${ultimo.x}px,${ultimo.y}px)`]);
+  robo.push([9.2, `transform:translate(${base.x}px,${base.y + 40}px)`]);
+  robo.push([CICLO, `transform:translate(${base.x}px,${base.y + 40}px)`]);
+  css.push(quadros("holo-robo", robo));
+
+  const e = H.emissor;
+  const desce = [
+    `M${e.x - 4} ${e.y}V${e.y + 60}H${e.x - 40}V720`,
+    `M${e.x + 4} ${e.y}V${e.y + 90}H${e.x + 44}V720`,
+    `M${e.x} ${e.y}V720`,
+  ].map((d) => `<path class="holo-dado" d="${d}"/>`).join("");
+
+  const svgHolo = `<defs><linearGradient id="feixe-holo" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fed301" stop-opacity=".55"/><stop offset="1" stop-color="#fed301" stop-opacity="0"/></linearGradient></defs>
+  <g class="holo">
+    <path class="holo-feixe" d="M${e.x - 7} ${e.y - 6}L${H.x + 14} ${H.y + H.h}H${H.x + H.w - 14}L${e.x + 7} ${e.y - 6}Z"/>
+    <g class="holo-tela">
+      <rect class="holo-fundo" x="${H.x}" y="${H.y}" width="${H.w}" height="${H.h}" rx="12"/>
+      <rect class="holo-moldura" x="${H.x}" y="${H.y}" width="${H.w}" height="${H.h}" rx="12" pathLength="860"/>
+      <g class="holo-linhas">${Array.from({ length: 9 }, (_, i) => `<path d="M${H.x + 6} ${H.y + 20 + i * 17}H${H.x + H.w - 6}"/>`).join("")}</g>
+      ${pecas.join("")}
+      <rect class="holo-pronto" x="${H.x}" y="${H.y}" width="${H.w}" height="${H.h}" rx="12"/>
+    </g>
+    <rect class="emissor" x="${e.x - 12}" y="${e.y - 7}" width="24" height="7" rx="2"/><circle class="emissor-luz" cx="${e.x}" cy="${e.y - 7}" r="2.4"/>
+    ${desce}
+    ${raios.join("")}
+    <g class="holo-robo"><g class="robo-corpo">
+      <ellipse class="propulsor" cx="-6" cy="22" rx="3" ry="5"/><ellipse class="propulsor" cx="6" cy="22" rx="3" ry="5"/>
+      <rect class="tronco" x="-9" y="9" width="18" height="12" rx="4"/>
+      <path class="antena" d="M0 -12V-20"/><circle class="farol" cx="0" cy="-21" r="2.2"/>
+      <rect class="cabeca" x="-15" y="-12" width="30" height="22" rx="7"/>
+      <rect class="visor" x="-11" y="-6" width="22" height="9" rx="4.5"/>
+      <circle class="olho" cx="-4" cy="-1.5" r="2.2"/><circle class="olho" cx="4" cy="-1.5" r="2.2"/>
+    </g></g>
+  </g>`;
+  return { css: css.join(""), svg: svgHolo };
+}
+
+/** Rede entre as antenas: pacotes de dados indo de torre em torre. */
+function rede() {
+  const pontos = [[1264, 150], [1539, 156], [1647, 172]];
+  const ligacoes = [[0, 1], [1, 2], [0, 2]];
+  return ligacoes.map(([a, b], i) => {
+    const [x1, y1] = pontos[a]; const [x2, y2] = pontos[b];
+    const mx = (x1 + x2) / 2; const my = Math.min(y1, y2) - 40;
+    return `<path class="rede" d="M${x1} ${y1}Q${mx} ${my} ${x2} ${y2}"/><path class="pacote" d="M${x1} ${y1}Q${mx} ${my} ${x2} ${y2}" style="--d:${(-i * 0.9).toFixed(1)}s"/>`;
+  }).join("");
 }
 
 /** Carros voadores: riscos de luz cruzando a cidade em duas faixas. */
@@ -248,12 +258,12 @@ function cidade() {
     minimo: 34, maximo: 440, larguraMin: 64, larguraMax: 130, vao: 70, cor: "#060607", borda: true, janelas: 0.16, piscaMax: 30,
     antenas: { minimo: 280, quantas: 3 }, luzes: 3,
   });
-  const o = obra();
+  const o = holograma();
   const chao = `<rect class="horizonte" x="0" y="${ALTURA - 3}" width="${LARGURA}" height="3"/>`;
   return `<div class="cidade" aria-hidden="true">
   ${svg("cid-longe", longe)}
-  ${svg("cid-meio", meio)}
-  ${svg("cid-drones", carros() + drone("d1", false) + drone("d2", true) + drone("d3", false))}
+  ${svg("cid-meio", meio + rede())}
+  ${svg("cid-drones", carros() + drone("d1", false) + drone("d2", false) + drone("d3", false))}
   ${svg("cid-perto", `<style>${o.css}</style>` + perto + o.svg + chao)}
   <div class="cid-nevoa"></div>
 </div>`;

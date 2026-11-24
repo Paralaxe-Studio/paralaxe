@@ -717,31 +717,48 @@ ul,ol{margin:0;padding:0;list-style:none}
 .cid-longe{filter:blur(.4px)}
 .cid-meio .predio{filter:drop-shadow(0 -1px 0 rgba(var(--accent-rgb),.08))}
 
-/* Obra com guindaste-robô: a planta tracejada vira prédio, andar por andar */
-.obra .planta{fill:none;stroke:rgba(var(--accent-rgb),.32);stroke-width:1;stroke-dasharray:3 4}
-.obra .corpo{fill:#060607}
-.obra .laje{stroke:rgba(var(--accent-rgb),.38);stroke-width:1.2}
-.obra .brilho{fill:var(--accent);opacity:0}
-.obra .pronto{fill:var(--accent);opacity:0;mix-blend-mode:screen}
-.obra .guindaste{fill:none;stroke:#34343b;stroke-width:1.6;stroke-linejoin:round}
-.obra .contrapeso{fill:#26262c;stroke:rgba(var(--accent-rgb),.35)}
-.obra .caixote{fill:var(--accent-deep);stroke:rgba(5,5,5,.6);stroke-width:1}
-.obra .carro-trilho{fill:#3a3a41}
-.obra .cabo{fill:#4a4a52;transform-box:fill-box;transform-origin:top;transform:scaleY(18)}
-.obra .gancho{transform:translate(0,262px)}
-.obra .garra{fill:none;stroke:#8a8a92;stroke-width:1.4}
-.obra .bloco{fill:var(--accent);opacity:0;filter:drop-shadow(0 0 5px rgba(var(--accent-rgb),.8))}
-.obra .carrinho{transform:translate(1196px,0)}
-.obra .cabeca{fill:#1c1c21;stroke:rgba(var(--accent-rgb),.55);stroke-width:1.2}
-.obra .visor{fill:#050505}
-.obra .olho{fill:var(--accent);filter:drop-shadow(0 0 4px var(--accent))}
-.js-anim .obra .carrinho{animation:obra-carrinho 28s linear infinite}
-.js-anim .obra .gancho{animation:obra-gancho 28s ease-in-out infinite}
-.js-anim .obra .cabo{animation:obra-cabo 28s ease-in-out infinite}
-.js-anim .obra .bloco{animation:obra-bloco 28s linear infinite}
-.js-anim .obra .olho{animation:obra-olho 28s ease-in-out infinite}
-.js-anim .obra .andar,.js-anim .obra .brilho{animation:var(--a) 28s linear infinite}
-.js-anim .obra .pronto{animation:obra-pronto 28s ease-out infinite}
+/* Robô montando um sistema em holograma */
+.holo-feixe{fill:url(#feixe-holo);opacity:.9}
+.holo-fundo{fill:rgba(var(--accent-rgb),.05)}
+.holo-moldura{fill:none;stroke:rgba(var(--accent-rgb),.75);stroke-width:1.4;stroke-dasharray:860;filter:drop-shadow(0 0 6px rgba(var(--accent-rgb),.55))}
+.holo-linhas path{stroke:rgba(var(--accent-rgb),.06);stroke-width:1}
+.holo .hp{fill:rgba(var(--accent-rgb),.12);stroke:rgba(var(--accent-rgb),.35);stroke-width:.8}
+.holo .hp2{fill:rgba(244,243,238,.32)}
+.holo .hf{fill:var(--accent)}
+.holo .hb{fill:rgba(var(--accent-rgb),.5)}
+.holo .hc{fill:rgba(var(--accent-rgb),.18);stroke:var(--accent);stroke-width:1}
+.holo .hk{fill:none;stroke:var(--accent);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.holo .hselo{fill:#46d97f;filter:drop-shadow(0 0 5px #46d97f)}
+.holo-pronto{fill:var(--accent);opacity:0}
+.holo-peca{transform-box:fill-box;transform-origin:center bottom}
+.emissor{fill:#1c1c21;stroke:rgba(var(--accent-rgb),.6)}
+.emissor-luz{fill:var(--accent);filter:drop-shadow(0 0 5px var(--accent))}
+.holo-dado{fill:none;stroke:var(--accent);stroke-width:1.6;stroke-dasharray:14 320;opacity:0;filter:drop-shadow(0 0 4px var(--accent))}
+.holo-raio{stroke:#fff3a6;stroke-width:1.3;stroke-linecap:round;opacity:0;filter:drop-shadow(0 0 3px var(--accent))}
+.holo-faisca{fill:#fff;opacity:0;filter:drop-shadow(0 0 6px var(--accent))}
+.holo-robo{transform:translate(1254px,248px)}
+.holo .tronco{fill:#26262c;stroke:rgba(var(--accent-rgb),.4)}
+.holo .cabeca{fill:#1c1c21;stroke:rgba(var(--accent-rgb),.7);stroke-width:1.2}
+.holo .visor{fill:#050505}
+.holo .olho{fill:var(--accent);filter:drop-shadow(0 0 3px var(--accent))}
+.holo .propulsor{fill:rgba(var(--accent-rgb),.55);filter:blur(1.5px)}
+.rede{fill:none;stroke:rgba(var(--accent-rgb),.12);stroke-width:1;stroke-dasharray:2 5}
+.pacote{fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-dasharray:6 600;stroke-dashoffset:0;opacity:0}
+html:not(.js-anim) .holo-moldura{stroke-dasharray:none}
+.js-anim .holo-tela{animation:holo-tela 16s linear infinite}
+.js-anim .holo-moldura{animation:holo-moldura 16s ease-out infinite}
+.js-anim .holo-feixe{animation:holo-feixe 16s linear infinite}
+.js-anim .holo-peca{animation:var(--a) 16s cubic-bezier(.2,.8,.2,1) infinite}
+.js-anim .holo-pronto{animation:holo-pronto 16s ease-out infinite}
+.js-anim .holo-dado{animation:holo-desce 16s linear infinite}
+.js-anim .holo-robo{animation:holo-robo 16s ease-in-out infinite}
+.js-anim .holo-raio,.js-anim .holo-faisca{animation:var(--a) 16s linear infinite}
+.js-anim .robo-corpo{animation:paira 1.4s ease-in-out infinite alternate}
+.js-anim .holo .propulsor{animation:farol .5s ease-in-out infinite}
+.js-anim .holo .olho{animation:pisca-olho 5s steps(1) infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pisca-olho{0%,92%{transform:none}93%,96%{transform:scaleY(.15)}97%,100%{transform:none}}
+.js-anim .pacote{opacity:1;animation:pacote 3.2s linear infinite;animation-delay:var(--d)}
+@keyframes pacote{from{stroke-dashoffset:0}to{stroke-dashoffset:-606}}
 
 /* Carros voadores */
 .carro{transform:translate(-200px,var(--y))}
