@@ -111,16 +111,17 @@ module.exports = {
       items: ["Até 2 pessoas com acesso", "Todos os módulos do seu ramo", "Clientes, catálogo, caixa e estoque", "Link e botão no seu site para o cliente marcar ou aprovar orçamento", "Avisos pelo WhatsApp com mensagem pronta", "Backup diário"],
     },
     {
-      key: "profissional", name: "Profissional", price: "219", annual: "197", popular: true, for: "Para equipes pequenas que querem controle.",
-      items: ["Até 6 pessoas com acesso", "Tudo do Essencial", "Comissão por profissional", "Relatórios completos, lucro e meta do mês", "Mensalidades para os seus clientes", "Fotos nas ordens de serviço e busca de placa"],
+      key: "profissional", name: "Profissional", price: "229", annual: "206", popular: true, for: "Para equipes pequenas que querem controle.",
+      items: ["Até 6 pessoas com acesso", "Tudo do Essencial", "Comissão por profissional", "Relatórios completos, lucro e meta do mês", "Mensalidades para os seus clientes", "Ficha do cliente com histórico e anotações"],
     },
     {
-      key: "completo", name: "Completo", price: "319", annual: "287", for: "Para quem quer o negócio rodando no automático.",
+      key: "completo", name: "Completo", price: "329", annual: "299", for: "Para quem quer o negócio rodando no automático.",
       items: ["Equipe sem limite", "Tudo do Profissional", "Atendente virtual com IA no WhatsApp: responde, tira dúvidas e marca horário (2.000 respostas/mês)", "WhatsApp automático pela API oficial", "Nota fiscal de serviço", "Atendimento prioritário"],
     },
   ],
   fine: [
     "7 dias grátis, sem cartão (um teste por CPF/CNPJ)",
+    "Quer assinar já? Pode, logo depois do cadastro. A primeira cobrança só vem no fim dos 7 dias",
     "Agenda e cardápio dentro do seu site. Site feito pela Paralaxe já vem ligado ao app",
     "Mensal sem fidelidade. Anual com cerca de 10% de desconto",
     "Seus dados exportados em planilha a qualquer momento",
