@@ -34,6 +34,7 @@ function loadContent(lang) {
   delete require.cache[file];
   let raw = JSON.stringify(require(file));
   raw = raw
+    .replace(/\{seoBrand\}/g, jsonEsc(cfg.brand.seoName))
     .replace(/\{brand\}/g, jsonEsc(cfg.brand.name))
     .replace(/\{legalName\}/g, jsonEsc(cfg.brand.legalName))
     .replace(/\{email\}/g, jsonEsc(contactLabel()));
@@ -215,7 +216,7 @@ function head(t, ctx) {
 <link rel="canonical" href="${canonical}">
 ${alts}
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="${esc(cfg.brand.name)}">
+<meta property="og:site_name" content="${esc(cfg.brand.seoName)}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${canonical}">
@@ -623,8 +624,8 @@ function buildPage(lang, page) {
   const jsonld = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "Organization", name: cfg.brand.name, url: cfg.siteUrl, ...(socialEntries().length ? { sameAs: socialEntries().map((s) => s.url) } : {}) },
-      { "@type": "WebSite", name: cfg.brand.name, url: cfg.siteUrl, inLanguage: t.htmlLang },
+      { "@type": "Organization", "@id": cfg.siteUrl + "/#org", name: cfg.brand.seoName, alternateName: [cfg.brand.name, "Paralaxe One"], url: cfg.siteUrl, logo: cfg.siteUrl + "/assets/" + cfg.brand.logoMark, ...(cfg.contact.whatsapp ? { contactPoint: { "@type": "ContactPoint", telephone: "+" + cfg.contact.whatsapp, contactType: "customer service", areaServed: "BR", availableLanguage: ["Portuguese", "English"] } } : {}), ...(socialEntries().length ? { sameAs: socialEntries().map((s) => s.url) } : {}) },
+      { "@type": "WebSite", name: cfg.brand.seoName, alternateName: cfg.brand.name, url: cfg.siteUrl, publisher: { "@id": cfg.siteUrl + "/#org" }, inLanguage: t.htmlLang },
     ],
   };
 
@@ -662,7 +663,7 @@ function buildRoot() {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(cfg.brand.name)}</title>
+<title>${esc(cfg.brand.seoName)}</title>
 <meta name="description" content="${esc(loadContent("pt").meta.description)}">
 <meta name="theme-color" content="${cfg.colors.bg}">
 <link rel="canonical" href="${base}/${cfg.defaultLang}/">

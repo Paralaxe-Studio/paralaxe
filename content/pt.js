@@ -5,10 +5,10 @@ module.exports = {
   ogLocale: "pt_BR",
   paths: { privacy: "privacidade" },
   meta: {
-    title: "{brand} — Sistemas de gestão sob medida e sites",
+    title: "{seoBrand} — Sistemas de gestão sob medida e sites",
     description:
       "Desenvolvemos sistemas de gestão sob medida, sites, aplicativos, agentes de IA e automações para qualquer ramo. Licença mensal, hospedagem dedicada e preço justo.",
-    privacyTitle: "Política de privacidade — {brand}",
+    privacyTitle: "Política de privacidade — {seoBrand}",
     privacyDescription: "Como o site da {brand} trata dados pessoais, em conformidade com a LGPD.",
   },
   ui: {

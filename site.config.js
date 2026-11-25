@@ -11,7 +11,9 @@
 module.exports = {
   brand: {
     name: "Paralaxe",
-    legalName: "Paralaxe",     // razão social / nome jurídico (aparece no rodapé e na privacidade)
+    legalName: "Paralaxe",
+    // Nome completo usado no título da aba, no Google e nos dados estruturados.
+    seoName: "Paralaxe Studio",     // razão social / nome jurídico (aparece no rodapé e na privacidade)
     // Logo em imagem (arquivos em assets/). Deixe null para usar só texto.
     logoMark: "logo-mark.png",       // o "P" amarelo
     logoWord: "logo-wordmark.png",   // o nome PARALAXE

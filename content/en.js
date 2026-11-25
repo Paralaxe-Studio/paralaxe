@@ -5,10 +5,10 @@ module.exports = {
   ogLocale: "en_US",
   paths: { privacy: "privacy" },
   meta: {
-    title: "{brand} — Custom business software and websites",
+    title: "{seoBrand} — Custom business software and websites",
     description:
       "We build custom management systems, websites, apps, AI agents and automations for any line of business. Monthly license, dedicated hosting and fair pricing.",
-    privacyTitle: "Privacy policy — {brand}",
+    privacyTitle: "Privacy policy — {seoBrand}",
     privacyDescription: "How the {brand} website handles personal data, in line with Brazil's LGPD.",
   },
   ui: {
