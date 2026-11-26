@@ -122,7 +122,7 @@ module.exports = {
     },
     {
       key: "completo", name: "Completo", price: "329", annual: "299", for: "Para quem quer o negócio rodando no automático.",
-      items: ["Equipe sem limite", "Tudo do Profissional", "Atendente virtual com IA no WhatsApp: responde, tira dúvidas e marca horário (2.000 respostas/mês)", "WhatsApp automático pela API oficial", "Nota fiscal de serviço", "Atendimento prioritário"],
+      items: ["Equipe sem limite", "Tudo do Profissional", "Atendente virtual com IA no WhatsApp: responde, tira dúvidas e marca horário (2.000 respostas/mês)", "WhatsApp automático pela API oficial", "Nota fiscal de serviço", "Busca automática de placa (oficina e lava-jato)", "Atendimento prioritário"],
     },
   ],
   fine: [
