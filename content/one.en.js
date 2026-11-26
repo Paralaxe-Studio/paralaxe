@@ -65,7 +65,7 @@ module.exports = {
       key: "assistencia", name: "Repair shop", color: "#818cf8",
       stats: [["Devices on the bench", "21"], ["Ready", "6"], ["Being quoted", "5"]],
       list: [["WO 88", "iPhone 12", "Screen replacement"], ["WO 89", "Laptop", "Won't turn on"], ["WO 90", "Galaxy A54", "Battery"]],
-      ready: ["Device check-in with photos and passcode", "Status page the customer can follow", "Pick-up deadline on the printed ticket", "Warranty with an end date"],
+      ready: ["Device check-in with photos and a checklist", "Status page the customer can follow", "Pick-up deadline on the printed ticket", "Warranty with an end date"],
     },
     {
       key: "lavajato", name: "Car wash and detailing", color: "#22d3ee",
@@ -106,7 +106,7 @@ module.exports = {
   ],
   plansKicker: "Plans",
   plansTitle: "A plan for every size of business.",
-  plansSub: "Every plan has every module for your business. The difference is team size, reports and what runs on its own.",
+  plansSub: "Every plan has every module for your business. The difference is team size and what runs on its own.",
   annualNote: "or R$ {v}/month on the yearly plan",
   perMonth: "/month",
   popular: "Most popular",
@@ -114,11 +114,11 @@ module.exports = {
   plans: [
     {
       key: "essencial", name: "Essential", price: "149", annual: "134", for: "For people working alone or in pairs.",
-      items: ["Up to 2 people with access", "Every module for your business", "Customers, catalog, cash register and inventory", "A link and a button on your website for customers to book or approve quotes", "WhatsApp messages ready to send", "Daily backup"],
+      items: ["Up to 2 people with access", "Every module for your business", "Customers, catalog, cash register, inventory, finances and reports", "A link and a button on your website for customers to book or approve quotes", "WhatsApp messages ready to send", "Daily backup and export of your data"],
     },
     {
       key: "profissional", name: "Professional", price: "229", annual: "206", popular: true, for: "For small teams that want control.",
-      items: ["Up to 6 people with access", "Everything in Essential", "Commission per professional", "Full reports, profit and monthly goal", "Recurring fees for your customers", "Customer record with history and notes"],
+      items: ["Up to 6 people with access", "Everything in Essential", "Commission per professional", "Team time clock"],
     },
     {
       key: "completo", name: "Complete", price: "329", annual: "299", for: "For businesses that want to run on autopilot.",

@@ -65,7 +65,7 @@ module.exports = {
       key: "assistencia", name: "Assistência técnica", color: "#818cf8",
       stats: [["Aparelhos na bancada", "21"], ["Prontos", "6"], ["Em orçamento", "5"]],
       list: [["OS 88", "iPhone 12", "Troca de tela"], ["OS 89", "Notebook", "Não liga"], ["OS 90", "Galaxy A54", "Bateria"]],
-      ready: ["Entrada do aparelho com fotos e senha", "Acompanhamento pelo link para o cliente", "Prazo de retirada na via impressa", "Garantia com data de fim"],
+      ready: ["Entrada do aparelho com fotos e checklist", "Acompanhamento pelo link para o cliente", "Prazo de retirada na via impressa", "Garantia com data de fim"],
     },
     {
       key: "lavajato", name: "Lava-jato e estética automotiva", color: "#22d3ee",
@@ -106,7 +106,7 @@ module.exports = {
   ],
   plansKicker: "Planos",
   plansTitle: "Um plano para cada tamanho de negócio.",
-  plansSub: "Todos os planos têm todos os módulos do seu ramo. A diferença está na equipe, nos relatórios e no que roda sozinho.",
+  plansSub: "Todos os planos têm todos os módulos do seu ramo. A diferença está no tamanho da equipe e no que roda sozinho.",
   annualNote: "ou R$ {v}/mês no plano anual",
   perMonth: "/mês",
   popular: "Mais escolhido",
@@ -114,11 +114,11 @@ module.exports = {
   plans: [
     {
       key: "essencial", name: "Essencial", price: "149", annual: "134", for: "Para quem trabalha sozinho ou em dupla.",
-      items: ["Até 2 pessoas com acesso", "Todos os módulos do seu ramo", "Clientes, catálogo, caixa e estoque", "Link e botão no seu site para o cliente marcar ou aprovar orçamento", "Avisos pelo WhatsApp com mensagem pronta", "Backup diário"],
+      items: ["Até 2 pessoas com acesso", "Todos os módulos do seu ramo", "Clientes, catálogo, caixa, estoque, financeiro e relatórios", "Link e botão no seu site para o cliente marcar ou aprovar orçamento", "Avisos pelo WhatsApp com mensagem pronta", "Backup diário e exportação dos seus dados"],
     },
     {
       key: "profissional", name: "Profissional", price: "229", annual: "206", popular: true, for: "Para equipes pequenas que querem controle.",
-      items: ["Até 6 pessoas com acesso", "Tudo do Essencial", "Comissão por profissional", "Relatórios completos, lucro e meta do mês", "Mensalidades para os seus clientes", "Ficha do cliente com histórico e anotações"],
+      items: ["Até 6 pessoas com acesso", "Tudo do Essencial", "Comissão por profissional", "Ponto da equipe"],
     },
     {
       key: "completo", name: "Completo", price: "329", annual: "299", for: "Para quem quer o negócio rodando no automático.",
