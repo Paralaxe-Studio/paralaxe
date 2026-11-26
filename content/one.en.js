@@ -44,6 +44,12 @@ module.exports = {
       ready: ["Confidential records: only the provider reads them", "Printed prescriptions and certificates", "Attendance confirmation by link", "Tax receipts with the patient's ID"],
     },
     {
+      key: "psicologia", name: "Psychology", color: "#a78bfa",
+      stats: [["Sessions today", "7"], ["Online", "3"], ["Active patients", "28"]],
+      list: [["08:00", "Marina", "Session"], ["09:00", "Rafael", "Online session"], ["10:00", "Bia", "First session"]],
+      ready: ["Confidential session notes: only the therapist reads them", "Therapy agreement signed on screen", "Online session link in the reminder", "Receipts with the license number for reimbursement"],
+    },
+    {
       key: "petshop", name: "Pet shop and grooming", color: "#fb923c",
       stats: [["Baths today", "16"], ["Pick-up and drop-off", "5"], ["Vaccines due", "3"]],
       list: [["09:00", "Thor", "Bath and groom"], ["10:00", "Mel", "Bath"], ["11:00", "Bob", "Hygienic trim"]],

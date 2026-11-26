@@ -44,6 +44,12 @@ module.exports = {
       ready: ["Prontuário sigiloso: só quem atende lê", "Receita, atestado e declaração impressos", "Confirmação de presença pelo link", "Recibo com CPF para o imposto de renda"],
     },
     {
+      key: "psicologia", name: "Psicologia", color: "#a78bfa",
+      stats: [["Sessões hoje", "7"], ["Online", "3"], ["Pacientes ativos", "28"]],
+      list: [["08:00", "Marina", "Sessão"], ["09:00", "Rafael", "Sessão online"], ["10:00", "Bia", "Primeira sessão"]],
+      ready: ["Registro de sessão sigiloso: só a psicóloga lê", "Contrato terapêutico assinado na tela", "Link da sessão online no lembrete", "Recibo com CRP para reembolso e imposto de renda"],
+    },
+    {
       key: "petshop", name: "Pet shop e banho e tosa", color: "#fb923c",
       stats: [["Banhos hoje", "16"], ["Leva e traz", "5"], ["Vacinas a vencer", "3"]],
       list: [["09:00", "Thor", "Banho e tosa"], ["10:00", "Mel", "Banho"], ["11:00", "Bob", "Tosa higiênica"]],
