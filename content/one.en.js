@@ -118,11 +118,11 @@ module.exports = {
     },
     {
       key: "profissional", name: "Professional", price: "229", annual: "206", popular: true, for: "For small teams that want control.",
-      items: ["Up to 6 people with access", "Everything in Essential", "Commission per professional", "Team time clock"],
+      items: ["Up to 6 people with access", "Everything in Essential", "Commission per professional", "Team time clock", "Service invoices (Brazil)"],
     },
     {
       key: "completo", name: "Complete", price: "329", annual: "299", for: "For businesses that want to run on autopilot.",
-      items: ["Unlimited team", "Everything in Professional", "AI assistant on WhatsApp: answers, clears doubts and books appointments (2,000 replies/month)", "Automatic WhatsApp through the official API", "Service invoices (Brazil)", "Automatic license plate lookup (auto repair and car wash)", "Priority support"],
+      items: ["Unlimited team", "Everything in Professional", "AI assistant on WhatsApp: answers, clears doubts and books appointments (2,000 replies/month)", "Automatic WhatsApp through the official API", "Automatic license plate lookup (auto repair and car wash)", "Priority support"],
     },
   ],
   fine: [

@@ -118,11 +118,11 @@ module.exports = {
     },
     {
       key: "profissional", name: "Profissional", price: "229", annual: "206", popular: true, for: "Para equipes pequenas que querem controle.",
-      items: ["Até 6 pessoas com acesso", "Tudo do Essencial", "Comissão por profissional", "Ponto da equipe"],
+      items: ["Até 6 pessoas com acesso", "Tudo do Essencial", "Comissão por profissional", "Ponto da equipe", "Nota fiscal de serviço"],
     },
     {
       key: "completo", name: "Completo", price: "329", annual: "299", for: "Para quem quer o negócio rodando no automático.",
-      items: ["Equipe sem limite", "Tudo do Profissional", "Atendente virtual com IA no WhatsApp: responde, tira dúvidas e marca horário (2.000 respostas/mês)", "WhatsApp automático pela API oficial", "Nota fiscal de serviço", "Busca automática de placa (oficina e lava-jato)", "Atendimento prioritário"],
+      items: ["Equipe sem limite", "Tudo do Profissional", "Atendente virtual com IA no WhatsApp: responde, tira dúvidas e marca horário (2.000 respostas/mês)", "WhatsApp automático pela API oficial", "Busca automática de placa (oficina e lava-jato)", "Atendimento prioritário"],
     },
   ],
   fine: [
