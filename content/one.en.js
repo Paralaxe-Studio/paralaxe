@@ -41,7 +41,7 @@ module.exports = {
       key: "consultorio", name: "Private practice", color: "#2dd4bf",
       stats: [["Appointments today", "9"], ["Confirmed", "7"], ["Follow-ups", "4"]],
       list: [["08:00", "João", "Appointment"], ["09:00", "Karen", "Follow-up"], ["10:00", "Lucas", "Assessment"]],
-      ready: ["Confidential records: only the provider reads them", "Printed prescriptions and certificates", "Attendance confirmation by link", "Tax receipts with the patient's ID"],
+      ready: ["Confidential records: only the provider reads them", "Printed prescriptions and certificates", "Attendance confirmation by link", "Telehealth with the room link in the reminder"],
     },
     {
       key: "psicologia", name: "Psychology", color: "#a78bfa",
@@ -83,7 +83,7 @@ module.exports = {
       key: "manipulacao", name: "Compounding pharmacy", color: "#34d399",
       stats: [["Orders today", "28"], ["Lots expiring", "2"], ["In quarantine", "1"]],
       list: [["Ord. 512", "Melatonin 3 mg", "Weighing"], ["Ord. 513", "Minoxidil 5%", "Ready"], ["Ord. 514", "Vitamin D 50,000 IU", "Quote"]],
-      ready: ["Formulas with factors and FEFO lots", "Weighing sheet with a connected scale", "Controlled substances log with retained prescriptions", "Labels and suggested pricing"],
+      ready: ["Formulas with factors and FEFO lots", "Weighing sheet with a connected scale", "Controlled substances log with retained prescriptions", "Customers send a photo of the prescription through your link"],
     },
     {
       key: "lanchonete", name: "Snack bar and restaurant", color: "#f5a524",
@@ -134,6 +134,20 @@ module.exports = {
     "Each company's data kept separate, backed up daily",
   ],
   mockNote: "Illustrative screens with fictional data.",
+  faq: {
+    kicker: "Questions",
+    title: "What everyone asks before getting started.",
+    items: [
+      ["Do I need a credit card to try it?", "No. You get 7 free days with everything unlocked and no card. If you like it, you choose a plan inside the app."],
+      ["Is there a contract? Can I cancel anytime?", "The monthly plan has no commitment. The annual plan costs about 10% less per month."],
+      ["My customers are in a spreadsheet. Can I bring them in?", "Yes. The app imports customers and your catalog from a spreadsheet, so you don't have to type everything again."],
+      ["Do I need to install anything?", "No. Paralaxe One runs in the browser and can become an app on your phone's home screen in under a minute, on iPhone and Android."],
+      ["Can my customers book on their own?", "Yes. You get a link for your business to share on Instagram and WhatsApp, and bookings land straight in your calendar."],
+      ["Is my data safe?", "Each company's data is kept apart from everyone else's, with daily backups. You can export everything to a spreadsheet at any time."],
+      ["What if I pay late?", "Nothing disappears right away: there are 5 days of grace, then the app becomes read-only. Once you pay, it works again immediately."],
+      ["Does it issue invoices?", "Service invoices (Brazil's NFS-e) are included in the Professional and Complete plans."],
+    ],
+  },
   install: {
     kicker: "Install on your phone",
     title: "It becomes an app on your phone, no app store needed.",

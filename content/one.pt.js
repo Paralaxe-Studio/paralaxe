@@ -41,7 +41,7 @@ module.exports = {
       key: "consultorio", name: "Consultório", color: "#2dd4bf",
       stats: [["Consultas hoje", "9"], ["Confirmadas", "7"], ["Retornos", "4"]],
       list: [["08:00", "João", "Consulta"], ["09:00", "Karen", "Retorno"], ["10:00", "Lucas", "Avaliação"]],
-      ready: ["Prontuário sigiloso: só quem atende lê", "Receita, atestado e declaração impressos", "Confirmação de presença pelo link", "Recibo com CPF para o imposto de renda"],
+      ready: ["Prontuário sigiloso: só quem atende lê", "Receita, atestado e declaração impressos", "Confirmação de presença pelo link", "Teleconsulta com o link da sala no lembrete"],
     },
     {
       key: "psicologia", name: "Psicologia", color: "#a78bfa",
@@ -83,7 +83,7 @@ module.exports = {
       key: "manipulacao", name: "Farmácia de manipulação", color: "#34d399",
       stats: [["Ordens hoje", "28"], ["Lotes a vencer", "2"], ["Em quarentena", "1"]],
       list: [["Ord. 512", "Melatonina 3 mg", "Pesando"], ["Ord. 513", "Minoxidil 5%", "Pronta"], ["Ord. 514", "Vitamina D 50.000 UI", "Orçamento"]],
-      ready: ["Fórmulas com fator e lote por FEFO", "Ficha de pesagem com balança", "Livro de controlados com receita retida", "Rótulo e preço sugerido"],
+      ready: ["Fórmulas com fator e lote por FEFO", "Ficha de pesagem com balança", "Livro de controlados com receita retida", "Cliente manda a foto da receita pelo seu link"],
     },
     {
       key: "lanchonete", name: "Lanchonete e restaurante", color: "#f5a524",
@@ -134,6 +134,20 @@ module.exports = {
     "Dados de cada empresa isolados e com backup diário",
   ],
   mockNote: "Telas ilustrativas com dados fictícios.",
+  faq: {
+    kicker: "Dúvidas",
+    title: "Perguntas que todo mundo faz antes de começar.",
+    items: [
+      ["Preciso de cartão de crédito para testar?", "Não. São 7 dias grátis com tudo liberado e sem cartão. Se gostar, você escolhe o plano dentro do app."],
+      ["Tenho fidelidade? Posso cancelar quando quiser?", "O plano mensal não tem fidelidade. O anual sai cerca de 10% mais barato por mês."],
+      ["Já tenho meus clientes numa planilha. Dá para trazer?", "Dá. O app importa clientes e catálogo de planilha, sem precisar digitar tudo de novo."],
+      ["Precisa instalar alguma coisa?", "Não. O Paralaxe One abre no navegador e pode virar um app na tela do celular em menos de um minuto, no iPhone e no Android."],
+      ["Meus clientes conseguem marcar horário sozinhos?", "Sim. Você ganha um link do seu negócio para divulgar no Instagram e no WhatsApp, e os horários caem direto na sua agenda."],
+      ["Meus dados ficam seguros?", "Os dados de cada empresa ficam separados dos das outras, com backup todo dia. Você exporta tudo em planilha quando quiser."],
+      ["E se eu atrasar o pagamento?", "Nada some na hora: há 5 dias de tolerância e depois o app fica só para consulta. Pagou, volta a funcionar na mesma hora."],
+      ["O app emite nota fiscal?", "A nota fiscal de serviço está nos planos Profissional e Completo."],
+    ],
+  },
   install: {
     kicker: "Instale no celular",
     title: "Vira um app na tela do celular, sem loja de aplicativos.",
