@@ -357,6 +357,7 @@ function one(t, ctx) {
     </div>
   </div>
   ${oneInstall(o, ctx)}
+  ${oneFaq(o)}
 </section>`;
 }
 
@@ -383,6 +384,20 @@ function oneInstall(o, ctx) {
         <div class="inst-tabs" role="tablist" aria-label="${esc(i.tabsLabel)}">${tabs}</div>
         ${paineis}
       </div>
+    </div>
+  </div>`;
+}
+
+/* Dúvidas frequentes: <details> nativo (funciona sem JavaScript e com teclado). */
+function oneFaq(o) {
+  const f = o.faq;
+  if (!f) return "";
+  return `<div class="one-faq" id="duvidas">
+    <div class="wrap narrow">
+      ${sectionHead(f.kicker, f.title)}
+      <div class="faq" data-reveal>${f.items
+        .map(([q, a]) => `<details><summary><span>${esc(q)}</span><i aria-hidden="true"></i></summary><p>${esc(a)}</p></details>`)
+        .join("")}</div>
     </div>
   </div>`;
 }
@@ -654,6 +669,7 @@ function buildPage(lang, page) {
     "@graph": [
       { "@type": "Organization", "@id": cfg.siteUrl + "/#org", name: cfg.brand.seoName, alternateName: [cfg.brand.name, "Paralaxe One"], url: cfg.siteUrl, logo: cfg.siteUrl + "/assets/" + cfg.brand.logoMark, ...(cfg.contact.whatsapp ? { contactPoint: { "@type": "ContactPoint", telephone: "+" + cfg.contact.whatsapp, contactType: "customer service", areaServed: "BR", availableLanguage: ["Portuguese", "English"] } } : {}), ...(socialEntries().length ? { sameAs: socialEntries().map((s) => s.url) } : {}) },
       { "@type": "WebSite", name: cfg.brand.seoName, alternateName: cfg.brand.name, url: cfg.siteUrl, publisher: { "@id": cfg.siteUrl + "/#org" }, inLanguage: t.htmlLang },
+      ...(isPriv ? [] : oneJsonLd(t)),
     ],
   };
 
@@ -679,6 +695,69 @@ ${isPriv ? "" : waFloat(t)}
 </body>
 </html>
 `;
+}
+
+/* Dados estruturados do app (planos e dúvidas), para buscadores e assistentes de IA. */
+function oneJsonLd(t) {
+  const o = t.one;
+  const out = [{
+    "@type": "SoftwareApplication",
+    name: "Paralaxe One",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web, iOS, Android",
+    url: cfg.one.appUrl || cfg.siteUrl,
+    description: o.sub,
+    publisher: { "@id": cfg.siteUrl + "/#org" },
+    offers: o.plans.map((p) => ({ "@type": "Offer", name: p.name, price: p.price, priceCurrency: "BRL" })),
+  }];
+  if (o.faq) out.push({
+    "@type": "FAQPage",
+    inLanguage: t.htmlLang,
+    mainEntity: o.faq.items.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
+  });
+  return out;
+}
+
+/* llms.txt: resumo em texto puro para assistentes de IA (formato llmstxt.org). Sai do mesmo conteúdo do site. */
+function buildLlms() {
+  const t = loadContent("pt");
+  const o = t.one;
+  const base = cfg.siteUrl.replace(/\/$/, "");
+  const linhas = [
+    `# ${cfg.brand.seoName}`,
+    "",
+    `> ${t.meta.description}`,
+    "",
+    "## Paralaxe One (app de gestão por assinatura)",
+    "",
+    o.sub,
+    "",
+    `- Endereço do app: ${cfg.one.appUrl}`,
+    `- ${o.trial}. ${o.setup}`,
+    "",
+    "### Ramos atendidos",
+    "",
+    ...o.niches.map((n) => `- ${n.name}: ${n.ready.join("; ")}.`),
+    "",
+    "### Planos (por mês)",
+    "",
+    ...o.plans.map((p) => `- ${p.name}: R$ ${p.price} (R$ ${p.annual} no anual). ${p.for} ${p.items.join("; ")}.`),
+    "",
+    ...o.fine.map((x) => `- ${x}`),
+    "",
+    ...(o.faq ? ["### Dúvidas frequentes", "", ...o.faq.items.map(([q, a]) => `- ${q} ${a}`), ""] : []),
+    "## Contato",
+    "",
+    ...(cfg.contact.whatsapp ? [`- WhatsApp: https://wa.me/${cfg.contact.whatsapp}`] : []),
+    ...(cfg.contact.email ? [`- E-mail: ${cfg.contact.email}`] : []),
+    "",
+    "## Páginas",
+    "",
+    `- [Site em português](${base}/pt/)`,
+    `- [Site em inglês](${base}/en/)`,
+    "",
+  ];
+  return linhas.join("\n");
 }
 
 function buildRoot() {
@@ -783,6 +862,7 @@ function main() {
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entry("home")}\n${entry("privacy")}\n</urlset>\n`
   );
   write("robots.txt", `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`);
+  write("llms.txt", buildLlms());
   write(".nojekyll", "");
   if (cfg.customDomain) write("CNAME", cfg.customDomain + "\n");
   console.log("Site gerado em docs/");
