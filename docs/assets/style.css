@@ -598,6 +598,24 @@ ul,ol{margin:0;padding:0;list-style:none}
 .plan-fine{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;margin:34px 0 0;padding:0;color:var(--muted);font-size:.92rem}
 .plan-fine li{display:inline-flex;align-items:center;gap:7px}
 .plan-fine .ico{color:var(--accent-strong)}
+.one-install{padding:40px 0 96px;scroll-margin-top:68px}
+.inst{display:grid;gap:26px;justify-items:center}
+.inst-tabs{display:inline-flex;gap:4px;padding:5px;border-radius:999px;border:1px solid var(--border);background:var(--surface)}
+.inst-tabs button{min-height:42px;padding:0 24px;border:0;border-radius:999px;background:transparent;color:var(--muted);font:600 .95rem var(--f-body);cursor:pointer;transition:background .18s,color .18s}
+.inst-tabs button:hover{color:var(--ink-on-dark,#f4f3ee)}
+.inst-tabs button[aria-selected="true"]{background:var(--accent);color:var(--on-accent)}
+.inst-tabs button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.inst-painel{display:grid;gap:30px;width:100%;max-width:980px;align-items:center}
+.inst-painel[hidden]{display:none}
+.inst-video{width:min(100%,420px);justify-self:center;aspect-ratio:4/5;border-radius:28px;overflow:hidden;border:1px solid var(--border);background:#050505;box-shadow:0 40px 90px -40px rgba(var(--accent-rgb),.35)}
+.inst-video video{display:block;width:100%;height:100%;object-fit:cover}
+.inst-passos{list-style:none;counter-reset:passo;margin:0;padding:0;display:grid;gap:16px}
+.inst-passos li{counter-increment:passo;display:flex;gap:14px;align-items:flex-start;font-size:1.05rem;line-height:1.45}
+.inst-passos li::before{content:counter(passo);flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--on-accent);font:700 1rem var(--f-display)}
+.inst-passos li span{padding-top:4px}
+.inst-dica{display:flex;gap:8px;align-items:center;margin:22px 0 0;color:var(--muted);font-size:.92rem}
+.inst-dica .ico{flex:none;color:var(--accent-strong)}
+@media (min-width:900px){.inst-painel{grid-template-columns:420px 1fr;gap:60px}}
 
 @media (min-width:700px){
   .plans{grid-template-columns:repeat(3,1fr);align-items:stretch}

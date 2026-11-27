@@ -356,7 +356,35 @@ function one(t, ctx) {
       <ul class="plan-fine" data-reveal>${o.fine.map((x) => `<li>${ICONS.check}${esc(x)}</li>`).join("")}</ul>
     </div>
   </div>
+  ${oneInstall(o, ctx)}
 </section>`;
+}
+
+/* Instalar no celular: vídeo curto (sem som, com legenda) e o mesmo passo a passo em texto, por sistema. */
+function oneInstall(o, ctx) {
+  const i = o.install;
+  if (!i) return "";
+  const tabs = i.systems
+    .map((s, k) => `<button type="button" role="tab" id="inst-tab-${s.key}" aria-controls="inst-${s.key}" aria-selected="${k === 0}" tabindex="${k === 0 ? 0 : -1}" data-so="${s.key}">${esc(s.name)}</button>`)
+    .join("");
+  const paineis = i.systems
+    .map((s, k) => `<div class="inst-painel" id="inst-${s.key}" role="tabpanel" aria-labelledby="inst-tab-${s.key}"${k === 0 ? "" : " hidden"}>
+        <div class="inst-video"><video muted loop playsinline preload="${k === 0 ? "metadata" : "none"}" width="1080" height="1350" poster="${ctx.up}assets/videos/${s.video}-capa.jpg" aria-label="${esc(s.label)}"><source src="${ctx.up}assets/videos/${s.video}.mp4" type="video/mp4"></video></div>
+        <div class="inst-texto">
+          <ol class="inst-passos">${s.steps.map((x) => `<li><span>${esc(x)}</span></li>`).join("")}</ol>
+          <p class="inst-dica">${ICONS.check}${esc(s.tip)}</p>
+        </div>
+      </div>`)
+    .join("");
+  return `<div class="one-install" id="instalar">
+    <div class="wrap">
+      ${sectionHead(i.kicker, i.title, i.sub)}
+      <div class="inst" data-reveal>
+        <div class="inst-tabs" role="tablist" aria-label="${esc(i.tabsLabel)}">${tabs}</div>
+        ${paineis}
+      </div>
+    </div>
+  </div>`;
 }
 
 function hero(t, ctx) {

@@ -480,3 +480,52 @@
     });
   }, { passive: true });
 })();
+
+/* --- Paralaxe One: instalar no celular (abas iPhone/Android e vídeo que só toca quando aparece na tela) --- */
+(function () {
+  var caixa = document.querySelector(".inst");
+  if (!caixa) return;
+  var reduzir = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var abas = Array.prototype.slice.call(caixa.querySelectorAll("[role=tab]"));
+  var visivel = false;
+  // No iPhone, começa pela aba do iPhone; no Android, pela do Android.
+  var ua = navigator.userAgent || "";
+  var inicial = /Android/.test(ua) ? "android" : "iphone";
+
+  function videoAtivo() {
+    var p = caixa.querySelector(".inst-painel:not([hidden]) video");
+    return p;
+  }
+  function tocar() {
+    var v = videoAtivo();
+    if (!v) return;
+    if (reduzir) { v.controls = true; return; } // quem pediu menos movimento dá o play quando quiser
+    if (visivel) { var r = v.play(); if (r && r.catch) r.catch(function () { v.controls = true; }); } else v.pause();
+  }
+  function escolher(aba, foco) {
+    abas.forEach(function (a) {
+      var sel = a === aba;
+      a.setAttribute("aria-selected", String(sel));
+      a.tabIndex = sel ? 0 : -1;
+      var painel = document.getElementById(a.getAttribute("aria-controls"));
+      painel.hidden = !sel;
+      var v = painel.querySelector("video");
+      if (!sel) v.pause();
+      else { if (v.preload === "none") v.preload = "metadata"; v.currentTime = 0; }
+    });
+    if (foco) aba.focus();
+    tocar();
+  }
+  abas.forEach(function (a, i) {
+    a.addEventListener("click", function () { escolher(a, false); });
+    a.addEventListener("keydown", function (e) {
+      var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+      if (d) { e.preventDefault(); escolher(abas[(i + d + abas.length) % abas.length], true); }
+    });
+  });
+  var primeira = abas.filter(function (a) { return a.getAttribute("data-so") === inicial; })[0];
+  if (primeira && primeira !== abas[0]) escolher(primeira, false);
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (es) { visivel = es[0].isIntersecting; tocar(); }, { threshold: 0.35 }).observe(caixa);
+  } else { visivel = true; tocar(); }
+})();

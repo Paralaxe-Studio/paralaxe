@@ -134,4 +134,24 @@ module.exports = {
     "Dados de cada empresa isolados e com backup diário",
   ],
   mockNote: "Telas ilustrativas com dados fictícios.",
+  install: {
+    kicker: "Instale no celular",
+    title: "Vira um app na tela do celular, sem loja de aplicativos.",
+    sub: "Leva menos de um minuto. Depois, o Paralaxe One abre em tela cheia, como qualquer outro aplicativo, no iPhone e no Android.",
+    tabsLabel: "Escolha o seu celular",
+    systems: [
+      {
+        key: "iphone", name: "iPhone", video: "instalar-app-iphone",
+        label: "Vídeo: como instalar o Paralaxe One no iPhone pelo Safari",
+        steps: ["Abra one.paralaxestudio.com no Safari.", "Toque em Compartilhar. Com a barra compacta, ele fica no botão •••.", "Toque em Adicionar à Tela de Início (role a lista se não aparecer).", "Deixe ligado “Abrir como app web” e toque em Adicionar."],
+        tip: "No iPhone, quem instala é o Safari.",
+      },
+      {
+        key: "android", name: "Android", video: "instalar-app-android",
+        label: "Vídeo: como instalar o Paralaxe One no Android pelo Chrome",
+        steps: ["Abra one.paralaxestudio.com no Chrome.", "Toque no menu ⋮ e em Instalar app (em alguns aparelhos, Adicionar à tela inicial).", "Confirme em Instalar. O ícone aparece na tela do celular."],
+        tip: "Dentro do app também tem o botão Instalar o app, em Mais.",
+      },
+    ],
+  },
 };

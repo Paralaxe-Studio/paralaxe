@@ -134,4 +134,24 @@ module.exports = {
     "Each company's data kept separate, backed up daily",
   ],
   mockNote: "Illustrative screens with fictional data.",
+  install: {
+    kicker: "Install on your phone",
+    title: "It becomes an app on your phone, no app store needed.",
+    sub: "It takes less than a minute. Then Paralaxe One opens full screen, like any other app, on iPhone and Android.",
+    tabsLabel: "Choose your phone",
+    systems: [
+      {
+        key: "iphone", name: "iPhone", video: "instalar-app-iphone-en",
+        label: "Video: how to install Paralaxe One on iPhone with Safari",
+        steps: ["Open one.paralaxestudio.com in Safari.", "Tap Share. With the compact bar, it is under the ••• button.", "Tap Add to Home Screen (scroll down if you don’t see it).", "Keep “Open as Web App” on and tap Add."],
+        tip: "On iPhone, Safari is the one that installs it.",
+      },
+      {
+        key: "android", name: "Android", video: "instalar-app-android-en",
+        label: "Video: how to install Paralaxe One on Android with Chrome",
+        steps: ["Open one.paralaxestudio.com in Chrome.", "Tap the ⋮ menu and Install app (on some phones, Add to Home screen).", "Confirm with Install. The icon shows up on your phone."],
+        tip: "Inside the app there is also an Install the app button, under More.",
+      },
+    ],
+  },
 };
