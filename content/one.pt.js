@@ -118,7 +118,7 @@ module.exports = {
     },
     {
       key: "profissional", name: "Profissional", price: "229", annual: "206", popular: true, for: "Para equipes pequenas que querem controle.",
-      items: ["Até 6 pessoas com acesso", "Tudo do Essencial", "Comissão por profissional", "Ponto da equipe", "Nota fiscal de serviço"],
+      items: ["Até 6 pessoas com acesso", "Tudo do Essencial", "Comissão por profissional", "Ponto da equipe", "Nota fiscal de serviço", "Quem paga: recibo, nota e cobrança no nome do responsável", "Mensalidade por sessões: conta as sessões do mês e sugere o valor"],
     },
     {
       key: "completo", name: "Completo", price: "329", annual: "299", for: "Para quem quer o negócio rodando no automático.",
