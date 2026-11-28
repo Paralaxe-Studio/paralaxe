@@ -564,6 +564,7 @@ function contactForm(c, wa, mail) {
     intro: f.intro,
     labels: [f.lName, f.lBusiness, f.lNeed, f.lMessage],
     required: f.required,
+    mailCopied: f.mailCopied,
   };
   return `<form class="cform" novalidate data-cform="${esc(JSON.stringify(data))}">
         <div class="cform-row">
@@ -577,6 +578,15 @@ function contactForm(c, wa, mail) {
           <button class="btn btn-wa" type="submit" data-via="wa">${ICONS.wa}<span>${esc(f.sendWa)}</span></button>
           ${cfg.contact.email ? `<button class="btn btn-ghost" type="submit" data-via="mail">${ICONS.mail}<span>${esc(f.sendMail)}</span></button>` : ""}
         </div>
+        ${cfg.contact.email ? `<div class="cform-mail" hidden>
+          <p>${esc(f.mailTitle)}</p>
+          <div class="contact-actions">
+            <a class="btn btn-ghost" data-mail="gmail" href="#" target="_blank" rel="noopener">${esc(f.mailGmail)}</a>
+            <a class="btn btn-ghost" data-mail="outlook" href="#" target="_blank" rel="noopener">${esc(f.mailOutlook)}</a>
+            <button class="btn btn-ghost" type="button" data-mail="copy">${esc(f.mailCopy)}</button>
+          </div>
+          <p class="cform-hint" data-mail="ok" role="status"></p>
+        </div>` : ""}
         <p class="cform-hint">${esc(f.hint)}</p>
         <noscript><p class="cform-hint"><a href="${wa}">${esc(c.whatsapp)}</a> · <a href="${mail}">${esc(c.email)}</a></p></noscript>
       </form>`;

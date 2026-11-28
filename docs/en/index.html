@@ -386,7 +386,7 @@
       <p class="eyebrow">Contact</p>
       <h2 id="h-contact">Shall we talk about your system?</h2>
       <p class="lead">Tell us in a few lines what your business needs. We'll reply with a proposal made to fit.</p>
-      <form class="cform" novalidate data-cform="{&quot;wa&quot;:&quot;5511993821582&quot;,&quot;mail&quot;:&quot;contato@paralaxestudio.com&quot;,&quot;subject&quot;:&quot;Quote request&quot;,&quot;intro&quot;:&quot;Hello! I found Paralaxe through the website and would like a quote.&quot;,&quot;labels&quot;:[&quot;Name&quot;,&quot;Company/industry&quot;,&quot;I need&quot;,&quot;Details&quot;],&quot;required&quot;:&quot;Please fill in your name and what you need.&quot;}">
+      <form class="cform" novalidate data-cform="{&quot;wa&quot;:&quot;5511993821582&quot;,&quot;mail&quot;:&quot;contato@paralaxestudio.com&quot;,&quot;subject&quot;:&quot;Quote request&quot;,&quot;intro&quot;:&quot;Hello! I found Paralaxe through the website and would like a quote.&quot;,&quot;labels&quot;:[&quot;Name&quot;,&quot;Company/industry&quot;,&quot;I need&quot;,&quot;Details&quot;],&quot;required&quot;:&quot;Please fill in your name and what you need.&quot;,&quot;mailCopied&quot;:&quot;Copied! Paste it into an email to&quot;}">
         <div class="cform-row">
           <label class="cf"><span>Your name</span><input name="name" type="text" autocomplete="name" required maxlength="80"></label>
           <label class="cf"><span>Company or industry <em>optional</em></span><input name="business" type="text" autocomplete="organization" maxlength="80" placeholder="E.g. beauty salon"></label>
@@ -397,6 +397,15 @@
         <div class="contact-actions">
           <button class="btn btn-wa" type="submit" data-via="wa"><svg class="ico ico-wa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Send via WhatsApp</span></button>
           <button class="btn btn-ghost" type="submit" data-via="mail"><svg class="ico"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg><span>Send by email</span></button>
+        </div>
+        <div class="cform-mail" hidden>
+          <p>Didn't your email app open? Pick where to send it:</p>
+          <div class="contact-actions">
+            <a class="btn btn-ghost" data-mail="gmail" href="#" target="_blank" rel="noopener">Gmail</a>
+            <a class="btn btn-ghost" data-mail="outlook" href="#" target="_blank" rel="noopener">Outlook</a>
+            <button class="btn btn-ghost" type="button" data-mail="copy">Copy message</button>
+          </div>
+          <p class="cform-hint" data-mail="ok" role="status"></p>
         </div>
         <p class="cform-hint">The form only builds the message and opens your WhatsApp or email. Nothing you type is stored on this site.</p>
         <noscript><p class="cform-hint"><a href="https://wa.me/5511993821582?text=Hello!%20I'd%20like%20to%20request%20a%20quote.">Message on WhatsApp</a> · <a href="mailto:contato@paralaxestudio.com?subject=Quote%20request">Send an email</a></p></noscript>
