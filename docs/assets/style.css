@@ -469,6 +469,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 .cform button.btn{border:0;cursor:pointer}
 .cform-hint{color:var(--muted);font-size:.82rem}
 .cform-hint a{color:var(--accent)}
+.cform-mail{display:grid;gap:.6rem;padding:1rem;border:1px solid var(--line, rgba(255,255,255,.12));border-radius:14px}
+.cform-mail[hidden]{display:none}
+.cform-mail>p:first-child{font-size:.92rem}
 @media (max-width:520px){.cform .contact-actions .btn{width:100%}}
 /* "O que você precisa": opções em pílulas, no lugar de um select nativo */
 .cf-need{border:0;padding:0;margin:0;min-width:0}

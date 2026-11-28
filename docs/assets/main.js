@@ -276,7 +276,24 @@
     if (message) lines.push(L[3] + ": " + message);
     var text = lines.join("\n");
     if (via === "mail" && cfg.mail) {
-      window.location.href = "mailto:" + cfg.mail + "?subject=" + encodeURIComponent(cfg.subject + " — " + need) + "&body=" + encodeURIComponent(text);
+      var subject = cfg.subject + " — " + need;
+      // Sem app de e-mail no aparelho o mailto não faz nada: mostra também Gmail, Outlook e copiar.
+      var box = form.querySelector(".cform-mail");
+      if (box) {
+        var q = function (s) { return encodeURIComponent(s); };
+        box.querySelector("[data-mail=gmail]").href = "https://mail.google.com/mail/?view=cm&fs=1&to=" + q(cfg.mail) + "&su=" + q(subject) + "&body=" + q(text);
+        box.querySelector("[data-mail=outlook]").href = "https://outlook.live.com/mail/0/deeplink/compose?to=" + q(cfg.mail) + "&subject=" + q(subject) + "&body=" + q(text);
+        var copy = box.querySelector("[data-mail=copy]"), ok = box.querySelector("[data-mail=ok]");
+        copy.onclick = function () {
+          var done = function () { ok.textContent = cfg.mailCopied + " " + cfg.mail; };
+          var full = subject + "\n\n" + text;
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(full).then(done, function () { ok.textContent = cfg.mail; });
+          else { ok.textContent = cfg.mail; }
+        };
+        ok.textContent = "";
+        box.hidden = false;
+      }
+      window.location.href = "mailto:" + cfg.mail + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(text);
     } else {
       window.open("https://wa.me/" + cfg.wa + "?text=" + encodeURIComponent(text), "_blank", "noopener");
     }
