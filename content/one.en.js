@@ -118,7 +118,7 @@ module.exports = {
     },
     {
       key: "profissional", name: "Professional", price: "229", annual: "206", popular: true, for: "For small teams that want control.",
-      items: ["Up to 6 people with access", "Everything in Essential", "Commission per professional", "Team time clock", "Service invoices (Brazil)"],
+      items: ["Up to 6 people with access", "Everything in Essential", "Commission per professional", "Team time clock", "Service invoices (Brazil)", "Who pays: receipts, invoices and billing in the guardian's name", "Session-based memberships: counts the month's sessions and suggests the amount"],
     },
     {
       key: "completo", name: "Complete", price: "329", annual: "299", for: "For businesses that want to run on autopilot.",
